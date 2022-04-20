@@ -9,7 +9,7 @@ namespace EventTracker.DAL.Entities
     public abstract class BaseEntity
     {
         public Guid Id { get; set; }
-        public DateTime CreatedAt { get; private set; } = DateTime.Now;
+        public DateTime CreatedAt { get; } = DateTime.Now;
         public DateTime LastModifiedAt { get; set; } = DateTime.Now;
     }
 }
