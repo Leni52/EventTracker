@@ -8,6 +8,9 @@ namespace EventTracker.DAL.Entities
 {
     public enum Category
     {
-        Business, IT, Software, Technology
+        Business = 1,
+        IT = 2, 
+        Software = 3, 
+        Technology = 4
     }
 }
