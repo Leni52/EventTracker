@@ -25,7 +25,7 @@ namespace EventTracker.DAL.Data
         {
             base.OnModelCreating(builder);
 
-            builder.Entity<Comment>().HasOne(c => c.Event).WithMany("Comments");
+            builder.Entity<Comment>().HasOne(c => c.Event).WithMany();
 
         }
 

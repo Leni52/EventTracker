@@ -9,7 +9,7 @@ namespace EventTracker.DAL.Entities
     public class Comment : BaseEntity
     {
         public string Text { get; set; }
-        public Event Event { get; set; }
+        public virtual Event Event { get; set; }
         public Guid EventId { get; set; }
     }
 }
