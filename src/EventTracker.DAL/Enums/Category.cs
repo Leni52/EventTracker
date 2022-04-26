@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EventTracker.DAL.Entities
+namespace EventTracker.DAL.Enums
 {
     public enum Category
     {
