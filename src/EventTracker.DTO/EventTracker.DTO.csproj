@@ -5,8 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Responses\" />
-    <Folder Include="Requests\" />
+    <ProjectReference Include="..\EventTracker.DAL\EventTracker.DAL.csproj" />
   </ItemGroup>
 
 </Project>
