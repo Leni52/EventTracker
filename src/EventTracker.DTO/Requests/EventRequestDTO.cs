@@ -21,5 +21,20 @@ namespace EventTracker.DTO.Requests
         public DateTime StartDate { get; set; }
         [Required]
         public DateTime EndDate { get; set; }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+
+            if (StartDate <= DateTime.Now)
+            {
+                yield return new ValidationResult("Start Date must be greater than today", new[] { nameof(StartDate) });
+            }
+
+            if (EndDate <= StartDate)
+            {
+                yield return new ValidationResult("End Date must be greater than Start Date", new[] { nameof(EndDate) });
+            }
+            
+        }
     }
 }
