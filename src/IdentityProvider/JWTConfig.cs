@@ -1,6 +1,6 @@
 ﻿namespace IdentityProvider
 {
-    public interface JWTConfig
+    public class JWTConfig
     {
         public string Secret { get; set; }
         public string Issuer { get; set; }
