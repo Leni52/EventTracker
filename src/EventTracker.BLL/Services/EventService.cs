@@ -31,7 +31,13 @@ namespace EventTracker.BLL.Services
 
         public async Task CreateEventAsync(EventRequestDTO eventRequest)
         {
-            var eventToCreate = new Event()
+            var eventToCreate = await _context.Events.FirstOrDefaultAsync(e => e.Name == eventRequest.Name);
+            if (eventToCreate != null)
+            {
+                throw new Exception("Name is already in use.");
+            }
+
+            eventToCreate = new Event()
             {
                 Name = eventRequest.Name,
                 Description = eventRequest.Description,
@@ -46,17 +52,26 @@ namespace EventTracker.BLL.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateEventAsync(EventRequestDTO eventRequest)
+        public async Task UpdateEventAsync(EventRequestDTO eventRequest, Guid eventId)
         {
-            var eventToUpdate = new Event()
+            var eventToUpdate = await _context.Events.FirstOrDefaultAsync(e => e.Id == eventId);
+            if (eventToUpdate == null)
             {
-                Name = eventRequest.Name,
-                Description = eventRequest.Description,
-                Location = eventRequest.Location,
-                StartDate = eventRequest.StartDate,
-                EndDate = eventRequest.EndDate,
-                LastModifiedAt = DateTime.Now
-            };
+                throw new Exception("Event doesn't exist.");
+            }
+
+            bool checkName = await _context.Events.AnyAsync(e => e.Name == eventRequest.Name) && eventToUpdate.Name != eventRequest.Name;
+            if (checkName)
+            {
+                throw new Exception("Name is already in use.");
+            }
+
+            eventToUpdate.Name = eventRequest.Name;
+            eventToUpdate.Description = eventRequest.Description;
+            eventToUpdate.Location = eventRequest.Location;
+            eventToUpdate.StartDate = eventRequest.StartDate;
+            eventToUpdate.EndDate = eventRequest.EndDate;
+            eventToUpdate.LastModifiedAt = DateTime.Now;
 
             _context.Events.Update(eventToUpdate);
             await _context.SaveChangesAsync();

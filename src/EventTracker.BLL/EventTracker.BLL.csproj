@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EventTracker.DAL\EventTracker.DAL.csproj" />
+    <ProjectReference Include="..\EventTracker.DTO\EventTracker.DTO.csproj" />
   </ItemGroup>
 
 </Project>
