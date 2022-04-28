@@ -47,6 +47,8 @@ namespace IdentityProvider
 
             services.AddTransient<ITokenService, TokenService>();
 
+            services.Configure<JWTConfig>(Configuration.GetSection("JWTConfig"));
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

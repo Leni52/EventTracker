@@ -15,7 +15,8 @@ namespace IdentityProvider.Controllers
         {
             _tokenService = tokenService;
         }
-
+        
+        [Route("login")]
         [HttpPost]
         public async Task<IActionResult> GetToken(string username, string password)
         {
@@ -29,6 +30,12 @@ namespace IdentityProvider.Controllers
             return Ok(token);
         }
 
+        [Route("register")]
+        [HttpPost]
+        public async Task Register(string username, string password)
+        {
+            await _tokenService.Register(username, password);
+        }
 
     }
 }
