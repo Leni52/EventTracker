@@ -45,5 +45,21 @@ namespace EventTracker.BLL.Services
             await _context.Events.AddAsync(eventToCreate);
             await _context.SaveChangesAsync();
         }
+
+        public async Task UpdateEventAsync(EventRequestDTO eventRequest)
+        {
+            var eventToUpdate = new Event()
+            {
+                Name = eventRequest.Name,
+                Description = eventRequest.Description,
+                Location = eventRequest.Location,
+                StartDate = eventRequest.StartDate,
+                EndDate = eventRequest.EndDate,
+                LastModifiedAt = DateTime.Now
+            };
+
+            _context.Events.Update(eventToUpdate);
+            await _context.SaveChangesAsync();
+        }
     }
 }
