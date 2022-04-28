@@ -1,3 +1,6 @@
+using IdentityProvider.Data;
+using IdentityProvider.Interfaces;
+using IdentityProvider.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -41,6 +44,8 @@ namespace IdentityProvider
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<IdentityContext>();
 
+
+            services.AddTransient<ITokenService, TokenService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
