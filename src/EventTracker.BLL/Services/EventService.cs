@@ -1,4 +1,6 @@
 ﻿using EventTracker.DAL.Data;
+using EventTracker.DAL.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +16,16 @@ namespace EventTracker.BLL.Services
         public EventService(DatabaseContext context)
         {
             _context = context;
+        }
+
+        public async Task<List<Event>> GetAllEventsAsync()
+        {
+            return await _context.Events.ToListAsync();
+        }
+
+        public async Task<Event> GetEventByIdAsync(Guid eventId)
+        {
+            return await _context.Events.FirstOrDefaultAsync(e => e.Id == eventId);
         }
     }
 }
