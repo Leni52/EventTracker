@@ -61,5 +61,13 @@ namespace EventTracker.BLL.Services
             _context.Events.Update(eventToUpdate);
             await _context.SaveChangesAsync();
         }
+
+        public async Task DeleteEventAsync(Guid eventId)
+        {
+            var eventToDelete = await GetEventByIdAsync(eventId);
+
+            _context.Events.Remove(eventToDelete);
+            await _context.SaveChangesAsync();
+        }
     }
 }
