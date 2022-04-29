@@ -48,13 +48,15 @@ namespace IdentityProvider.Data
                 {
                     Id = Guid.NewGuid().ToString("D"),
                     Name = "RegularUser",
+                    NormalizedName = "RegularUser".ToUpper(),
                     ConcurrencyStamp = Guid.NewGuid().ToString("D")
                 };
 
                 IdentityRole eventHolderRole = new IdentityRole()
                 {
                     Id = Guid.NewGuid().ToString("D"),
-                    Name = "eventHolderRole",
+                    Name = "EventHolder",
+                    NormalizedName = "EventHolder".ToUpper(),
                     ConcurrencyStamp = Guid.NewGuid().ToString("D")
                 };
 

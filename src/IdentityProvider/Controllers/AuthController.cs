@@ -21,11 +21,9 @@ namespace IdentityProvider.Controllers
         [HttpPost]
         public async Task<IActionResult> GetToken(string username, string password)
         {
-            string token = await _tokenService.Login(username, password);
+            var token = await _tokenService.Login(username, password);
 
-            TokenModel accessToken = new TokenModel { AccessToken = token };
-
-            return Ok(accessToken);
+            return Ok(token);
         }
 
         [Route("register")]
