@@ -1,3 +1,5 @@
+using EventTracker.BLL.Interfaces;
+using EventTracker.BLL.Services;
 using EventTracker.DAL.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -35,6 +37,8 @@ namespace EventTracker
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "EventTracker", Version = "v1" });
             });
+
+            services.AddTransient<IEventService, EventService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
