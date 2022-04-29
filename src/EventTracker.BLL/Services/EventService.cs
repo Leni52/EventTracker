@@ -83,6 +83,10 @@ namespace EventTracker.BLL.Services
         public async Task DeleteEventAsync(Guid eventId)
         {
             var eventToDelete = await GetEventByIdAsync(eventId);
+            if (eventToDelete == null)
+            {
+                throw new Exception("Event doesn't exist.");
+            }
 
             _context.Events.Remove(eventToDelete);
             await _context.SaveChangesAsync();
