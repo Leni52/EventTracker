@@ -27,7 +27,8 @@ namespace IdentityProvider.Services
 
         public async Task<string> Login(string userName, string password)
         {
-            IdentityUser loggingUser = await _userManager.FindByNameAsync(userName) ?? throw new NonExistingUserException("User does not exist");
+            IdentityUser loggingUser = await _userManager.FindByNameAsync(userName)
+                ?? throw new NonExistingUserException("User does not exist");
 
             bool credentialsAreValid = await _userManager.CheckPasswordAsync(loggingUser, password); 
 
@@ -47,6 +48,7 @@ namespace IdentityProvider.Services
 
             return await _userManager.FindByNameAsync(userName);
         }
+        
         public string BuildToken(string userName)
         {
             List<Claim> claims = new List<Claim>

@@ -1,4 +1,5 @@
 ﻿using IdentityProvider.Interfaces;
+using IdentityProvider.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -20,14 +21,11 @@ namespace IdentityProvider.Controllers
         [HttpPost]
         public async Task<IActionResult> GetToken(string username, string password)
         {
-            var token = await _tokenService.Login(username, password);
+            string token = await _tokenService.Login(username, password);
 
-            if (token == null)
-            {
-                return Unauthorized();
-            }
+            TokenModel accessToken = new TokenModel { AccessToken = token };
 
-            return Ok(token);
+            return Ok(accessToken);
         }
 
         [Route("register")]
