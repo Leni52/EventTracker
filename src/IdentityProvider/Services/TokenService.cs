@@ -24,7 +24,6 @@ namespace IdentityProvider.Services
         {
             _userManager = userManager;
             _options = options.Value;
-           
         }  
         
         public async Task<string> Login(string userName, string password)
@@ -49,9 +48,9 @@ namespace IdentityProvider.Services
                 new Claim(JwtRegisteredClaimNames.UniqueName, userName),
             };
 
-            //claims.AddRange(_options.Value.Audience.Select(aud => new Claim(JwtRegisteredClaimNames.Aud, aud)));
-          
+            claims.Add(new Claim(ClaimTypes.Role, "Admin"));
             
+            //claims.AddRange(_options.Value.Audience.Select(aud => new Claim(JwtRegisteredClaimNames.Aud, aud)));
 
             SymmetricSecurityKey securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_options.Secret));
 
