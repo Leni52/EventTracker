@@ -1,5 +1,6 @@
 using IdentityProvider.Data;
 using IdentityProvider.Interfaces;
+using IdentityProvider.Middleware;
 using IdentityProvider.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -69,6 +70,8 @@ namespace IdentityProvider
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseMiddleware<GlobalErrorHandler>();
 
             app.UseAuthorization();
 

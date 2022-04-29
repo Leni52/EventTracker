@@ -1,4 +1,5 @@
-﻿using IdentityProvider.Interfaces;
+﻿using IdentityProvider.Exceptions;
+using IdentityProvider.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -25,7 +26,14 @@ namespace IdentityProvider.Services
         }  
 
         public async Task<string> Login(string userName, string password)
-        {                
+        {
+            IdentityUser loggingUser = await _userManager.FindByNameAsync(userName) ?? throw new NonExistingUserException("User does not exist");
+
+            bool credentialsAreValid = await _userManager.CheckPasswordAsync(loggingUser, password); 
+
+            if (!credentialsAreValid)
+                throw new InvalidCredentialsException("Wrong username or password");
+
             return BuildToken(userName);
         }
 
