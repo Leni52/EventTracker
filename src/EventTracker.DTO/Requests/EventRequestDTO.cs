@@ -16,6 +16,7 @@ namespace EventTracker.DTO.Requests
         [Required]
         [StringLength(500)]
         public string Description { get; set; }
+        [Required]
         public Category Category { get; set; }
         [Required]
         public string Location { get; set; }
