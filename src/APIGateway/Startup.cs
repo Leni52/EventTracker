@@ -14,9 +14,14 @@ namespace APIGateway
     public class Startup
     {
         public IConfiguration Configuration { get; }
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration,IHostingEnvironment env)
         {
             Configuration= configuration;
+            var builder = new Microsoft.Extensions.Configuration.ConfigurationBuilder();
+            builder.SetBasePath(env.ContentRootPath)
+                .AddJsonFile("appsettings.json")
+                .AddJsonFile("configuration.json")
+                .AddEnvironmentVariables();
         }
        
 
