@@ -41,6 +41,7 @@ namespace EventTracker.BLL.Services
             {
                 Name = eventRequest.Name,
                 Description = eventRequest.Description,
+                Category = eventRequest.Category,
                 Location = eventRequest.Location,
                 StartDate = eventRequest.StartDate,
                 EndDate = eventRequest.EndDate,
@@ -68,6 +69,7 @@ namespace EventTracker.BLL.Services
 
             eventToUpdate.Name = eventRequest.Name;
             eventToUpdate.Description = eventRequest.Description;
+            eventToUpdate.Category = eventRequest.Category;
             eventToUpdate.Location = eventRequest.Location;
             eventToUpdate.StartDate = eventRequest.StartDate;
             eventToUpdate.EndDate = eventRequest.EndDate;

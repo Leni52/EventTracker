@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EventTracker.DAL.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -15,6 +16,7 @@ namespace EventTracker.DTO.Requests
         [Required]
         [StringLength(500)]
         public string Description { get; set; }
+        public Category Category { get; set; }
         [Required]
         public string Location { get; set; }
         [Required]
