@@ -1,5 +1,6 @@
 using IdentityProvider.Data;
 using IdentityProvider.Interfaces;
+using IdentityProvider.Middleware;
 using IdentityProvider.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -59,6 +60,8 @@ namespace IdentityProvider
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            DatabaseSeeder.PrepPopulation(app);
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -69,6 +72,8 @@ namespace IdentityProvider
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseMiddleware<GlobalErrorHandler>();
 
             app.UseAuthorization();
 

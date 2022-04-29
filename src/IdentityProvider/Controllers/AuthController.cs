@@ -1,4 +1,5 @@
 ﻿using IdentityProvider.Interfaces;
+using IdentityProvider.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -21,11 +22,6 @@ namespace IdentityProvider.Controllers
         public async Task<IActionResult> GetToken(string username, string password)
         {
             var token = await _tokenService.Login(username, password);
-
-            if (token == null)
-            {
-                return Unauthorized();
-            }
 
             return Ok(token);
         }
