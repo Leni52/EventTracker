@@ -8,26 +8,23 @@ using Ocelot.Middleware;
 using System;
 using System.Text;
 
+
 namespace APIGateway
 {
     public class Startup
     {
-        public Startup(Microsoft.AspNetCore.Hosting.IHostingEnvironment env)
-        {
-            var builder = new Microsoft.Extensions.Configuration.ConfigurationBuilder();
-            builder.SetBasePath(env.ContentRootPath)
-                   .AddJsonFile("appsettings.json")
-                   //add configuration.json
-                   .AddJsonFile("configuration.json", optional: false, reloadOnChange: true)
-                   .AddEnvironmentVariables();
-
-            Configuration = builder.Build();
-        }
         public IConfiguration Configuration { get; }
+        public Startup(IConfiguration configuration)
+        {
+            Configuration= configuration;
+        }
+       
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+           
+            services.AddOcelot();
             var audienceConfig = Configuration.GetSection("JWTConfig");
             var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(audienceConfig["Secret"]));
 
@@ -53,12 +50,13 @@ namespace APIGateway
                  x.TokenValidationParameters = tokenValidationParameters;
              });
 
-            services.AddOcelot(Configuration);
+          
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public async void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+          
             app.UseAuthentication();
             await app.UseOcelot();
         }

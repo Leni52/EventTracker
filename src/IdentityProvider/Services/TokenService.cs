@@ -37,7 +37,7 @@ namespace IdentityProvider.Services
             //check if username is unique
             userToBeCreated.UserName = userName;
 
-            await _userManager.CreateAsync(userToBeCreated, password);
+     await _userManager.CreateAsync(userToBeCreated, password);
 
             return await _userManager.FindByNameAsync(userName);
         }
