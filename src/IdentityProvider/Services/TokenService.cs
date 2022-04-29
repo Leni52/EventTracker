@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -15,15 +17,16 @@ namespace IdentityProvider.Services
     public class TokenService : ITokenService
     {
         private readonly UserManager<IdentityUser> _userManager;
-        //private readonly JWTConfig _options;
+        private readonly JWTConfig _options;
         private readonly TimeSpan ExpiryDuration = new TimeSpan(0, 30, 0);
 
-        public TokenService(UserManager<IdentityUser> userManager)
+        public TokenService(UserManager<IdentityUser> userManager, IOptions<JWTConfig> options)
         {
             _userManager = userManager;
-            //_options = options.Value;
+            _options = options.Value;
+           
         }  
-
+        
         public async Task<string> Login(string userName, string password)
         {                
             return BuildToken(userName);
@@ -47,12 +50,14 @@ namespace IdentityProvider.Services
             };
 
             //claims.AddRange(_options.Value.Audience.Select(aud => new Claim(JwtRegisteredClaimNames.Aud, aud)));
+          
+            
 
-            SymmetricSecurityKey securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("6qGYdgJyn9IB9zfcuEhm15T9ZV0e87U"));
+            SymmetricSecurityKey securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_options.Secret));
 
             SigningCredentials credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
 
-            JwtSecurityToken tokenDescriptor = new JwtSecurityToken("https://localhost:5001", "https://localhost:5021", claims,
+            JwtSecurityToken tokenDescriptor = new JwtSecurityToken(_options.Issuer, _options.Audience, claims,
                 expires: DateTime.Now.Add(ExpiryDuration), signingCredentials: credentials);
             
             return new JwtSecurityTokenHandler().WriteToken(tokenDescriptor);
