@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventTracker.BLL", "EventTr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventTracker.DTO", "EventTracker.DTO\EventTracker.DTO.csproj", "{F894B035-AA1C-438B-828B-F078AD43BE46}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityProvider", "IdentityProvider\IdentityProvider.csproj", "{05E0EAFF-D5BD-40E5-9B00-8C71DD618F99}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityProvider", "IdentityProvider\IdentityProvider.csproj", "{05E0EAFF-D5BD-40E5-9B00-8C71DD618F99}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIGateway", "APIGateway\APIGateway.csproj", "{82D56621-C0F8-46D2-8DC6-20CFC18BF20A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{05E0EAFF-D5BD-40E5-9B00-8C71DD618F99}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{05E0EAFF-D5BD-40E5-9B00-8C71DD618F99}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{05E0EAFF-D5BD-40E5-9B00-8C71DD618F99}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82D56621-C0F8-46D2-8DC6-20CFC18BF20A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82D56621-C0F8-46D2-8DC6-20CFC18BF20A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82D56621-C0F8-46D2-8DC6-20CFC18BF20A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82D56621-C0F8-46D2-8DC6-20CFC18BF20A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

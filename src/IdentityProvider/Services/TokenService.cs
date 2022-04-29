@@ -4,6 +4,8 @@ using IdentityProvider.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -26,6 +28,7 @@ namespace IdentityProvider.Services
             _userManager = userManager;
             _options = options.Value;
         }  
+<<<<<<< HEAD
 
         public async Task<TokenModel> Login(string userName, string password)
         {
@@ -38,17 +41,27 @@ namespace IdentityProvider.Services
                 throw new InvalidCredentialsException("Wrong username or password");
 
             return await BuildToken(loggingUser);
+=======
+        
+        public async Task<string> Login(string userName, string password)
+        {                
+            return BuildToken(userName);
+>>>>>>> 8d9935f2c11c9fca244ec29ec84b5e7edadd26eb
         }
 
         public async Task<IdentityUser> Register(string userName, string password)
         {
             const string role = "RegularUser";
 
+<<<<<<< HEAD
             using (var transactionScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
                 IdentityUser userToBeCreated = new IdentityUser();
                 //check if username is unique
                 userToBeCreated.UserName = userName;
+=======
+     await _userManager.CreateAsync(userToBeCreated, password);
+>>>>>>> 8d9935f2c11c9fca244ec29ec84b5e7edadd26eb
 
                 await _userManager.CreateAsync(userToBeCreated, password);
 
