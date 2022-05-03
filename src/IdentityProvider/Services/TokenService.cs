@@ -69,15 +69,17 @@ namespace IdentityProvider.Services
         {
             List<Claim> claims = new List<Claim>
             {
+                new Claim(JwtRegisteredClaimNames.Jti, new Guid().ToString("D")),
                 new Claim("sub", user.Id),
-                new Claim(ClaimsIdentity.DefaultNameClaimType, user.UserName)
+                new Claim(ClaimsIdentity.DefaultNameClaimType, user.UserName),
+                new Claim("UserType","Registered")
             };
 
             var userRoles = await _userManager.GetRolesAsync(user);
 
             foreach (var role in userRoles)
             {
-                claims.Add(new Claim(ClaimTypes.Role, role));
+                claims.Add(new Claim("Role", role));
             }
 
 

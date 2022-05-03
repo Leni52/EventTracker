@@ -9,15 +9,16 @@
           "Port": 5021
         }
       ],
-      "UpstreamPathTemplate": "/gateway/events",
-      "UpstreamHttpMethod": [ "GET" ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": []
       },
-      "RouteClaimsRequirements": {
-        "Role" : "Admin"
-      }
+      "RouteClaimsRequirement": {
+        "Role": "Admin",
+        "UserType": "Registered"
+      },
+      "UpstreamPathTemplate": "/gateway/events",
+      "UpstreamHttpMethod": [ "GET" ]
     },
     {
       "DownstreamPathTemplate": "/api/events/{id}",
@@ -45,6 +46,7 @@
     }
   ],
   "GlobalConfiguration": {
+    "RequestIdKey" : "EventTrackerId",
     "BaseUrl": "https://localhost:9001"
   }
 }

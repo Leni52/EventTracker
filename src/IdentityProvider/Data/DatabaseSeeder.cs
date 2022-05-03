@@ -29,8 +29,10 @@ namespace IdentityProvider.Data
                 {
                     Id = Guid.NewGuid().ToString("D"),
                     Email = "admin@eventtracker.com",
+                    NormalizedEmail = "admin@eventtracker.com".ToUpper(),
                     EmailConfirmed = true,
                     UserName = "admin",
+                    NormalizedUserName = "admin".ToUpper(),
                     SecurityStamp = Guid.NewGuid().ToString("D"),
                 };
 
