@@ -12,8 +12,11 @@
       "UpstreamPathTemplate": "/gateway/events",
       "UpstreamHttpMethod": [ "GET" ],
       "AuthenticationOptions": {
-        "AuthenticationProviderKey": "EventsKey",
+        "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": []
+      },
+      "RouteClaimsRequirements": {
+        "Role" : "Admin"
       }
     },
     {
