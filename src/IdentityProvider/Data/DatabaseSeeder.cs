@@ -34,7 +34,7 @@ namespace IdentityProvider.Data
                     UserName = "admin",
                     NormalizedUserName = "admin".ToUpper(),
                     SecurityStamp = Guid.NewGuid().ToString("D"),
-                     NormalizedUserName="admin".ToUpper()
+                  
                 };
 
                 admin.PasswordHash = passwordHasher.HashPassword(admin, "rakienovreme");

@@ -12,11 +12,7 @@
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": []
-      },
-      "RouteClaimsRequirement": {
-        "Role": "Admin",
-        "UserType": "Registered"
-      },
+      },     
       "UpstreamPathTemplate": "/gateway/events",
       "UpstreamHttpMethod": [ "GET" ]
     },
@@ -28,9 +24,25 @@
           "Host": "localhost",
           "Port": 5021
         }
-      ],
+      ],     
       "UpstreamPathTemplate": "/gateway/event/{id}",
-      "UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ]
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/events/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5021
+        }
+      ],
+      "RouteClaimsRequirement": {
+        "Role": "EventHolder",
+        "UserType": "Registered"
+      },
+      "UpstreamPathTemplate": "/gateway/event/{id}",
+      "UpstreamHttpMethod": [ "POST", "PUT", "DELETE" ]
     },
     {
       "DownstreamPathTemplate": "/api/Auth/login",
@@ -46,7 +58,7 @@
     }
   ],
   "GlobalConfiguration": {
-    "RequestIdKey" : "EventTrackerId",
+    "RequestIdKey": "EventTrackerId",
     "BaseUrl": "https://localhost:9001"
   }
 }

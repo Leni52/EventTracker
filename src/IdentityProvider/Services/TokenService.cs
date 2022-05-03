@@ -45,7 +45,7 @@ namespace IdentityProvider.Services
 
         public async Task<IdentityUser> Register(string userName, string password)
         {
-            const string role = "RegularUser";
+            const string role = "EventHolder";
 
             using (var transactionScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
