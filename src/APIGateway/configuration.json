@@ -1,7 +1,7 @@
 {
   "Routes": [
     {
-      "DownstreamPathTemplate": "/events",
+      "DownstreamPathTemplate": "/api/events",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -15,8 +15,8 @@
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": []
       },
-      "RouteClaimsRequirements": {
-        "Role" : "Admin"
+      "RouteClaimsRequirement": {
+        "Role" : "registered"
       }
     },
     {

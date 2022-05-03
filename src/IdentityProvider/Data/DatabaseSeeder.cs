@@ -32,6 +32,7 @@ namespace IdentityProvider.Data
                     EmailConfirmed = true,
                     UserName = "admin",
                     SecurityStamp = Guid.NewGuid().ToString("D"),
+                     NormalizedUserName="admin".ToUpper()
                 };
 
                 admin.PasswordHash = passwordHasher.HashPassword(admin, "rakienovreme");
@@ -42,6 +43,7 @@ namespace IdentityProvider.Data
                     Name = "Admin",
                     NormalizedName = "Admin".ToUpper(),
                     ConcurrencyStamp = Guid.NewGuid().ToString("D")
+                    
                 };
 
                 IdentityRole regularUserRole = new IdentityRole()
