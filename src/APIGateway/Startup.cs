@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
@@ -14,14 +16,9 @@ namespace APIGateway
     public class Startup
     {
         public IConfiguration Configuration { get; }
-        public Startup(IConfiguration configuration,IHostingEnvironment env)
+        public Startup(IConfiguration configuration)
         {
-            Configuration= configuration;
-            var builder = new Microsoft.Extensions.Configuration.ConfigurationBuilder();
-            builder.SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json")
-                .AddJsonFile("configuration.json")
-                .AddEnvironmentVariables();
+            Configuration = configuration;           
         }
        
 
@@ -61,8 +58,25 @@ namespace APIGateway
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public async void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-          
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+
+            app.UseRouting();
+
+            app.UseHttpsRedirection();
+            
             app.UseAuthentication();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapGet("/", async context =>
+                {
+                    await context.Response.WriteAsync("Hello World!");
+                });
+            });
+            
             await app.UseOcelot();
         }
     }

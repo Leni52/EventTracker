@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using System;
 
 namespace APIGateway
 {
@@ -16,7 +17,7 @@ namespace APIGateway
         .ConfigureWebHostDefaults(webBuilder =>
         {
             webBuilder.UseStartup<Startup>();
-            webBuilder.UseUrls("http://localhost:9001");
+            webBuilder.ConfigureAppConfiguration(c => c.AddJsonFile($"configuration.json"));
         });
 
     }
