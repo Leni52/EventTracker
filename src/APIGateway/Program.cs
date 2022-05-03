@@ -16,7 +16,8 @@ namespace APIGateway
         .ConfigureWebHostDefaults(webBuilder =>
         {
             webBuilder.UseStartup<Startup>();
-            webBuilder.UseUrls("http://localhost:9001");
+            // webBuilder.UseUrls("https://localhost:9001");
+            webBuilder.ConfigureAppConfiguration(c => c.AddJsonFile($"configuration.json"));
         });
 
     }
