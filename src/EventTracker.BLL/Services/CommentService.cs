@@ -1,4 +1,5 @@
 ﻿using EventTracker.BLL.Interfaces;
+using EventTracker.DAL.Contracts;
 using EventTracker.DAL.Data;
 using EventTracker.DAL.Entities;
 using EventTracker.DTO.Requests;
@@ -13,21 +14,21 @@ namespace EventTracker.BLL.Services
 {
     public class CommentService : ICommentService
     {
-        private readonly DatabaseContext _context;
+        private readonly ICommentRepository _commentRepository;
 
-        public CommentService(DatabaseContext context)
+        public CommentService(ICommentRepository commentRepository)
         {
-            _context = context;
+            _commentRepository = commentRepository;
         }
 
-        public async Task<List<Comment>> GetAllCommentsAsync()
+        public async Task<IEnumerable<Comment>> GetAllCommentsAsync()
         {
-            return await _context.Comments.ToListAsync();
+            return await _commentRepository.GetAllAsync();
         }
 
         public async Task<Comment> GetCommentByIdAsync(Guid commentId)
         {
-            return await _context.Comments.FirstOrDefaultAsync(c => c.Id == commentId);
+            return await _commentRepository.GetByIdAsync(commentId);
         }
 
         public async Task CreateCommentAsync(CommentRequestDTO commentRequest)
@@ -40,13 +41,13 @@ namespace EventTracker.BLL.Services
                 LastModifiedAt = DateTime.Now
             };
 
-            await _context.Comments.AddAsync(commentToCreate);
-            await _context.SaveChangesAsync();
+            await _commentRepository.CreateAsync(commentToCreate);
+            await _commentRepository.SaveAsync();
         }
 
         public async Task UpdateCommentAsync(CommentRequestDTO commentRequest, Guid commentId)
         {
-            var commentToUpdate = await _context.Comments.FirstOrDefaultAsync(e => e.Id == commentId);
+            var commentToUpdate = await _commentRepository.GetByIdAsync(commentId);
             if (commentToUpdate == null)
             {
                 throw new Exception("Event doesn't exist.");
@@ -55,20 +56,20 @@ namespace EventTracker.BLL.Services
             commentToUpdate.Text = commentRequest.Text;
             commentToUpdate.LastModifiedAt = DateTime.Now;
 
-            _context.Comments.Update(commentToUpdate);
-            await _context.SaveChangesAsync();
+            _commentRepository.Update(commentToUpdate);
+            await _commentRepository.SaveAsync();
         }
 
         public async Task DeleteCommentAsync(Guid commentId)
         {
-            var commentToDelete = await GetCommentByIdAsync(commentId);
+            var commentToDelete = await _commentRepository.GetByIdAsync(commentId);
             if (commentToDelete == null)
             {
                 throw new Exception("Event doesn't exist.");
             }
 
-            _context.Comments.Remove(commentToDelete);
-            await _context.SaveChangesAsync();
+            _commentRepository.Delete(commentToDelete);
+            await _commentRepository.SaveAsync();
         }
     }
 }
