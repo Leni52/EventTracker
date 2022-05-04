@@ -10,11 +10,11 @@ namespace EventTracker.DAL.Contracts
 {
     public interface IGenericRepository<T> where T : class
     {
-        Task<IEnumerable<T>> GetAll();
-        Task<T> GetById(Guid id);
-        Task Insert(T entity);
+        Task<IEnumerable<T>> GetAllAsync();
+        Task<T> GetByIdAsync(Guid id);
+        Task CreateAsync(T entity);
         void Update(T entity);
-        Task Delete(Guid id);
-        Task Save();
+        void Delete(T entity);
+        Task SaveAsync();
     }
 }
