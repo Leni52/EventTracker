@@ -1,5 +1,6 @@
 ﻿using EventTracker.DAL.Contracts;
 using EventTracker.DAL.Data;
+using EventTracker.DAL.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,10 +10,10 @@ using System.Threading.Tasks;
 
 namespace EventTracker.DAL.Repositories
 {
-    public class GenericRepository<T> : IGenericRepository<T> where T : class
+    public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
     {
-        private DatabaseContext _context;
-        private DbSet<T> _entity;
+        protected DatabaseContext _context;
+        protected DbSet<T> _entity;
 
         public GenericRepository(DatabaseContext context)
         {
