@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EventTracker.DAL.Contracts
 {
-    public interface IEventRepository
+    public interface IEventRepository : IGenericRepository<Event>
     {
     }
 }
