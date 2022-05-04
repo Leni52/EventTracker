@@ -28,7 +28,9 @@ namespace EventTracker.BLL.Services
 
         public async Task<Comment> GetCommentByIdAsync(Guid commentId)
         {
-            return await _commentRepository.GetByIdAsync(commentId);
+            var comment = await _commentRepository.GetByIdAsync(commentId);
+            if (comment != null) return comment;
+            throw new Exception("Comment doesn't exist.");
         }
 
         public async Task CreateCommentAsync(CommentRequestDTO commentRequest)
@@ -50,7 +52,7 @@ namespace EventTracker.BLL.Services
             var commentToUpdate = await _commentRepository.GetByIdAsync(commentId);
             if (commentToUpdate == null)
             {
-                throw new Exception("Event doesn't exist.");
+                throw new Exception("Comment doesn't exist.");
             }
 
             commentToUpdate.Text = commentRequest.Text;
@@ -65,7 +67,7 @@ namespace EventTracker.BLL.Services
             var commentToDelete = await _commentRepository.GetByIdAsync(commentId);
             if (commentToDelete == null)
             {
-                throw new Exception("Event doesn't exist.");
+                throw new Exception("Comment doesn't exist.");
             }
 
             _commentRepository.Delete(commentToDelete);
