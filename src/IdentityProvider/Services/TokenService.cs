@@ -45,7 +45,7 @@ namespace IdentityProvider.Services
 
         public async Task<IdentityUser> Register(string userName, string password)
         {
-            const string role = "EventHolder";
+          //  const string role = "EventHolder";
 
             using (var transactionScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
@@ -57,7 +57,7 @@ namespace IdentityProvider.Services
 
                 IdentityUser newlyCreatedUser = await _userManager.FindByNameAsync(userName);
 
-                await _userManager.AddToRoleAsync(newlyCreatedUser, role);
+               // await _userManager.AddToRoleAsync(newlyCreatedUser, role);
 
                 transactionScope.Complete();
 
