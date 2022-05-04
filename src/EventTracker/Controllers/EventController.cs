@@ -11,7 +11,6 @@ namespace EventTracker.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-
     public class EventsController : ControllerBase
     {
         private static IEventService _eventService;

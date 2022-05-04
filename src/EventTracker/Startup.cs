@@ -39,6 +39,7 @@ namespace EventTracker
             });
 
             services.AddTransient<IEventService, EventService>();
+            services.AddTransient<ICommentService, CommentService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

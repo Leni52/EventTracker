@@ -1,4 +1,5 @@
-﻿using EventTracker.DAL.Data;
+﻿using EventTracker.BLL.Interfaces;
+using EventTracker.DAL.Data;
 using EventTracker.DAL.Entities;
 using EventTracker.DTO.Requests;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace EventTracker.BLL.Services
 {
-    public class CommentService
+    public class CommentService : ICommentService
     {
         private readonly DatabaseContext _context;
 
