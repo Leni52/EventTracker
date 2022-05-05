@@ -14,7 +14,7 @@
         "AllowedScopes": []
       },
       "RouteClaimsRequirement": {
-        "Role": "Admin",
+        "Role": "EventHolder",
         "UserType": "Registered"
       },
       "UpstreamPathTemplate": "/gateway/events",

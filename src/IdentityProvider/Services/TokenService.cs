@@ -69,7 +69,7 @@ namespace IdentityProvider.Services
         {
             List<Claim> claims = new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.Jti, new Guid().ToString("D")),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString("D")),
                 new Claim("sub", user.Id),
                 new Claim(ClaimsIdentity.DefaultNameClaimType, user.UserName),
                 new Claim("UserType","Registered")
@@ -97,6 +97,8 @@ namespace IdentityProvider.Services
                 Access_token = new JwtSecurityTokenHandler().WriteToken(tokenDescriptor),
                 Expires_in = ExpiryDuration.TotalSeconds.ToString()
             };
+
+            
 
             //This will be fixed
 
