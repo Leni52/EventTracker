@@ -20,10 +20,10 @@ namespace EventTracker.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CommentResponseDTO>>> GetAllCommentsAsync()
+        public async Task<ActionResult<IEnumerable<ViewCommentModel>>> GetAllCommentsAsync()
         {
             var events = await _commentService.GetAllCommentsAsync();
-            var eventsResponse = new List<CommentResponseDTO>();
+            var eventsResponse = new List<ViewCommentModel>();
             foreach (var e in events)
             {
                 eventsResponse.Add(MapComment(e));
@@ -33,7 +33,7 @@ namespace EventTracker.Controllers
         }
 
         [HttpGet("{commentId}")]
-        public async Task<ActionResult<CommentResponseDTO>> GetCommentByIdAsync(Guid commentId)
+        public async Task<ActionResult<ViewCommentModel>> GetCommentByIdAsync(Guid commentId)
         {
             var commentById = await _commentService.GetCommentByIdAsync(commentId);
 
@@ -41,7 +41,7 @@ namespace EventTracker.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateCommentAsync(CommentRequestDTO commentRequest)
+        public async Task<IActionResult> CreateCommentAsync(CreateCommentModel commentRequest)
         {
             await _commentService.CreateCommentAsync(commentRequest);
             if (ModelState.IsValid)
@@ -53,9 +53,9 @@ namespace EventTracker.Controllers
         }
 
         [HttpPut("{commentId}")]
-        public async Task<IActionResult> UpdateCommentAsync(CommentRequestDTO commentRequest, Guid commentId)
+        public async Task<IActionResult> UpdateCommentAsync(EditCommentModel commentRequest, Guid commentId)
         {
-            await _commentService.UpdateCommentAsync(commentRequest, commentId);
+            await _commentService.EditCommentAsync(commentRequest, commentId);
             if (ModelState.IsValid)
             {
                 return Ok("Comment updated successfully.");
@@ -76,9 +76,9 @@ namespace EventTracker.Controllers
             return BadRequest();
         }
 
-        private CommentResponseDTO MapComment(Comment commentEntity)
+        private ViewCommentModel MapComment(Comment commentEntity)
         {
-            var commentMap = new CommentResponseDTO()
+            var commentMap = new ViewCommentModel()
             {
                 EventId = commentEntity.EventId,
                 Text = commentEntity.Text,
