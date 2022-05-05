@@ -77,17 +77,16 @@ namespace IdentityProvider
 
         public async Task<bool> AddUserToRole(string roleName, string userId)
         {
-            using (var transactionScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
-            {
+           
                 IdentityUser user = await _userManager.FindByIdAsync(userId);
                 if(!await _userManager.IsInRoleAsync(user, roleName))
                 {
                   await  _userManager.AddToRoleAsync(user, roleName);
                     return true;
                 }
-                transactionScope.Complete();
+                
                 return false;
-            }
+            
         }
 
         public async Task<bool> RemoveUserFromRole(string roleName, string userId)

@@ -12,7 +12,7 @@
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": []
-      },     
+      },
       "UpstreamPathTemplate": "/gateway/events",
       "UpstreamHttpMethod": [ "GET" ]
     },
@@ -24,7 +24,7 @@
           "Host": "localhost",
           "Port": 5021
         }
-      ],     
+      ],
       "UpstreamPathTemplate": "/gateway/event/{id}",
       "UpstreamHttpMethod": [ "GET" ]
     },
@@ -37,13 +37,17 @@
           "Port": 5021
         }
       ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
       "RouteClaimsRequirement": {
         "Role": "EventHolder",
         "UserType": "Registered"
       },
       "UpstreamPathTemplate": "/gateway/event/{id}",
       "UpstreamHttpMethod": [ "POST", "PUT", "DELETE" ]
-    },
+    },    
     {
       "DownstreamPathTemplate": "/api/Auth/login",
       "DownstreamScheme": "https",
