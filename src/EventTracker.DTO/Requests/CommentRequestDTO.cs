@@ -14,6 +14,8 @@ namespace EventTracker.DTO.Requests
         [Required]
         public Guid CommentId { get; set; }
         [Required]
+        public Guid EventId { get; set; }
+        [Required]
         public string Text { get; set; }
     }
 }

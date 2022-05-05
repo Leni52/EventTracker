@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Query;
+﻿using EventTracker.DAL.Entities;
+using Microsoft.EntityFrameworkCore.Query;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace EventTracker.DAL.Contracts
 {
-    public interface IGenericRepository<T> where T : class
+    public interface IGenericRepository<T> where T : BaseEntity
     {
-        Task<IEnumerable<T>> GetAll();
-        Task<T> GetById(Guid id);
-        Task Insert(T entity);
+        Task<IEnumerable<T>> GetAllAsync();
+        Task<T> GetByIdAsync(Guid id);
+        Task CreateAsync(T entity);
         void Update(T entity);
-        Task Delete(Guid id);
-        Task Save();
+        void Delete(T entity);
+        Task SaveAsync();
     }
 }

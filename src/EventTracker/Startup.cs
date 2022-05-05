@@ -1,5 +1,6 @@
 using EventTracker.BLL.Interfaces;
 using EventTracker.BLL.Services;
+using EventTracker.DAL.Contracts;
 using EventTracker.DAL.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -10,8 +11,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
-using System.Text;
-using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace EventTracker
 {
@@ -72,6 +74,10 @@ namespace EventTracker
             });
 
             services.AddTransient<IEventService, EventService>();
+            services.AddTransient<ICommentService, CommentService>();
+
+            services.AddTransient<IEventRepository, EventRepository>();
+            services.AddTransient<ICommentRepository, CommentRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

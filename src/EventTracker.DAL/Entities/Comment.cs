@@ -13,6 +13,5 @@ namespace EventTracker.DAL.Entities
         public string Text { get; set; }
         public virtual Event Event { get; set; }
         public Guid EventId { get; set; }
-      
     }
 }

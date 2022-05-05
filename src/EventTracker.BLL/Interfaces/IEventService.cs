@@ -10,7 +10,7 @@ namespace EventTracker.BLL.Interfaces
     {
         Task CreateEventAsync(EventRequestDTO eventRequest);
         Task DeleteEventAsync(Guid eventId);
-        Task<List<Event>> GetAllEventsAsync();
+        Task<IEnumerable<Event>> GetAllEventsAsync();
         Task<Event> GetEventByIdAsync(Guid eventId);
         Task UpdateEventAsync(EventRequestDTO eventRequest, Guid eventId);
     }

@@ -8,7 +8,7 @@ namespace EventTracker.DTO.Responses
 {
     public class CommentResponseDTO
     {
-        public string CommenterName { get; set; }
+        public Guid EventId { get; set; }
         public string Text { get; set; }
     }
 }

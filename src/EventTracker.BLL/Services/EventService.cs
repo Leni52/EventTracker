@@ -1,4 +1,5 @@
 ﻿using EventTracker.BLL.Interfaces;
+using EventTracker.DAL.Contracts;
 using EventTracker.DAL.Data;
 using EventTracker.DAL.Entities;
 using EventTracker.DTO.Requests;
@@ -14,20 +15,22 @@ namespace EventTracker.BLL.Services
     public class EventService : IEventService
     {
         private readonly DatabaseContext _context;
+        private readonly IEventRepository _eventRepository;
 
-        public EventService(DatabaseContext context)
+        public EventService(DatabaseContext context, IEventRepository eventRepository)
         {
             _context = context;
+            _eventRepository = eventRepository;
         }
 
-        public async Task<List<Event>> GetAllEventsAsync()
+        public async Task<IEnumerable<Event>> GetAllEventsAsync()
         {
-            return await _context.Events.ToListAsync();
+            return await _eventRepository.GetAllAsync();
         }
 
         public async Task<Event> GetEventByIdAsync(Guid eventId)
         {
-            return await _context.Events.FirstOrDefaultAsync(e => e.Id == eventId);
+            return await _eventRepository.GetByIdAsync(eventId);
         }
 
         public async Task CreateEventAsync(EventRequestDTO eventRequest)
@@ -50,13 +53,13 @@ namespace EventTracker.BLL.Services
                 LastModifiedAt = DateTime.Now
             };
 
-            await _context.Events.AddAsync(eventToCreate);
-            await _context.SaveChangesAsync();
+            await _eventRepository.CreateAsync(eventToCreate);
+            await _eventRepository.SaveAsync();
         }
 
         public async Task UpdateEventAsync(EventRequestDTO eventRequest, Guid eventId)
         {
-            var eventToUpdate = await _context.Events.FirstOrDefaultAsync(e => e.Id == eventId);
+            var eventToUpdate = await _eventRepository.GetByIdAsync(eventId);
             if (eventToUpdate == null)
             {
                 throw new Exception("Event doesn't exist.");
@@ -76,20 +79,20 @@ namespace EventTracker.BLL.Services
             eventToUpdate.EndDate = eventRequest.EndDate;
             eventToUpdate.LastModifiedAt = DateTime.Now;
 
-            _context.Events.Update(eventToUpdate);
-            await _context.SaveChangesAsync();
+            _eventRepository.Update(eventToUpdate);
+            await _eventRepository.SaveAsync();
         }
 
         public async Task DeleteEventAsync(Guid eventId)
         {
-            var eventToDelete = await GetEventByIdAsync(eventId);
+            var eventToDelete = await _eventRepository.GetByIdAsync(eventId);
             if (eventToDelete == null)
             {
                 throw new Exception("Event doesn't exist.");
             }
 
-            _context.Events.Remove(eventToDelete);
-            await _context.SaveChangesAsync();
+            _eventRepository.Delete(eventToDelete);
+            await _eventRepository.SaveAsync();
         }
     }
 }
