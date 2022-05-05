@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EventTracker.DTO.Requests
+namespace EventTracker.DTO.CommentModels
 {
     public class CommentRequestDTO
     {
