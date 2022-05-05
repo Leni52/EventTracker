@@ -33,7 +33,7 @@ namespace EventTracker.BLL.Services
             throw new Exception("Comment doesn't exist.");
         }
 
-        public async Task CreateCommentAsync(CreateCommentModel commentRequest)
+        public async Task CreateCommentAsync(CommentCreateModel commentRequest)
         {
             var commentToCreate = new Comment()
             {
@@ -47,7 +47,7 @@ namespace EventTracker.BLL.Services
             await _commentRepository.SaveAsync();
         }
 
-        public async Task EditCommentAsync(EditCommentModel commentRequest, Guid commentId)
+        public async Task EditCommentAsync(CommentEditModel commentRequest, Guid commentId)
         {
             var commentToUpdate = await _commentRepository.GetByIdAsync(commentId);
             if (commentToUpdate == null)

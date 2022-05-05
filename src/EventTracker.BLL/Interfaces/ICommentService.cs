@@ -8,10 +8,10 @@ namespace EventTracker.BLL.Interfaces
 {
     public interface ICommentService
     {
-        Task CreateCommentAsync(CreateCommentModel commentRequest);
+        Task CreateCommentAsync(CommentCreateModel commentRequest);
         Task DeleteCommentAsync(Guid commentId);
         Task<IEnumerable<Comment>> GetAllCommentsAsync();
         Task<Comment> GetCommentByIdAsync(Guid commentId);
-        Task EditCommentAsync(EditCommentModel commentRequest, Guid commentId);
+        Task EditCommentAsync(CommentEditModel commentRequest, Guid commentId);
     }
 }

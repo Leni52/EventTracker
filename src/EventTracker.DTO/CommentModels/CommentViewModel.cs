@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EventTracker.DTO.CommentModels
 {
-    public class ViewCommentModel
+    public class CommentViewModel
     {
         public Guid EventId { get; set; }
         public string Text { get; set; }

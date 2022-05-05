@@ -7,12 +7,10 @@ using System.Threading.Tasks;
 
 namespace EventTracker.DTO.CommentModels
 {
-    public class CreateCommentModel
+    public class CommentEditModel
     {
         [Required]
-        public Guid CommenterId { get; set; }
-        [Required]
-        public Guid EventId { get; set; }
+        public Guid CommentId { get; set; }
         [Required]
         public string Text { get; set; }
     }

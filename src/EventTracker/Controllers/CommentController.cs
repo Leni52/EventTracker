@@ -20,10 +20,10 @@ namespace EventTracker.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ViewCommentModel>>> GetAllCommentsAsync()
+        public async Task<ActionResult<IEnumerable<CommentViewModel>>> GetAllCommentsAsync()
         {
             var events = await _commentService.GetAllCommentsAsync();
-            var eventsResponse = new List<ViewCommentModel>();
+            var eventsResponse = new List<CommentViewModel>();
             foreach (var e in events)
             {
                 eventsResponse.Add(MapComment(e));
@@ -33,7 +33,7 @@ namespace EventTracker.Controllers
         }
 
         [HttpGet("{commentId}")]
-        public async Task<ActionResult<ViewCommentModel>> GetCommentByIdAsync(Guid commentId)
+        public async Task<ActionResult<CommentViewModel>> GetCommentByIdAsync(Guid commentId)
         {
             var commentById = await _commentService.GetCommentByIdAsync(commentId);
 
@@ -41,7 +41,7 @@ namespace EventTracker.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateCommentAsync(CreateCommentModel commentRequest)
+        public async Task<IActionResult> CreateCommentAsync(CommentCreateModel commentRequest)
         {
             await _commentService.CreateCommentAsync(commentRequest);
             if (ModelState.IsValid)
@@ -53,7 +53,7 @@ namespace EventTracker.Controllers
         }
 
         [HttpPut("{commentId}")]
-        public async Task<IActionResult> UpdateCommentAsync(EditCommentModel commentRequest, Guid commentId)
+        public async Task<IActionResult> UpdateCommentAsync(CommentEditModel commentRequest, Guid commentId)
         {
             await _commentService.EditCommentAsync(commentRequest, commentId);
             if (ModelState.IsValid)
@@ -76,9 +76,9 @@ namespace EventTracker.Controllers
             return BadRequest();
         }
 
-        private ViewCommentModel MapComment(Comment commentEntity)
+        private CommentViewModel MapComment(Comment commentEntity)
         {
-            var commentMap = new ViewCommentModel()
+            var commentMap = new CommentViewModel()
             {
                 EventId = commentEntity.EventId,
                 Text = commentEntity.Text,
