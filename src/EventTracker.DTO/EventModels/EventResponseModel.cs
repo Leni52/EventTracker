@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace EventTracker.DTO.EventModels
 {
-    public class EventReponseModel
+    public class EventResponseModel
     {
         public Guid EventId { get; set; }
         public string Name { get; set; }

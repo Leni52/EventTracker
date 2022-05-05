@@ -1,4 +1,5 @@
-﻿using EventTracker.BLL.Interfaces;
+﻿using AutoMapper;
+using EventTracker.BLL.Interfaces;
 using EventTracker.DAL.Entities;
 using EventTracker.DTO.EventModels;
 using Microsoft.AspNetCore.Mvc;
@@ -13,31 +14,26 @@ namespace EventTracker.Controllers
     public class EventsController : ControllerBase
     {
         private static IEventService _eventService;
+        private static IMapper _mapper;
 
-        public EventsController(IEventService eventService) : base()
+        public EventsController(IEventService eventService, IMapper mapper) : base()
         {
             _eventService = eventService;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<EventReponseModel>>> GetAllEventsAsync()
+        public async Task<IEnumerable<EventResponseModel>> GetAllEventsAsync()
         {
             var events = await _eventService.GetAllEventsAsync();
-            var eventsResponse = new List<EventReponseModel>();
-            foreach (var e in events)
-            {
-                eventsResponse.Add(MapEvent(e));
-            }
-
-            return eventsResponse;
+            return _mapper.Map<IEnumerable<EventResponseModel>>(events);
         }
 
         [HttpGet("{eventId}")]
-        public async Task<ActionResult<EventReponseModel>> GetEventByIdAsync(Guid eventId)
+        public async Task<EventResponseModel> GetEventByIdAsync(Guid eventId)
         {
             var eventById = await _eventService.GetEventByIdAsync(eventId);
-
-            return MapEvent(eventById);
+            return _mapper.Map<EventResponseModel>(eventById);
         }
 
         [HttpPost]
@@ -74,21 +70,6 @@ namespace EventTracker.Controllers
             }
 
             return BadRequest();
-        }
-
-        private EventReponseModel MapEvent(Event eventEntity)
-        {
-            var eventMap = new EventReponseModel()
-            {
-                Name = eventEntity.Name,
-                Description = eventEntity.Description,
-                Location = eventEntity.Location,
-                Category = eventEntity.Category,
-                StartDate = eventEntity.StartDate,
-                EndDate = eventEntity.EndDate,
-            };
-
-            return eventMap;
         }
     }
 }
