@@ -1,4 +1,5 @@
-﻿using EventTracker.BLL.Interfaces;
+﻿using AutoMapper;
+using EventTracker.BLL.Interfaces;
 using EventTracker.DAL.Entities;
 using EventTracker.DTO.CommentModels;
 using Microsoft.AspNetCore.Mvc;
@@ -13,31 +14,26 @@ namespace EventTracker.Controllers
     public class CommentController : ControllerBase
     {
         private static ICommentService _commentService;
+        private static IMapper _mapper;
 
-        public CommentController(ICommentService commentService) : base()
+        public CommentController(ICommentService commentService, IMapper mapper) : base()
         {
             _commentService = commentService;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CommentViewModel>>> GetAllCommentsAsync()
+        public async Task<IEnumerable<CommentViewModel>> GetAllCommentsAsync()
         {
-            var events = await _commentService.GetAllCommentsAsync();
-            var eventsResponse = new List<CommentViewModel>();
-            foreach (var e in events)
-            {
-                eventsResponse.Add(MapComment(e));
-            }
-
-            return eventsResponse;
+            var comments = await _commentService.GetAllCommentsAsync();
+            return _mapper.Map<IEnumerable<CommentViewModel>>(comments);
         }
 
         [HttpGet("{commentId}")]
         public async Task<ActionResult<CommentViewModel>> GetCommentByIdAsync(Guid commentId)
         {
             var commentById = await _commentService.GetCommentByIdAsync(commentId);
-
-            return MapComment(commentById);
+            return _mapper.Map<CommentViewModel>(commentById);
         }
 
         [HttpPost]
@@ -74,17 +70,6 @@ namespace EventTracker.Controllers
             }
 
             return BadRequest();
-        }
-
-        private CommentViewModel MapComment(Comment commentEntity)
-        {
-            var commentMap = new CommentViewModel()
-            {
-                EventId = commentEntity.EventId,
-                Text = commentEntity.Text,
-            };
-
-            return commentMap;
         }
     }
 }
