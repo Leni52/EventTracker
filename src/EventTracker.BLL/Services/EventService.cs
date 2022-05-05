@@ -2,7 +2,7 @@
 using EventTracker.DAL.Contracts;
 using EventTracker.DAL.Data;
 using EventTracker.DAL.Entities;
-using EventTracker.DTO.Requests;
+using EventTracker.DTO.EventModels;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -33,7 +33,7 @@ namespace EventTracker.BLL.Services
             return await _eventRepository.GetByIdAsync(eventId);
         }
 
-        public async Task CreateEventAsync(EventRequestDTO eventRequest)
+        public async Task CreateEventAsync(EventRequestModel eventRequest)
         {
             var eventToCreate = await _context.Events.FirstOrDefaultAsync(e => e.Name == eventRequest.Name);
             if (eventToCreate != null)
@@ -57,7 +57,7 @@ namespace EventTracker.BLL.Services
             await _eventRepository.SaveAsync();
         }
 
-        public async Task UpdateEventAsync(EventRequestDTO eventRequest, Guid eventId)
+        public async Task EditEventAsync(EventRequestModel eventRequest, Guid eventId)
         {
             var eventToUpdate = await _eventRepository.GetByIdAsync(eventId);
             if (eventToUpdate == null)

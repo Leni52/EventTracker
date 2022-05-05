@@ -1,7 +1,6 @@
 ﻿using EventTracker.BLL.Interfaces;
 using EventTracker.DAL.Entities;
-using EventTracker.DTO.Requests;
-using EventTracker.DTO.Responses;
+using EventTracker.DTO.EventModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -21,10 +20,10 @@ namespace EventTracker.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<EventReponseDTO>>> GetAllEventsAsync()
+        public async Task<ActionResult<IEnumerable<EventReponseModel>>> GetAllEventsAsync()
         {
             var events = await _eventService.GetAllEventsAsync();
-            var eventsResponse = new List<EventReponseDTO>();
+            var eventsResponse = new List<EventReponseModel>();
             foreach (var e in events)
             {
                 eventsResponse.Add(MapEvent(e));
@@ -34,7 +33,7 @@ namespace EventTracker.Controllers
         }
 
         [HttpGet("{eventId}")]
-        public async Task<ActionResult<EventReponseDTO>> GetEventByIdAsync(Guid eventId)
+        public async Task<ActionResult<EventReponseModel>> GetEventByIdAsync(Guid eventId)
         {
             var eventById = await _eventService.GetEventByIdAsync(eventId);
 
@@ -42,7 +41,7 @@ namespace EventTracker.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateEventAsync(EventRequestDTO eventRequest)
+        public async Task<IActionResult> CreateEventAsync(EventRequestModel eventRequest)
         {
             await _eventService.CreateEventAsync(eventRequest);
             if (ModelState.IsValid)
@@ -54,9 +53,9 @@ namespace EventTracker.Controllers
         }
 
         [HttpPut("{eventId}")]
-        public async Task<IActionResult> UpdateEventAsync(EventRequestDTO eventRequest, Guid eventId)
+        public async Task<IActionResult> EditEventAsync(EventRequestModel eventRequest, Guid eventId)
         {
-            await _eventService.UpdateEventAsync(eventRequest, eventId);
+            await _eventService.EditEventAsync(eventRequest, eventId);
             if (ModelState.IsValid)
             {
                 return Ok("Event updated successfully.");
@@ -77,9 +76,9 @@ namespace EventTracker.Controllers
             return BadRequest();
         }
 
-        private EventReponseDTO MapEvent(Event eventEntity)
+        private EventReponseModel MapEvent(Event eventEntity)
         {
-            var eventMap = new EventReponseDTO()
+            var eventMap = new EventReponseModel()
             {
                 Name = eventEntity.Name,
                 Description = eventEntity.Description,

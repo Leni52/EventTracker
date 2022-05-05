@@ -1,7 +1,6 @@
 ﻿using EventTracker.BLL.Interfaces;
 using EventTracker.DAL.Entities;
-using EventTracker.DTO.Requests;
-using EventTracker.DTO.Responses;
+using EventTracker.DTO.CommentModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;

@@ -2,7 +2,7 @@
 using EventTracker.DAL.Contracts;
 using EventTracker.DAL.Data;
 using EventTracker.DAL.Entities;
-using EventTracker.DTO.Requests;
+using EventTracker.DTO.CommentModels;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

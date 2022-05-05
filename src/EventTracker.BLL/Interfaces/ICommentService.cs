@@ -1,5 +1,5 @@
 ﻿using EventTracker.DAL.Entities;
-using EventTracker.DTO.Requests;
+using EventTracker.DTO.CommentModels;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

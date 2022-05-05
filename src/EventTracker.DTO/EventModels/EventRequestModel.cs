@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace EventTracker.DTO.EventModels
 {
-    public class EventRequestDTO
+    public class EventRequestModel
     {
         [Required]
         [MaxLength(50)]
