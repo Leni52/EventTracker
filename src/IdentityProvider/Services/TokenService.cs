@@ -45,7 +45,7 @@ namespace IdentityProvider.Services
 
         public async Task<IdentityUser> Register(string userName, string password)
         {
-          //  const string role = "EventHolder";
+            const string role = "RegularUser";
 
             using (var transactionScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
@@ -57,14 +57,13 @@ namespace IdentityProvider.Services
 
                 IdentityUser newlyCreatedUser = await _userManager.FindByNameAsync(userName);
 
-               // await _userManager.AddToRoleAsync(newlyCreatedUser, role);
+                await _userManager.AddToRoleAsync(newlyCreatedUser, role);
 
                 transactionScope.Complete();
 
                 return newlyCreatedUser;
             }
         }
-
         public async Task<TokenModel> BuildToken(IdentityUser user)
         {
             List<Claim> claims = new List<Claim>

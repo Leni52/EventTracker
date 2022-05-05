@@ -55,7 +55,6 @@ namespace IdentityProvider.Controllers
                 return Ok();
             }                
             else return BadRequest("User is already in role.");
-
         }
         [Route("removefromrole")]
         [HttpPost]
@@ -66,7 +65,6 @@ namespace IdentityProvider.Controllers
                 return Ok();
             }               
             else return BadRequest("User is removed from the role.");
-
         }
     }
 }

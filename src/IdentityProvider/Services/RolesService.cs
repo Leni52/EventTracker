@@ -41,7 +41,7 @@ namespace IdentityProvider
                 transactionScope.Complete();
                 return roles;
             }
-        }     
+        }
 
         public async Task<bool> RemoveRole(string roleName)
         {
@@ -59,13 +59,13 @@ namespace IdentityProvider
         }
         public async Task<List<IdentityUser>> GetAllUsersInRole(string roleName)
         {
-            using(var transactionScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            using (var transactionScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
-               List<IdentityUser> usersInRole = new List<IdentityUser>();
+                List<IdentityUser> usersInRole = new List<IdentityUser>();
                 List<IdentityUser> users = _userManager.Users.ToList();
-                foreach(var u in users)
+                foreach (var u in users)
                 {
-                   if(await _userManager.IsInRoleAsync(u, roleName))
+                    if (await _userManager.IsInRoleAsync(u, roleName))
                     {
                         usersInRole.Add(u);
                     }
@@ -74,33 +74,25 @@ namespace IdentityProvider
                 return usersInRole;
             }
         }
-
         public async Task<bool> AddUserToRole(string roleName, string userId)
         {
-           
-                IdentityUser user = await _userManager.FindByIdAsync(userId);
-                if(!await _userManager.IsInRoleAsync(user, roleName))
-                {
-                  await  _userManager.AddToRoleAsync(user, roleName);
-                    return true;
-                }
-                
-                return false;
-            
-        }
-
-        public async Task<bool> RemoveUserFromRole(string roleName, string userId)
-        {
-            using (var transactionScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            IdentityUser user = await _userManager.FindByIdAsync(userId);
+            if (!await _userManager.IsInRoleAsync(user, roleName))
             {
-                IdentityUser user = await _userManager.FindByIdAsync(userId);
-                if (await _userManager.IsInRoleAsync(user, roleName))
-                {
-                    await _userManager.RemoveFromRoleAsync(user, roleName);
-                }
-                transactionScope.Complete();
+                await _userManager.AddToRoleAsync(user, roleName);
                 return true;
             }
+            return false;
+        }
+        public async Task<bool> RemoveUserFromRole(string roleName, string userId)
+        {
+            IdentityUser user = await _userManager.FindByIdAsync(userId);
+            if (await _userManager.IsInRoleAsync(user, roleName))
+            {
+                await _userManager.RemoveFromRoleAsync(user, roleName);
+                return true;
+            }
+            return false;
         }
     }
 }
