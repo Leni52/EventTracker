@@ -29,9 +29,12 @@ namespace IdentityProvider.Data
                 {
                     Id = Guid.NewGuid().ToString("D"),
                     Email = "admin@eventtracker.com",
+                    NormalizedEmail = "admin@eventtracker.com".ToUpper(),
                     EmailConfirmed = true,
                     UserName = "admin",
+                    NormalizedUserName = "admin".ToUpper(),
                     SecurityStamp = Guid.NewGuid().ToString("D"),
+                  
                 };
 
                 admin.PasswordHash = passwordHasher.HashPassword(admin, "rakienovreme");
@@ -42,6 +45,7 @@ namespace IdentityProvider.Data
                     Name = "Admin",
                     NormalizedName = "Admin".ToUpper(),
                     ConcurrencyStamp = Guid.NewGuid().ToString("D")
+                    
                 };
 
                 IdentityRole regularUserRole = new IdentityRole()

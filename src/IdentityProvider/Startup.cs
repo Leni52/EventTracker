@@ -47,6 +47,7 @@ namespace IdentityProvider
 
 
             services.AddTransient<ITokenService, TokenService>();
+            services.AddTransient<IRolesService, RolesService>();
 
             services.Configure<JWTConfig>(Configuration.GetSection("JWTConfig"));
 

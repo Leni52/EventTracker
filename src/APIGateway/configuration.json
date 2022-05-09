@@ -1,36 +1,68 @@
 {
-  "ReRoutes": [
+  "Routes": [
     {
       "DownstreamPathTemplate": "/api/events",
       "DownstreamScheme": "https",
-      "DownstreamHost": "localhost",
-      "DownstreamPort": 9001,
-      "UpstreamPathTemplate": "/events",
-      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5021
+        }
+      ],
       "AuthenticationOptions": {
-        "AuthenticationProviderKey": "EventsKey",
+        "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": []
-      }
+      },
+      "UpstreamPathTemplate": "/gateway/events",
+      "UpstreamHttpMethod": [ "GET" ]
     },
     {
       "DownstreamPathTemplate": "/api/events/{id}",
       "DownstreamScheme": "https",
-      "DownstreamHost": "localhost",
-      "DownstreamPort": 9001,
-      "UpstreamPathTemplate": "/events/{id}",
-      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ]
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5021
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/event/{id}",
+      "UpstreamHttpMethod": [ "GET" ]
     },
     {
-      "DownstreamPathTemplate": "/api/auth",
-      "DownstreamScheme": "http",
-      "DownstreamHost": "localhost",
-      "DownstreamPort": 9009,
-      "UpstreamPathTemplate": "/api/auth",
-      "UpstreamHttpMethod": [ "Get" ]
+      "DownstreamPathTemplate": "/api/events/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5021
+        }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": {
+        "Role": "EventHolder",
+        "UserType": "Registered"
+      },
+      "UpstreamPathTemplate": "/gateway/event/{id}",
+      "UpstreamHttpMethod": [ "POST", "PUT", "DELETE" ]
+    },    
+    {
+      "DownstreamPathTemplate": "/api/Auth/login",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5001
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/login",
+      "UpstreamHttpMethod": [ "POST" ]
     }
   ],
   "GlobalConfiguration": {
-    "RequestIdKey": "OcRequestId",
-    "AdministrationPath": "/administration"
-  }  
+    "RequestIdKey": "EventTrackerId",
+    "BaseUrl": "https://localhost:9001"
+  }
 }
