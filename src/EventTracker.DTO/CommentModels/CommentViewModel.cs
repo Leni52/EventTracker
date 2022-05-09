@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EventTracker.DTO.Responses
+namespace EventTracker.DTO.CommentModels
 {
-    public class CommentResponseDTO
+    public class CommentViewModel
     {
         public Guid EventId { get; set; }
         public string Text { get; set; }

@@ -1,8 +1,9 @@
-﻿using EventTracker.BLL.Interfaces;
+﻿using AutoMapper;
+using EventTracker.BLL.Interfaces;
 using EventTracker.DAL.Contracts;
 using EventTracker.DAL.Data;
 using EventTracker.DAL.Entities;
-using EventTracker.DTO.Requests;
+using EventTracker.DTO.EventModels;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -16,11 +17,13 @@ namespace EventTracker.BLL.Services
     {
         private readonly DatabaseContext _context;
         private readonly IEventRepository _eventRepository;
+        private readonly IMapper _mapper;
 
-        public EventService(DatabaseContext context, IEventRepository eventRepository)
+        public EventService(DatabaseContext context, IEventRepository eventRepository, IMapper mapper)
         {
             _context = context;
             _eventRepository = eventRepository;
+            _mapper = mapper;
         }
 
         public async Task<IEnumerable<Event>> GetAllEventsAsync()
@@ -33,7 +36,7 @@ namespace EventTracker.BLL.Services
             return await _eventRepository.GetByIdAsync(eventId);
         }
 
-        public async Task CreateEventAsync(EventRequestDTO eventRequest)
+        public async Task CreateEventAsync(EventRequestModel eventRequest)
         {
             var eventToCreate = await _context.Events.FirstOrDefaultAsync(e => e.Name == eventRequest.Name);
             if (eventToCreate != null)
@@ -41,45 +44,32 @@ namespace EventTracker.BLL.Services
                 throw new Exception("Name is already in use.");
             }
 
-            eventToCreate = new Event()
-            {
-                Name = eventRequest.Name,
-                Description = eventRequest.Description,
-                Category = eventRequest.Category,
-                Location = eventRequest.Location,
-                StartDate = eventRequest.StartDate,
-                EndDate = eventRequest.EndDate,
-                CreatedAt = DateTime.Now,
-                LastModifiedAt = DateTime.Now
-            };
+            eventToCreate = _mapper.Map<Event>(eventRequest);
+            eventToCreate.CreatedAt = DateTime.Now;
+            eventToCreate.LastModifiedAt = DateTime.Now;
 
             await _eventRepository.CreateAsync(eventToCreate);
             await _eventRepository.SaveAsync();
         }
 
-        public async Task UpdateEventAsync(EventRequestDTO eventRequest, Guid eventId)
+        public async Task EditEventAsync(EventRequestModel eventRequest, Guid eventId)
         {
-            var eventToUpdate = await _eventRepository.GetByIdAsync(eventId);
-            if (eventToUpdate == null)
+            var eventToEdit = await _eventRepository.GetByIdAsync(eventId);
+            if (eventToEdit == null)
             {
                 throw new Exception("Event doesn't exist.");
             }
 
-            bool checkName = await _context.Events.AnyAsync(e => e.Name == eventRequest.Name) && eventToUpdate.Name != eventRequest.Name;
+            bool checkName = await _context.Events.AnyAsync(e => e.Name == eventRequest.Name) && eventToEdit.Name != eventRequest.Name;
             if (checkName)
             {
                 throw new Exception("Name is already in use.");
             }
 
-            eventToUpdate.Name = eventRequest.Name;
-            eventToUpdate.Description = eventRequest.Description;
-            eventToUpdate.Category = eventRequest.Category;
-            eventToUpdate.Location = eventRequest.Location;
-            eventToUpdate.StartDate = eventRequest.StartDate;
-            eventToUpdate.EndDate = eventRequest.EndDate;
-            eventToUpdate.LastModifiedAt = DateTime.Now;
+            eventToEdit = _mapper.Map<Event>(eventRequest);
+            eventToEdit.LastModifiedAt = DateTime.Now;
 
-            _eventRepository.Update(eventToUpdate);
+            _eventRepository.Update(eventToEdit);
             await _eventRepository.SaveAsync();
         }
 

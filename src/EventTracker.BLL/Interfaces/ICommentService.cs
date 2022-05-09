@@ -1,5 +1,5 @@
 ﻿using EventTracker.DAL.Entities;
-using EventTracker.DTO.Requests;
+using EventTracker.DTO.CommentModels;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -8,10 +8,10 @@ namespace EventTracker.BLL.Interfaces
 {
     public interface ICommentService
     {
-        Task CreateCommentAsync(CommentRequestDTO commentRequest);
+        Task CreateCommentAsync(CommentCreateModel commentRequest);
         Task DeleteCommentAsync(Guid commentId);
         Task<IEnumerable<Comment>> GetAllCommentsAsync();
         Task<Comment> GetCommentByIdAsync(Guid commentId);
-        Task UpdateCommentAsync(CommentRequestDTO commentRequest, Guid commentId);
+        Task EditCommentAsync(CommentEditModel commentRequest, Guid commentId);
     }
 }

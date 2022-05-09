@@ -10,6 +10,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\EventTracker.DAL\EventTracker.DAL.csproj" />
     <ProjectReference Include="..\EventTracker.DTO\EventTracker.DTO.csproj" />
   </ItemGroup>

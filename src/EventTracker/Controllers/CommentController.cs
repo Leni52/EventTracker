@@ -1,7 +1,7 @@
-﻿using EventTracker.BLL.Interfaces;
+﻿using AutoMapper;
+using EventTracker.BLL.Interfaces;
 using EventTracker.DAL.Entities;
-using EventTracker.DTO.Requests;
-using EventTracker.DTO.Responses;
+using EventTracker.DTO.CommentModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -14,35 +14,30 @@ namespace EventTracker.Controllers
     public class CommentController : ControllerBase
     {
         private static ICommentService _commentService;
+        private static IMapper _mapper;
 
-        public CommentController(ICommentService commentService) : base()
+        public CommentController(ICommentService commentService, IMapper mapper) : base()
         {
             _commentService = commentService;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CommentResponseDTO>>> GetAllCommentsAsync()
+        public async Task<IEnumerable<CommentViewModel>> GetAllCommentsAsync()
         {
-            var events = await _commentService.GetAllCommentsAsync();
-            var eventsResponse = new List<CommentResponseDTO>();
-            foreach (var e in events)
-            {
-                eventsResponse.Add(MapComment(e));
-            }
-
-            return eventsResponse;
+            var comments = await _commentService.GetAllCommentsAsync();
+            return _mapper.Map<IEnumerable<CommentViewModel>>(comments);
         }
 
         [HttpGet("{commentId}")]
-        public async Task<ActionResult<CommentResponseDTO>> GetCommentByIdAsync(Guid commentId)
+        public async Task<ActionResult<CommentViewModel>> GetCommentByIdAsync(Guid commentId)
         {
             var commentById = await _commentService.GetCommentByIdAsync(commentId);
-
-            return MapComment(commentById);
+            return _mapper.Map<CommentViewModel>(commentById);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateCommentAsync(CommentRequestDTO commentRequest)
+        public async Task<IActionResult> CreateCommentAsync(CommentCreateModel commentRequest)
         {
             await _commentService.CreateCommentAsync(commentRequest);
             if (ModelState.IsValid)
@@ -54,9 +49,9 @@ namespace EventTracker.Controllers
         }
 
         [HttpPut("{commentId}")]
-        public async Task<IActionResult> UpdateCommentAsync(CommentRequestDTO commentRequest, Guid commentId)
+        public async Task<IActionResult> UpdateCommentAsync(CommentEditModel commentRequest, Guid commentId)
         {
-            await _commentService.UpdateCommentAsync(commentRequest, commentId);
+            await _commentService.EditCommentAsync(commentRequest, commentId);
             if (ModelState.IsValid)
             {
                 return Ok("Comment updated successfully.");
@@ -75,17 +70,6 @@ namespace EventTracker.Controllers
             }
 
             return BadRequest();
-        }
-
-        private CommentResponseDTO MapComment(Comment commentEntity)
-        {
-            var commentMap = new CommentResponseDTO()
-            {
-                EventId = commentEntity.EventId,
-                Text = commentEntity.Text,
-            };
-
-            return commentMap;
         }
     }
 }

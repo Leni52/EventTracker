@@ -40,6 +40,8 @@ namespace EventTracker
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "EventTracker", Version = "v1" });
             });
 
+            services.AddAutoMapper(typeof(Startup));
+
             services.AddTransient<IEventService, EventService>();
             services.AddTransient<ICommentService, CommentService>();
 
