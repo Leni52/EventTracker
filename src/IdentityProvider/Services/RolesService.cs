@@ -1,5 +1,7 @@
-﻿using IdentityProvider.Interfaces;
+﻿using IdentityProvider.Exceptions;
+using IdentityProvider.Interfaces;
 using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,7 +23,7 @@ namespace IdentityProvider
             using (var transactionScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
                 IdentityRole roleToBeCreated = new IdentityRole();
-                if (await _roleManager.RoleExistsAsync(roleName) == false)
+                if (await _roleManager.RoleExistsAsync(roleName) == false && roleName.Length > 0)
                 {
                     roleToBeCreated.Name = roleName;
                     await _roleManager.CreateAsync(roleToBeCreated);
@@ -39,7 +41,9 @@ namespace IdentityProvider
             {
                 List<IdentityRole> roles = _roleManager.Roles.ToList();
                 transactionScope.Complete();
-                return roles;
+                if (roles.Count > 0)
+                    return roles;
+                else throw new NoRolesException("There aren't any roles in the database.");
             }
         }
 
@@ -49,10 +53,12 @@ namespace IdentityProvider
             {
                 IdentityRole roleToBeDeleted = await _roleManager.FindByNameAsync(roleName);
 
-                if (roleToBeDeleted != null)
+                if (roleToBeDeleted == null)
                 {
-                    await _roleManager.DeleteAsync(roleToBeDeleted);
+                    throw new RoleDoesNotExistException("Role doesn't exist.");
                 }
+                else
+                  await _roleManager.DeleteAsync(roleToBeDeleted);
                 transactionScope.Complete();
                 return true;
             }
@@ -71,9 +77,13 @@ namespace IdentityProvider
                     }
                 }
                 transactionScope.Complete();
-                return usersInRole;
+                if (usersInRole.Count > 0)
+                    return usersInRole;
+                else
+                    throw new NoUsersWithSuchRoleException("There aren't any users with that role.");
             }
         }
+
         public async Task<bool> AddUserToRole(string roleName, string userId)
         {
             IdentityUser user = await _userManager.FindByIdAsync(userId);

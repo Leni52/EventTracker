@@ -2,6 +2,7 @@ using EventTracker.BLL.Interfaces;
 using EventTracker.BLL.Services;
 using EventTracker.DAL.Contracts;
 using EventTracker.DAL.Data;
+using EventTracker.DAL.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -13,19 +14,16 @@ using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace EventTracker
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration, IHostingEnvironment env)
+        public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
-            var builder = new Microsoft.Extensions.Configuration.ConfigurationBuilder();
-            builder.SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json")
-                .AddEnvironmentVariables();
+            Configuration = configuration;            
         }
 
         public IConfiguration Configuration { get; }
