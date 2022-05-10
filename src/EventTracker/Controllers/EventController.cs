@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using EventTracker.BLL.Interfaces;
 using EventTracker.DAL.Entities;
+using EventTracker.DTO.CommentModels;
 using EventTracker.DTO.EventModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -70,6 +71,12 @@ namespace EventTracker.Controllers
             }
 
             return BadRequest();
+        }
+        [HttpGet("{eventId}/comments")]
+        public async Task<IEnumerable<CommentViewModel>> GetAllCommentsFromEvent(Guid eventId)
+        {
+            var comments = await _eventService.GetAllCommentsFromEvent(eventId);
+            return _mapper.Map<IEnumerable<CommentViewModel>>(comments);
         }
     }
 }
