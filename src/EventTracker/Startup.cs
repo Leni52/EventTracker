@@ -12,10 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace EventTracker
 {
@@ -48,16 +45,17 @@ namespace EventTracker
                 ClockSkew = TimeSpan.Zero,
                 RequireExpirationTime = true,
             };
-            services.AddAuthentication(o =>
+            services.AddAuthentication(options =>
             {
-                o.DefaultAuthenticateScheme = "EventsKey";
+                options.DefaultScheme = "Bearer";
+                options.DefaultChallengeScheme = "Bearer";
+                options.DefaultAuthenticateScheme = "Bearer";
             })
-             .AddJwtBearer("EventsKey", x =>
-             {
-                 x.RequireHttpsMetadata = false;
-                 x.TokenValidationParameters = tokenValidationParameters;
-             });
-
+            .AddJwtBearer("Bearer", x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.TokenValidationParameters = tokenValidationParameters;
+            });
 
             //end of gateway part
 
