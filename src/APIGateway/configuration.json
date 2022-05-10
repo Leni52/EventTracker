@@ -1,7 +1,7 @@
 {
   "Routes": [
     {
-      "DownstreamPathTemplate": "/api/events",
+      "DownstreamPathTemplate": "/api/event",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -17,7 +17,7 @@
       "UpstreamHttpMethod": [ "GET" ]
     },
     {
-      "DownstreamPathTemplate": "/api/events/{id}",
+      "DownstreamPathTemplate": "/api/event/{id}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -25,11 +25,15 @@
           "Port": 5021
         }
       ],
-      "UpstreamPathTemplate": "/gateway/event/{id}",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "UpstreamPathTemplate": "/gateway/events/{id}",
       "UpstreamHttpMethod": [ "GET" ]
     },
     {
-      "DownstreamPathTemplate": "/api/events/{id}",
+      "DownstreamPathTemplate": "/api/event/{id}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -45,9 +49,57 @@
         "Role": "EventHolder",
         "UserType": "Registered"
       },
-      "UpstreamPathTemplate": "/gateway/event/{id}",
+      "UpstreamPathTemplate": "/gateway/events/{id}",
       "UpstreamHttpMethod": [ "POST", "PUT", "DELETE" ]
-    },    
+    },
+    {
+      "DownstreamPathTemplate": "/api/event/{eventId}/comments",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5021
+        }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "UpstreamPathTemplate": "/gateway/events/{eventId}/comments",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/event/{eventId}/comment/{commendId}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5021
+        }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "UpstreamPathTemplate": "/gateway/events/{eventId}/comments/{commentId}",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/event/{eventId}/comment/{commendId}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5021
+        }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "UpstreamPathTemplate": "/gateway/events/{eventId}/comments/{commentId}",
+      "UpstreamHttpMethod": [ "POST", "PUT", "DELETE" ]
+    },
     {
       "DownstreamPathTemplate": "/api/Auth/login",
       "DownstreamScheme": "https",
@@ -60,6 +112,7 @@
       "UpstreamPathTemplate": "/gateway/login",
       "UpstreamHttpMethod": [ "POST" ]
     }
+
   ],
   "GlobalConfiguration": {
     "RequestIdKey": "EventTrackerId",

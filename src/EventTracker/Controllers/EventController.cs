@@ -12,12 +12,12 @@ namespace EventTracker.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class EventsController : ControllerBase
+    public class EventController : ControllerBase
     {
         private static IEventService _eventService;
         private static IMapper _mapper;
 
-        public EventsController(IEventService eventService, IMapper mapper) : base()
+        public EventController(IEventService eventService, IMapper mapper) : base()
         {
             _eventService = eventService;
             _mapper = mapper;
