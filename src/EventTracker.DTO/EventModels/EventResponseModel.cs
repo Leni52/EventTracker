@@ -17,6 +17,6 @@ namespace EventTracker.DTO.EventModels
         public Category Category { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        public List<Comment> Comments { get; set; }
+       // public List<Comment> Comments { get; set; }
     }
 }

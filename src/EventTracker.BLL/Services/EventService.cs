@@ -7,8 +7,6 @@ using EventTracker.DTO.EventModels;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace EventTracker.BLL.Services
@@ -18,12 +16,14 @@ namespace EventTracker.BLL.Services
         private readonly DatabaseContext _context;
         private readonly IEventRepository _eventRepository;
         private readonly IMapper _mapper;
+       
 
-        public EventService(DatabaseContext context, IEventRepository eventRepository, IMapper mapper)
+        public EventService(DatabaseContext context, IEventRepository eventRepository,
+            IMapper mapper)
         {
             _context = context;
             _eventRepository = eventRepository;
-            _mapper = mapper;
+            _mapper = mapper;            
         }
 
         public async Task<IEnumerable<Event>> GetAllEventsAsync()
@@ -83,6 +83,11 @@ namespace EventTracker.BLL.Services
 
             _eventRepository.Delete(eventToDelete);
             await _eventRepository.SaveAsync();
+        }
+        public async Task<IEnumerable<Comment>> GetAllCommentsFromEvent(Guid eventId)
+        {
+            Event commentedEvent = await GetEventByIdAsync(eventId);
+            return commentedEvent.Comments;
         }
     }
 }
