@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EventTracker.DAL.Repositories;
+using EventTracker.Data;
 
 namespace EventTracker
 {
@@ -52,6 +53,8 @@ namespace EventTracker
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            DatabaseSeeder.PrepPopulation(app);
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
