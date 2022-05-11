@@ -10,6 +10,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="MailKit" Version="3.2.0" />
+    <PackageReference Include="MimeKit" Version="3.2.0" />
+    <PackageReference Include="SendGrid" Version="9.27.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\EventTracker.DAL\EventTracker.DAL.csproj" />
     <ProjectReference Include="..\EventTracker.DTO\EventTracker.DTO.csproj" />
   </ItemGroup>

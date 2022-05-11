@@ -42,6 +42,7 @@ namespace EventTracker
 
             services.AddTransient<IEventService, EventService>();
             services.AddTransient<ICommentService, CommentService>();
+            services.AddTransient<IMailService, MailService>();
 
             services.AddTransient<IEventRepository, EventRepository>();
             services.AddTransient<ICommentRepository, CommentRepository>();
