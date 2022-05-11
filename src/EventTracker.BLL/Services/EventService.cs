@@ -16,11 +16,13 @@ namespace EventTracker.BLL.Services
     {
         private readonly DatabaseContext _context;
         private readonly IEventRepository _eventRepository;
+        private readonly INotificationService _notificationService;
 
-        public EventService(DatabaseContext context, IEventRepository eventRepository)
+        public EventService(DatabaseContext context, IEventRepository eventRepository, INotificationService notificationService)
         {
             _context = context;
             _eventRepository = eventRepository;
+            _notificationService = notificationService;
         }
 
         public async Task<IEnumerable<Event>> GetAllEventsAsync()
@@ -55,6 +57,7 @@ namespace EventTracker.BLL.Services
 
             await _eventRepository.CreateAsync(eventToCreate);
             await _eventRepository.SaveAsync();
+            _notificationService.SendNotification(eventToCreate);
         }
 
         public async Task UpdateEventAsync(EventRequestDTO eventRequest, Guid eventId)

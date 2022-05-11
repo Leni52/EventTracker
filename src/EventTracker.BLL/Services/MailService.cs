@@ -3,7 +3,6 @@ using EventTracker.BLL.Interfaces;
 using MailKit.Security;
 using Microsoft.Extensions.Options;
 using MimeKit;
-using SendGrid.Helpers.Mail;
 using System.Threading.Tasks;
 using SmtpClient = MailKit.Net.Smtp.SmtpClient;
 
@@ -17,6 +16,7 @@ namespace EventTracker.BLL.Services
         {
             this.mailSettings = options.Value;
         }
+
         public async Task SendMail(MailRequest mailRequest)
         {
             var email = new MimeMessage();
@@ -38,6 +38,7 @@ namespace EventTracker.BLL.Services
 
             await smtp.SendAsync(email);
             smtp.Disconnect(true);
+            smtp.Dispose();
         }
     }
 }
