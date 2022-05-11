@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace EventTracker.DAL.Repositories
 {
-    public class UnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
         private readonly DatabaseContext _context;
         private IEventRepository _eventRepository;
@@ -27,6 +27,11 @@ namespace EventTracker.DAL.Repositories
         public async Task SaveAsync()
         {
             await _context.SaveChangesAsync();
+        }
+
+        public void Dispose()
+        {
+            _context.Dispose();
         }
     }
 }
