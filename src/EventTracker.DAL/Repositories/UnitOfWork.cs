@@ -31,7 +31,10 @@ namespace EventTracker.DAL.Repositories
 
         public void Dispose()
         {
-            _context.Dispose();
+            if (_context != null)
+            {
+                _context.Dispose();
+            }
         }
     }
 }
