@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using EventTracker.BLL.Exceptions;
 using EventTracker.BLL.Interfaces;
 using EventTracker.DAL.Contracts;
 using EventTracker.DAL.Data;
@@ -33,7 +34,7 @@ namespace EventTracker.BLL.Services
         {
             var comment = await _commentRepository.GetByIdAsync(commentId);
             if (comment != null) return comment;
-            throw new Exception("Comment doesn't exist.");
+            throw new ItemDoesNotExistException("Comment doesn't exist.");
         }
 
         public async Task CreateCommentAsync(CommentCreateModel commentRequest)
@@ -51,7 +52,7 @@ namespace EventTracker.BLL.Services
             var comment = await _commentRepository.GetByIdAsync(commentId);
             if (comment == null)
             {
-                throw new Exception("Comment doesn't exist.");
+                throw new ItemDoesNotExistException("Comment doesn't exist.");
             }
 
             comment = _mapper.Map<Comment>(commentRequest);
@@ -66,7 +67,7 @@ namespace EventTracker.BLL.Services
             var commentToDelete = await _commentRepository.GetByIdAsync(commentId);
             if (commentToDelete == null)
             {
-                throw new Exception("Comment doesn't exist.");
+                throw new ItemDoesNotExistException("Comment doesn't exist.");
             }
 
             _commentRepository.Delete(commentToDelete);

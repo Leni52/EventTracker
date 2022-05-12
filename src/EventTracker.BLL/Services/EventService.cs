@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using EventTracker.BLL.Exceptions;
 using EventTracker.BLL.Interfaces;
 using EventTracker.DAL.Contracts;
 using EventTracker.DAL.Data;
@@ -41,7 +42,7 @@ namespace EventTracker.BLL.Services
             var eventToCreate = await _context.Events.FirstOrDefaultAsync(e => e.Name == eventRequest.Name);
             if (eventToCreate != null)
             {
-                throw new Exception("Name is already in use.");
+                throw new ItemIsAlreadyUsedException("Name is already in use.");
             }
 
             eventToCreate = _mapper.Map<Event>(eventRequest);
@@ -57,13 +58,13 @@ namespace EventTracker.BLL.Services
             var eventToEdit = await _eventRepository.GetByIdAsync(eventId);
             if (eventToEdit == null)
             {
-                throw new Exception("Event doesn't exist.");
+                throw new ItemDoesNotExistException("Event doesn't exist.");
             }
 
             bool checkName = await _context.Events.AnyAsync(e => e.Name == eventRequest.Name) && eventToEdit.Name != eventRequest.Name;
             if (checkName)
             {
-                throw new Exception("Name is already in use.");
+                throw new ItemIsAlreadyUsedException("Name is already in use.");
             }
 
             eventToEdit = _mapper.Map<Event>(eventRequest);
@@ -78,7 +79,7 @@ namespace EventTracker.BLL.Services
             var eventToDelete = await _eventRepository.GetByIdAsync(eventId);
             if (eventToDelete == null)
             {
-                throw new Exception("Event doesn't exist.");
+                throw new ItemDoesNotExistException("Event doesn't exist.");
             }
 
             _eventRepository.Delete(eventToDelete);

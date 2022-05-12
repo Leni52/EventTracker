@@ -3,6 +3,7 @@ using EventTracker.BLL.Services;
 using EventTracker.DAL.Contracts;
 using EventTracker.DAL.Data;
 using EventTracker.DAL.Repositories;
+using EventTracker.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -91,6 +92,8 @@ namespace EventTracker
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseMiddleware<ErrorHandlerMiddleware>();
 
             app.UseAuthorization();
 
