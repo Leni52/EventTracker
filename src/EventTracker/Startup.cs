@@ -62,7 +62,6 @@ namespace EventTracker
             //dbcontext
             services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:Default"]));
             //DI
-            services.AddTransient<IEventService, EventService>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
