@@ -5,6 +5,6 @@ namespace EventTracker.BLL.Interfaces
 {
     public interface IMailService
     {
-        Task SendMail(MailRequest mailRequest);
+        Task SendEmailAsync(MailRequest mailRequest);
     }
 }

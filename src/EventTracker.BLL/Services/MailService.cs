@@ -10,24 +10,28 @@ namespace EventTracker.BLL.Services
 {
     public class MailService : IMailService
     {
-        private readonly Entities.MailSettings mailSettings;
+        private readonly MailSettings mailSettings;
 
-        public MailService(IOptions<Entities.MailSettings> options)
+        public MailService(IOptions<MailSettings> options)
         {
             this.mailSettings = options.Value;
         }
 
-        public async Task SendMail(MailRequest mailRequest)
+        public async Task SendEmailAsync(MailRequest mailRequest)
         {
-            var email = new MimeMessage();
+            var email = new MimeMessage
+            {
+                Sender = MailboxAddress.Parse(mailSettings.Mail)
+            };
 
-            email.Sender = MailboxAddress.Parse(mailSettings.Mail);
             email.To.Add(MailboxAddress.Parse(mailRequest.ToEmail)); 
             email.Subject = mailRequest.Subject;
 
-            var builder = new BodyBuilder();
+            var builder = new BodyBuilder
+            {
+                HtmlBody = mailRequest.Body
+            };
 
-            builder.HtmlBody = mailRequest.Body;
             email.Body = builder.ToMessageBody();
 
             using var smtp = new SmtpClient();

@@ -9,8 +9,9 @@ namespace EventTracker.BLL.Services
     {
         private readonly IMailService _mailService;
 
-        public NotificationService()
+        public NotificationService(IMailService mailService)
         {
+            _mailService = mailService;
         }
 
         public void SendNotification(Event @event)
@@ -21,7 +22,7 @@ namespace EventTracker.BLL.Services
             mailRequest.Subject = $"Created event {@event.Name}";
             mailRequest.Body = $"You successfully created an event {@event.Id} - {@event.Name}"; 
 
-            _mailService.SendMail(mailRequest);
+            _mailService.SendEmailAsync(mailRequest);
         }
     }
 }

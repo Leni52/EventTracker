@@ -23,7 +23,7 @@ namespace EventTracker.Data
         private static void Seed(DatabaseContext context)
         {
             context.Database.EnsureCreated();
-            context.Database.Migrate();
+            //context.Database.Migrate();
 
             if (!context.Events.Any())
             {
