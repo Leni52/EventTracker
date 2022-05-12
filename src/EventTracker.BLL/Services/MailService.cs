@@ -10,20 +10,21 @@ namespace EventTracker.BLL.Services
 {
     public class MailService : IMailService
     {
-        private readonly MailSettings mailSettings;
+        private readonly MailSettings _mailSettings;
 
         public MailService(IOptions<MailSettings> options)
         {
-            this.mailSettings = options.Value;
+            _mailSettings = options.Value;
         }
 
         public async Task SendEmailAsync(MailRequest mailRequest)
         {
             var email = new MimeMessage
             {
-                Sender = MailboxAddress.Parse(mailSettings.Mail)
+                Sender = MailboxAddress.Parse(_mailSettings.Mail)
             };
 
+            email.From.Add(MailboxAddress.Parse(_mailSettings.Mail));
             email.To.Add(MailboxAddress.Parse(mailRequest.ToEmail)); 
             email.Subject = mailRequest.Subject;
 
@@ -36,13 +37,12 @@ namespace EventTracker.BLL.Services
 
             using var smtp = new SmtpClient();
 
-            smtp.Connect(mailSettings.Host, mailSettings.Port, SecureSocketOptions.StartTls);
+            smtp.Connect(_mailSettings.Host, _mailSettings.Port, SecureSocketOptions.StartTls);
 
-            smtp.Authenticate(mailSettings.Mail, mailSettings.Password);
+            smtp.Authenticate(_mailSettings.Mail, _mailSettings.Password);
 
             await smtp.SendAsync(email);
             smtp.Disconnect(true);
-            smtp.Dispose();
         }
     }
 }

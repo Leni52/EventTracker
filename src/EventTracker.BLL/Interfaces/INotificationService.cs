@@ -4,6 +4,6 @@ namespace EventTracker.BLL.Interfaces
 {
     public interface INotificationService
     {
-        void SendNotification(Event @event);
+        void SendNotificationAsync(Event @event);
     }
 }

@@ -18,6 +18,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using EventTracker.DAL.Repositories;
 using EventTracker.Data;
+using EventTracker.BLL.Entities;
 
 namespace EventTracker
 {
@@ -48,6 +49,8 @@ namespace EventTracker
 
             services.AddTransient<IEventRepository, EventRepository>();
             services.AddTransient<ICommentRepository, CommentRepository>();
+
+            services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

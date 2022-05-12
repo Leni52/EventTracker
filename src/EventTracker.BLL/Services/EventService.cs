@@ -57,7 +57,7 @@ namespace EventTracker.BLL.Services
 
             await _eventRepository.CreateAsync(eventToCreate);
             await _eventRepository.SaveAsync();
-            _notificationService.SendNotification(eventToCreate);
+            _notificationService.SendNotificationAsync(eventToCreate);
         }
 
         public async Task UpdateEventAsync(EventRequestDTO eventRequest, Guid eventId)

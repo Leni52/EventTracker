@@ -1,4 +1,6 @@
-﻿namespace EventTracker.BLL.Entities
+﻿using Microsoft.Extensions.Configuration;
+
+namespace EventTracker.BLL.Entities
 {
     public class MailSettings
     {
