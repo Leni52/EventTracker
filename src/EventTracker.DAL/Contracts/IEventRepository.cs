@@ -9,5 +9,7 @@ namespace EventTracker.DAL.Contracts
 {
     public interface IEventRepository : IGenericRepository<Event>
     {
+        Task<bool> CheckIfNameExistsCreate(string name);
+        Task<bool> CheckIfNameExistsEdit(string requestName, string editName);
     }
 }
