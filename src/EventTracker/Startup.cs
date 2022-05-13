@@ -12,10 +12,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using EventTracker.DAL.Repositories;
 using EventTracker.Data;
 using EventTracker.BLL.Entities;
 using System.Text;
@@ -80,9 +76,6 @@ namespace EventTracker
             services.AddTransient<ICommentService, CommentService>();
             services.AddTransient<IMailService, MailService>();
             services.AddTransient<INotificationService, NotificationService>();
-
-            services.AddTransient<IEventRepository, EventRepository>();
-            services.AddTransient<ICommentRepository, CommentRepository>();
 
             services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
             services.AddTransient<IUnitOfWork, UnitOfWork>();
