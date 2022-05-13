@@ -1,27 +1,24 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 using System;
 using System.Text;
-
-
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Hosting;
 namespace APIGateway
 {
     public class Startup
     {
         public IConfiguration Configuration { get; }
-        public Startup(IConfiguration configuration,IHostingEnvironment env)
+        public Startup(IConfiguration configuration)
         {
-            Configuration= configuration;
-            var builder = new Microsoft.Extensions.Configuration.ConfigurationBuilder();
-            builder.SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json")
-                .AddJsonFile("configuration.json")
-                .AddEnvironmentVariables();
+            Configuration = configuration;           
         }
        
 
@@ -30,6 +27,7 @@ namespace APIGateway
         {
            
             services.AddOcelot();
+            
             var audienceConfig = Configuration.GetSection("JWTConfig");
             var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(audienceConfig["Secret"]));
 
@@ -41,28 +39,37 @@ namespace APIGateway
                 ValidIssuer = audienceConfig["Issuer"],
                 ValidateAudience = true,
                 ValidAudience = audienceConfig["Audience"],
-                ValidateLifetime = true,
-                ClockSkew = TimeSpan.Zero,
-                RequireExpirationTime = true,
+                //ValidateLifetime = true,
+                ClockSkew = TimeSpan.Zero
             };
-            services.AddAuthentication(o =>
-            {
-                o.DefaultAuthenticateScheme = "EventsKey";
-            })
-             .AddJwtBearer("EventsKey", x =>
-             {
-                 x.RequireHttpsMetadata = false;
-                 x.TokenValidationParameters = tokenValidationParameters;
-             });
+            services.AddAuthentication().
+                AddJwtBearer("Bearer", options =>
+                {
+                    options.TokenValidationParameters = tokenValidationParameters;
+                });
 
-          
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public async void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-          
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            app.UseRouting();
+            app.UseHttpsRedirection();
             app.UseAuthentication();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapGet("/", async context =>
+                {
+                    await context.Response.WriteAsync("Hello World!");
+                });
+            });
+            
             await app.UseOcelot();
         }
     }

@@ -30,6 +30,9 @@ namespace IdentityProvider.Middleware
                 switch (error)
                 {
                     case NonExistingUserException:
+                    case RoleDoesNotExistException:
+                    case NoRolesException:
+                    case NoUsersWithSuchRoleException:
                         response.StatusCode = (int)HttpStatusCode.NotFound;
                         break;
 

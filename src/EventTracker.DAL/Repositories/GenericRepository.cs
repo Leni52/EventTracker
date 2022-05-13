@@ -45,10 +45,5 @@ namespace EventTracker.DAL.Repositories
         {
             _entity.Remove(entity);
         }
-
-        public async Task SaveAsync()
-        {
-            await _context.SaveChangesAsync();
-        }
     }
 }

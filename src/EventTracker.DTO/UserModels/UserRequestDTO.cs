@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EventTracker.DTO.Requests
+namespace EventTracker.DTO.UserModels
 {
     public class UserRequestDTO
     {
@@ -21,6 +21,5 @@ namespace EventTracker.DTO.Requests
         [Required]
         [MinLength(6)]
         public string RepeatPassword { get; set; }
-
     }
 }

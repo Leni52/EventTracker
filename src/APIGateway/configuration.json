@@ -1,36 +1,121 @@
 {
-  "ReRoutes": [
+  "Routes": [
     {
-      "DownstreamPathTemplate": "/api/events",
+      "DownstreamPathTemplate": "/api/event",
       "DownstreamScheme": "https",
-      "DownstreamHost": "localhost",
-      "DownstreamPort": 9001,
-      "UpstreamPathTemplate": "/events",
-      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5021
+        }
+      ],
       "AuthenticationOptions": {
-        "AuthenticationProviderKey": "EventsKey",
+        "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": []
-      }
+      },
+      "UpstreamPathTemplate": "/gateway/events",
+      "UpstreamHttpMethod": [ "GET" ]
     },
     {
-      "DownstreamPathTemplate": "/api/events/{id}",
+      "DownstreamPathTemplate": "/api/event/{id}",
       "DownstreamScheme": "https",
-      "DownstreamHost": "localhost",
-      "DownstreamPort": 9001,
-      "UpstreamPathTemplate": "/events/{id}",
-      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ]
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5021
+        }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "UpstreamPathTemplate": "/gateway/events/{id}",
+      "UpstreamHttpMethod": [ "GET" ]
     },
     {
-      "DownstreamPathTemplate": "/api/auth",
-      "DownstreamScheme": "http",
-      "DownstreamHost": "localhost",
-      "DownstreamPort": 9009,
-      "UpstreamPathTemplate": "/api/auth",
-      "UpstreamHttpMethod": [ "Get" ]
+      "DownstreamPathTemplate": "/api/event/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5021
+        }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": {
+        "Role": "EventHolder",
+        "UserType": "Registered"
+      },
+      "UpstreamPathTemplate": "/gateway/events/{id}",
+      "UpstreamHttpMethod": [ "POST", "PUT", "DELETE" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/event/{eventId}/comments",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5021
+        }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "UpstreamPathTemplate": "/gateway/events/{eventId}/comments",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/event/{eventId}/comment/{commendId}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5021
+        }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "UpstreamPathTemplate": "/gateway/events/{eventId}/comments/{commentId}",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/event/{eventId}/comment/{commendId}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5021
+        }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "UpstreamPathTemplate": "/gateway/events/{eventId}/comments/{commentId}",
+      "UpstreamHttpMethod": [ "POST", "PUT", "DELETE" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Auth/login",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5001
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/login",
+      "UpstreamHttpMethod": [ "POST" ]
     }
+
   ],
   "GlobalConfiguration": {
-    "RequestIdKey": "OcRequestId",
-    "AdministrationPath": "/administration"
-  }  
+    "RequestIdKey": "EventTrackerId",
+    "BaseUrl": "https://localhost:9001"
+  }
 }
