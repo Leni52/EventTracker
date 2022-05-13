@@ -63,7 +63,6 @@ namespace EventTracker
             //dbcontext
             services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:Default"]));
             //DI
-            services.AddTransient<IEventService, EventService>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -75,8 +74,7 @@ namespace EventTracker
             services.AddTransient<IEventService, EventService>();
             services.AddTransient<ICommentService, CommentService>();
 
-            services.AddTransient<IEventRepository, EventRepository>();
-            services.AddTransient<ICommentRepository, CommentRepository>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

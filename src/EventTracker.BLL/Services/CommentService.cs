@@ -16,23 +16,23 @@ namespace EventTracker.BLL.Services
 {
     public class CommentService : ICommentService
     {
-        private readonly ICommentRepository _commentRepository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public CommentService(ICommentRepository commentRepository, IMapper mapper)
+        public CommentService(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _commentRepository = commentRepository;
+            _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
 
         public async Task<IEnumerable<Comment>> GetAllCommentsAsync()
         {
-            return await _commentRepository.GetAllAsync();
+            return await _unitOfWork.Comments.GetAllAsync();
         }
 
         public async Task<Comment> GetCommentByIdAsync(Guid commentId)
         {
-            var comment = await _commentRepository.GetByIdAsync(commentId);
+            var comment = await _unitOfWork.Comments.GetByIdAsync(commentId);
             if (comment != null) return comment;
             throw new ItemDoesNotExistException("Comment doesn't exist.");
         }
@@ -43,13 +43,13 @@ namespace EventTracker.BLL.Services
             comment.CreatedAt = DateTime.Now;
             comment.LastModifiedAt = DateTime.Now;
 
-            await _commentRepository.CreateAsync(comment);
-            await _commentRepository.SaveAsync();
+            await _unitOfWork.Comments.CreateAsync(comment);
+            await _unitOfWork.SaveAsync();
         }
 
         public async Task EditCommentAsync(CommentEditModel commentRequest, Guid commentId)
         {
-            var comment = await _commentRepository.GetByIdAsync(commentId);
+            var comment = await _unitOfWork.Comments.GetByIdAsync(commentId);
             if (comment == null)
             {
                 throw new ItemDoesNotExistException("Comment doesn't exist.");
@@ -58,20 +58,20 @@ namespace EventTracker.BLL.Services
             comment = _mapper.Map<Comment>(commentRequest);
             comment.LastModifiedAt = DateTime.Now;
 
-            _commentRepository.Update(comment);
-            await _commentRepository.SaveAsync();
+            _unitOfWork.Comments.Update(comment);
+            await _unitOfWork.SaveAsync();
         }
 
         public async Task DeleteCommentAsync(Guid commentId)
         {
-            var commentToDelete = await _commentRepository.GetByIdAsync(commentId);
+            var commentToDelete = await _unitOfWork.Comments.GetByIdAsync(commentId);
             if (commentToDelete == null)
             {
                 throw new ItemDoesNotExistException("Comment doesn't exist.");
             }
 
-            _commentRepository.Delete(commentToDelete);
-            await _commentRepository.SaveAsync();
+            _unitOfWork.Comments.Delete(commentToDelete);
+            await _unitOfWork.SaveAsync();
         }
     }
 }

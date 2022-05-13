@@ -15,5 +15,15 @@ namespace EventTracker.DAL.Repositories
         public EventRepository(DatabaseContext context) : base(context)
         {
         }
+
+        public async Task<bool> CheckIfNameExistsCreate(string name)
+        {
+            return await _context.Events.AnyAsync(e => e.Name == name);
+        }
+
+        public async Task<bool> CheckIfNameExistsEdit(string requestName, string editName)
+        {
+            return await _context.Events.AnyAsync(e => e.Name == requestName) && editName != requestName;
+        }
     }
 }

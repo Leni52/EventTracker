@@ -14,54 +14,56 @@ namespace EventTracker.BLL.Services
 {
     public class EventService : IEventService
     {
-        private readonly DatabaseContext _context;
-        private readonly IEventRepository _eventRepository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
        
-
-        public EventService(DatabaseContext context, IEventRepository eventRepository,
-            IMapper mapper)
+        public EventService(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _context = context;
-            _eventRepository = eventRepository;
+            _unitOfWork = unitOfWork;
             _mapper = mapper;            
         }
 
         public async Task<IEnumerable<Event>> GetAllEventsAsync()
         {
-            return await _eventRepository.GetAllAsync();
+            return await _unitOfWork.Events.GetAllAsync();
         }
 
         public async Task<Event> GetEventByIdAsync(Guid eventId)
         {
-            return await _eventRepository.GetByIdAsync(eventId);
+            return await _unitOfWork.Events.GetByIdAsync(eventId);
+        }
+
+        public async Task<IEnumerable<Comment>> GetAllCommentsFromEvent(Guid eventId)
+        {
+            Event commentedEvent = await GetEventByIdAsync(eventId);
+            return commentedEvent.Comments;
         }
 
         public async Task CreateEventAsync(EventRequestModel eventRequest)
         {
-            var eventToCreate = await _context.Events.FirstOrDefaultAsync(e => e.Name == eventRequest.Name);
-            if (eventToCreate != null)
+            bool EventExists = await _unitOfWork.Events.CheckIfNameExistsCreate(eventRequest.Name);
+            if (EventExists)
             {
                 throw new ItemIsAlreadyUsedException("Name is already in use.");
             }
 
-            eventToCreate = _mapper.Map<Event>(eventRequest);
+            var eventToCreate = _mapper.Map<Event>(eventRequest);
             eventToCreate.CreatedAt = DateTime.Now;
             eventToCreate.LastModifiedAt = DateTime.Now;
 
-            await _eventRepository.CreateAsync(eventToCreate);
-            await _eventRepository.SaveAsync();
+            await _unitOfWork.Events.CreateAsync(eventToCreate);
+            await _unitOfWork.SaveAsync();
         }
 
         public async Task EditEventAsync(EventRequestModel eventRequest, Guid eventId)
         {
-            var eventToEdit = await _eventRepository.GetByIdAsync(eventId);
+            var eventToEdit = await _unitOfWork.Events.GetByIdAsync(eventId);
             if (eventToEdit == null)
             {
                 throw new ItemDoesNotExistException("Event doesn't exist.");
             }
 
-            bool checkName = await _context.Events.AnyAsync(e => e.Name == eventRequest.Name) && eventToEdit.Name != eventRequest.Name;
+            bool checkName = await _unitOfWork.Events.CheckIfNameExistsEdit(eventRequest.Name, eventToEdit.Name);
             if (checkName)
             {
                 throw new ItemIsAlreadyUsedException("Name is already in use.");
@@ -70,25 +72,20 @@ namespace EventTracker.BLL.Services
             eventToEdit = _mapper.Map<Event>(eventRequest);
             eventToEdit.LastModifiedAt = DateTime.Now;
 
-            _eventRepository.Update(eventToEdit);
-            await _eventRepository.SaveAsync();
+            _unitOfWork.Events.Update(eventToEdit);
+            await _unitOfWork.SaveAsync();
         }
 
         public async Task DeleteEventAsync(Guid eventId)
         {
-            var eventToDelete = await _eventRepository.GetByIdAsync(eventId);
+            var eventToDelete = await _unitOfWork.Events.GetByIdAsync(eventId);
             if (eventToDelete == null)
             {
                 throw new ItemDoesNotExistException("Event doesn't exist.");
             }
 
-            _eventRepository.Delete(eventToDelete);
-            await _eventRepository.SaveAsync();
-        }
-        public async Task<IEnumerable<Comment>> GetAllCommentsFromEvent(Guid eventId)
-        {
-            Event commentedEvent = await GetEventByIdAsync(eventId);
-            return commentedEvent.Comments;
+            _unitOfWork.Events.Delete(eventToDelete);
+            await _unitOfWork.SaveAsync();
         }
     }
 }
