@@ -66,8 +66,12 @@ namespace IdentityProvider.Services
                 return newlyCreatedUser;
             }
         }
+<<<<<<< HEAD
 
         public async Task<TokenModel> CreateAccessToken(IdentityUser user)
+=======
+        public async Task<TokenModel> BuildToken(IdentityUser user)
+>>>>>>> 8fc2a8965233dce9158c21ceb682a5f19d963fa0
         {
             List<Claim> claims = new List<Claim>
             {

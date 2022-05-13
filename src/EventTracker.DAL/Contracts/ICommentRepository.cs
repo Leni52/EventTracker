@@ -7,9 +7,7 @@ using System.Threading.Tasks;
 
 namespace EventTracker.DAL.Contracts
 {
-    public interface IEventRepository : IGenericRepository<Event>
+    public interface ICommentRepository : IGenericRepository<Comment>
     {
-        Task<bool> CheckIfNameExistsCreate(string name);
-        Task<bool> CheckIfNameExistsEdit(string requestName, string editName);
     }
 }

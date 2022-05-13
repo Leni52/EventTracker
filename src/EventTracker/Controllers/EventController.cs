@@ -1,7 +1,8 @@
-﻿using EventTracker.BLL.Interfaces;
+﻿using AutoMapper;
+using EventTracker.BLL.Interfaces;
 using EventTracker.DAL.Entities;
-using EventTracker.DTO.Requests;
-using EventTracker.DTO.Responses;
+using EventTracker.DTO.CommentModels;
+using EventTracker.DTO.EventModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,39 +12,33 @@ namespace EventTracker.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-
-    public class EventsController : ControllerBase
+    public class EventController : ControllerBase
     {
         private static IEventService _eventService;
+        private static IMapper _mapper;
 
-        public EventsController(IEventService eventService) : base()
+        public EventController(IEventService eventService, IMapper mapper) : base()
         {
             _eventService = eventService;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<EventReponseDTO>>> GetAllEventsAsync()
+        public async Task<IEnumerable<EventResponseModel>> GetAllEventsAsync()
         {
             var events = await _eventService.GetAllEventsAsync();
-            var eventsResponse = new List<EventReponseDTO>();
-            foreach (var e in events)
-            {
-                eventsResponse.Add(MapEvent(e));
-            }
-
-            return eventsResponse;
+            return _mapper.Map<IEnumerable<EventResponseModel>>(events);
         }
 
         [HttpGet("{eventId}")]
-        public async Task<ActionResult<EventReponseDTO>> GetEventByIdAsync(Guid eventId)
+        public async Task<EventResponseModel> GetEventByIdAsync(Guid eventId)
         {
             var eventById = await _eventService.GetEventByIdAsync(eventId);
-
-            return MapEvent(eventById);
+            return _mapper.Map<EventResponseModel>(eventById);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateEventAsync(EventRequestDTO eventRequest)
+        public async Task<IActionResult> CreateEventAsync(EventRequestModel eventRequest)
         {
             await _eventService.CreateEventAsync(eventRequest);
             if (ModelState.IsValid)
@@ -55,9 +50,9 @@ namespace EventTracker.Controllers
         }
 
         [HttpPut("{eventId}")]
-        public async Task<IActionResult> UpdateEventAsync(EventRequestDTO eventRequest, Guid eventId)
+        public async Task<IActionResult> EditEventAsync(EventRequestModel eventRequest, Guid eventId)
         {
-            await _eventService.UpdateEventAsync(eventRequest, eventId);
+            await _eventService.EditEventAsync(eventRequest, eventId);
             if (ModelState.IsValid)
             {
                 return Ok("Event updated successfully.");
@@ -77,20 +72,11 @@ namespace EventTracker.Controllers
 
             return BadRequest();
         }
-
-        private EventReponseDTO MapEvent(Event eventEntity)
+        [HttpGet("{eventId}/comments")]
+        public async Task<IEnumerable<CommentViewModel>> GetAllCommentsFromEvent(Guid eventId)
         {
-            var eventMap = new EventReponseDTO()
-            {
-                Name = eventEntity.Name,
-                Description = eventEntity.Description,
-                Location = eventEntity.Location,
-                Category = eventEntity.Category,
-                StartDate = eventEntity.StartDate,
-                EndDate = eventEntity.EndDate,
-            };
-
-            return eventMap;
+            var comments = await _eventService.GetAllCommentsFromEvent(eventId);
+            return _mapper.Map<IEnumerable<CommentViewModel>>(comments);
         }
     }
 }

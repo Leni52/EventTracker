@@ -5,12 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EventTracker.DTO.Requests
+namespace EventTracker.DTO.CommentModels
 {
-    public class CommentRequestDTO
+    public class CommentEditModel
     {
-        [Required]
-        public string CommenterId { get; set; }
         [Required]
         public Guid CommentId { get; set; }
         [Required]

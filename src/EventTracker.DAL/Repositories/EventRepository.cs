@@ -10,43 +10,20 @@ using System.Threading.Tasks;
 
 namespace EventTracker.DAL.Repositories
 {
-    class EventRepository : IEventRepository
+    public class EventRepository : GenericRepository<Event>, IEventRepository
     {
-        private readonly DatabaseContext _context;
-
-        public EventRepository(DatabaseContext context)
+        public EventRepository(DatabaseContext context) : base(context)
         {
-            _context = context;
         }
 
-        public async Task AddEventAsync(Event eventt)
+        public async Task<bool> CheckIfNameExistsCreate(string name)
         {
-            await _context.Events.AddAsync(eventt);
+            return await _context.Events.AnyAsync(e => e.Name == name);
         }
 
-        public async Task<List<Event>> GetAllEventsAsync()
+        public async Task<bool> CheckIfNameExistsEdit(string requestName, string editName)
         {
-            return await _context.Events.ToListAsync();
-        }
-
-        public async Task<Event> GetEventByIdAsync(Guid eventId)
-        {
-            return await _context.Events.FirstOrDefaultAsync(e => e.Id == eventId);
-        }
-
-        public void RemoveEvent(Event eventt)
-        {
-            _context.Events.Remove(eventt);
-        }
-
-        public async Task SaveChangesAsync()
-        {
-            await _context.SaveChangesAsync();
-        }
-
-        public void UpdateEvent(Event eventt)
-        {
-            _context.Events.Update(eventt);
+            return await _context.Events.AnyAsync(e => e.Name == requestName) && editName != requestName;
         }
     }
 }

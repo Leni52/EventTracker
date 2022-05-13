@@ -5,13 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EventTracker.DAL.Entities
+namespace EventTracker.DTO.CommentModels
 {
-    public class Comment : BaseEntity
+    public class CommentCreateModel
     {
-        [MaxLength(150)]
-        public string Text { get; set; }
-        public virtual Event Event { get; set; }
+        [Required]
+        public Guid CommenterId { get; set; }
+        [Required]
         public Guid EventId { get; set; }
+        [Required]
+        public string Text { get; set; }
     }
 }

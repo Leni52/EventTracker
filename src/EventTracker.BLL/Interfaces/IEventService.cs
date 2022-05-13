@@ -1,5 +1,5 @@
 ﻿using EventTracker.DAL.Entities;
-using EventTracker.DTO.Requests;
+using EventTracker.DTO.EventModels;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -8,10 +8,11 @@ namespace EventTracker.BLL.Interfaces
 {
     public interface IEventService
     {
-        Task CreateEventAsync(EventRequestDTO eventRequest);
+        Task CreateEventAsync(EventRequestModel eventRequest);
         Task DeleteEventAsync(Guid eventId);
-        Task<List<Event>> GetAllEventsAsync();
+        Task<IEnumerable<Event>> GetAllEventsAsync();
         Task<Event> GetEventByIdAsync(Guid eventId);
-        Task UpdateEventAsync(EventRequestDTO eventRequest, Guid eventId);
+        Task EditEventAsync(EventRequestModel eventRequest, Guid eventId);
+        Task<IEnumerable<Comment>> GetAllCommentsFromEvent(Guid eventId);
     }
 }

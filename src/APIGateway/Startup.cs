@@ -9,8 +9,8 @@ using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 using System;
 using System.Text;
-
-
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Hosting;
 namespace APIGateway
 {
     public class Startup
@@ -58,11 +58,8 @@ namespace APIGateway
             {
                 app.UseDeveloperExceptionPage();
             }
-
             app.UseRouting();
-
             app.UseHttpsRedirection();
-            
             app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
