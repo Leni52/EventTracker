@@ -1,9 +1,9 @@
 ﻿using IdentityProvider.Exceptions;
 using IdentityProvider.Interfaces;
 using Microsoft.AspNetCore.Identity;
-using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Transactions;
 
@@ -18,6 +18,7 @@ namespace IdentityProvider
             _userManager = userManager;
             _roleManager = roleManager;
         }
+
         public async Task<string> AddRole(string roleName)
         {
             using (var transactionScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
@@ -33,7 +34,6 @@ namespace IdentityProvider
                 return roleToBeCreated.Name;
             }
         }
-
 
         public async Task<List<IdentityRole>> GetAllRoles()
         {
@@ -63,6 +63,7 @@ namespace IdentityProvider
                 return true;
             }
         }
+
         public async Task<List<IdentityUser>> GetAllUsersInRole(string roleName)
         {
             using (var transactionScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
@@ -90,18 +91,48 @@ namespace IdentityProvider
             if (!await _userManager.IsInRoleAsync(user, roleName))
             {
                 await _userManager.AddToRoleAsync(user, roleName);
+
                 return true;
             }
+
             return false;
         }
+
         public async Task<bool> RemoveUserFromRole(string roleName, string userId)
         {
             IdentityUser user = await _userManager.FindByIdAsync(userId);
             if (await _userManager.IsInRoleAsync(user, roleName))
             {
                 await _userManager.RemoveFromRoleAsync(user, roleName);
+
                 return true;
             }
+
+            return false;
+        }
+
+        public async Task<IdentityUser> GetCurrentUser(ClaimsPrincipal claimsPrincipal)
+        {
+            return await _userManager.GetUserAsync(claimsPrincipal);
+        }
+
+        public async Task<bool> IsUserAdminOrEventHolder(IdentityUser user)
+        {
+            if (await _userManager.IsInRoleAsync(user, "Admin") || await _userManager.IsInRoleAsync(user, "EventHolder"))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public async Task<bool> IsRegularUser(IdentityUser user)
+        {
+            if (await _userManager.IsInRoleAsync(user, "RegularUser"))
+            {
+                return true;
+            }
+
             return false;
         }
     }

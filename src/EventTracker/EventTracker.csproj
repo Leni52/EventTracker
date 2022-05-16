@@ -25,6 +25,7 @@
   <ItemGroup>
     <ProjectReference Include="..\EventTracker.BLL\EventTracker.BLL.csproj" />
     <ProjectReference Include="..\EventTracker.DAL\EventTracker.DAL.csproj" />
+    <ProjectReference Include="..\IdentityProvider\IdentityProvider.csproj" />
   </ItemGroup>
 
 </Project>

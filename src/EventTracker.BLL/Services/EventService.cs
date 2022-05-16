@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using EventTracker.BLL.Interfaces;
 using EventTracker.DAL.Contracts;
-using EventTracker.DAL.Data;
 using EventTracker.DAL.Entities;
 using EventTracker.DTO.EventModels;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace EventTracker.BLL.Services
@@ -15,11 +15,13 @@ namespace EventTracker.BLL.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-       
-        public EventService(IUnitOfWork unitOfWork, IMapper mapper)
+        private readonly IEventRepository _eventRepository;
+
+        public EventService(IUnitOfWork unitOfWork, IMapper mapper, IEventRepository eventRepository)
         {
             _unitOfWork = unitOfWork;
-            _mapper = mapper;            
+            _mapper = mapper;
+            _eventRepository = eventRepository;
         }
 
         public async Task<IEnumerable<Event>> GetAllEventsAsync()
@@ -84,6 +86,21 @@ namespace EventTracker.BLL.Services
             }
 
             _unitOfWork.Events.Delete(eventToDelete);
+            await _unitOfWork.SaveAsync();
+        }
+
+        public async Task SignUpRegularUser(Guid eventId, ClaimsPrincipal claimsPrincipal)
+        {
+            var userId = claimsPrincipal.FindFirstValue(ClaimTypes.NameIdentifier);
+            var externalUser = await _unitOfWork.ExternalUsers.GetByExternalId(userId);
+            var eventData = await _eventRepository.GetByIdAsync(eventId);
+
+            if (eventData == null)
+            {
+                throw new Exception("Event doesn't exist.");
+            }
+
+            eventData.Users.Add(externalUser);
             await _unitOfWork.SaveAsync();
         }
     }

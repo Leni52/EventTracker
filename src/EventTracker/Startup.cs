@@ -3,6 +3,7 @@ using EventTracker.BLL.Services;
 using EventTracker.DAL.Contracts;
 using EventTracker.DAL.Data;
 using EventTracker.DAL.Repositories;
+using IdentityProvider.Authorization.Requirements;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -57,6 +58,12 @@ namespace EventTracker
                 x.TokenValidationParameters = tokenValidationParameters;
             });
 
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("AdminOrEventHolder", policy =>
+                policy.Requirements.Add(new AdminOrEventHolderRequirement()));
+            });
+
             //end of gateway part
 
             //dbcontext
@@ -72,6 +79,10 @@ namespace EventTracker
 
             services.AddTransient<IEventService, EventService>();
             services.AddTransient<ICommentService, CommentService>();
+
+            services.AddTransient<ICommentRepository, CommentRepository>();
+            services.AddTransient<IEventRepository, EventRepository>();
+            services.AddTransient<IExternalUserRepository, ExternalUserRepository>();
 
             services.AddTransient<IUnitOfWork, UnitOfWork>();
         }
