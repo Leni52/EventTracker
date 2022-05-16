@@ -15,13 +15,13 @@ namespace EventTracker.BLL.Services
             _mailService = mailService;
         }
 
-        public async void SendNotificationAsync(Event @event)
+        public async void SendNotificationAsync(Event targetEvent)
         {
             var mailRequest = new MailRequest
             {
                 ToEmail = "eventtrackermail@gmail.com",
-                Subject = string.Format(CreatedEventSubject, @event.Name),
-                Body = string.Format(CreatedEventBody, @event.Id, @event.Name)
+                Subject = string.Format(CreatedEventSubject, targetEvent.Name),
+                Body = string.Format(CreatedEventBody, targetEvent.Id, targetEvent.Name)
             };
 
             await _mailService.SendEmailAsync(mailRequest);
