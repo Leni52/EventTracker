@@ -29,12 +29,7 @@ namespace EventTracker.Middleware
                         
                         context.Response.StatusCode = (int)httpCode;
                         context.Response.ContentType = "application/json";
-                        //var res  = context.Response;
-                        /*
-                        var json = $"{{\"error\":\"{error?.Message}\"}}";
-                        await context.Response.WriteAsync(json);
-                        return;
-                        */
+                       
                         var result = JsonSerializer.Serialize(new
                         {
                             ExceptionType = $"{error.GetType().Name}",
