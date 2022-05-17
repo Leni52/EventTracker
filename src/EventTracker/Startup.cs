@@ -13,6 +13,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
+using EventTracker.Data;
+using EventTracker.BLL.Entities;
 using System.Text;
 
 namespace EventTracker
@@ -79,17 +81,18 @@ namespace EventTracker
 
             services.AddTransient<IEventService, EventService>();
             services.AddTransient<ICommentService, CommentService>();
+            services.AddTransient<IMailService, MailService>();
+            services.AddTransient<INotificationService, NotificationService>();
 
-            services.AddTransient<ICommentRepository, CommentRepository>();
-            services.AddTransient<IEventRepository, EventRepository>();
-            services.AddTransient<IExternalUserRepository, ExternalUserRepository>();
-
+            services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
             services.AddTransient<IUnitOfWork, UnitOfWork>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            DatabaseSeeder.PrepPopulation(app);
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

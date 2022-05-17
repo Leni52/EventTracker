@@ -9,6 +9,7 @@ namespace IdentityProvider.Interfaces
     {
         Task<IdentityUser> Register(string userName, string password);
         Task<TokenModel> Login(string userName, string password);
-        Task<TokenModel> BuildToken(IdentityUser user);
+        Task<TokenModel> RefreshToken(TokenModel token);
+        Task<TokenModel> CreateAccessToken(IdentityUser user);
     }
 }
