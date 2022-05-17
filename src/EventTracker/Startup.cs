@@ -18,6 +18,7 @@ using System;
 using EventTracker.Data;
 using EventTracker.BLL.Entities;
 using System.Text;
+using MailKit.Net.Smtp;
 
 namespace EventTracker
 {
@@ -77,9 +78,9 @@ namespace EventTracker
 
             services.AddTransient<IEventService, EventService>();
             services.AddTransient<ICommentService, CommentService>();
-            services.AddTransient<IMailService, MailService>();
-            services.AddTransient<INotificationService, NotificationService>();
-
+            services.AddScoped<IMailService, MailService>();
+            services.AddScoped<INotificationService, NotificationService>();
+            services.AddScoped<SmtpClient>();
             services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
             services.AddTransient<IUnitOfWork, UnitOfWork>();
         }

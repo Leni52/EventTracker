@@ -1,10 +1,9 @@
 ﻿using EventTracker.BLL.Entities;
 using EventTracker.BLL.Interfaces;
-using MailKit.Security;
+using MailKit.Net.Smtp;
 using Microsoft.Extensions.Options;
 using MimeKit;
 using System.Threading.Tasks;
-using SmtpClient = MailKit.Net.Smtp.SmtpClient;
 
 namespace EventTracker.BLL.Services
 {
