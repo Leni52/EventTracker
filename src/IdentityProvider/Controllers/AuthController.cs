@@ -26,6 +26,15 @@ namespace IdentityProvider.Controllers
             return Ok(token);
         }
 
+        [Route("refresh")]
+        [HttpPost]
+        public async Task<IActionResult> RefreshToken(TokenModel token)
+        {
+            var newToken = await _tokenService.RefreshToken(token);
+
+            return Ok(newToken);
+        }
+
         [Route("register")]
         [HttpPost]
         public async Task Register(string username, string password)
