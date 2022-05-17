@@ -17,11 +17,13 @@ namespace EventTracker.BLL.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-       
-        public EventService(IUnitOfWork unitOfWork, IMapper mapper)
+        private readonly INotificationService _notificationService;
+
+        public EventService(IUnitOfWork unitOfWork, IMapper mapper, INotificationService notificationService)
         {
             _unitOfWork = unitOfWork;
-            _mapper = mapper;            
+            _mapper = mapper;
+            _notificationService = notificationService;
         }
 
         public async Task<IEnumerable<Event>> GetAllEventsAsync()
@@ -54,6 +56,7 @@ namespace EventTracker.BLL.Services
 
             await _unitOfWork.Events.CreateAsync(eventToCreate);
             await _unitOfWork.SaveAsync();
+            _notificationService.SendNotificationAsync(eventToCreate);
         }
 
         public async Task EditEventAsync(EventRequestModel eventRequest, Guid eventId)
