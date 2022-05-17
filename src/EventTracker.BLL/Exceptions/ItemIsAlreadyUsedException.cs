@@ -1,14 +1,14 @@
 ﻿using System;
-using System.Runtime.Serialization;
+using System.Net;
 
 namespace EventTracker.BLL.Exceptions
-{   
-    public class ItemIsAlreadyUsedException : Exception
+{
+    public class ItemIsAlreadyUsedException : HttpException
     {
-       
-        public ItemIsAlreadyUsedException(string message) : base(message)
-        {
-        }
 
+        public ItemIsAlreadyUsedException(HttpStatusCode statusCode, string message) : base(message)
+        {
+            StatusCode = statusCode;
+        }
     }
 }

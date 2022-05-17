@@ -8,6 +8,7 @@ using EventTracker.DTO.EventModels;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace EventTracker.BLL.Services
@@ -44,7 +45,7 @@ namespace EventTracker.BLL.Services
             bool EventExists = await _unitOfWork.Events.CheckIfNameExistsCreate(eventRequest.Name);
             if (EventExists)
             {
-                throw new ItemIsAlreadyUsedException("Name is already in use.");
+                throw new ItemIsAlreadyUsedException(HttpStatusCode.Conflict, "Name is already in use.");
             }
 
             var eventToCreate = _mapper.Map<Event>(eventRequest);
@@ -60,13 +61,13 @@ namespace EventTracker.BLL.Services
             var eventToEdit = await _unitOfWork.Events.GetByIdAsync(eventId);
             if (eventToEdit == null)
             {
-                throw new ItemDoesNotExistException("Event doesn't exist.");
+                throw new ItemDoesNotExistException(HttpStatusCode.NotFound, "Event doesn't exist.");
             }
 
             bool checkName = await _unitOfWork.Events.CheckIfNameExistsEdit(eventRequest.Name, eventToEdit.Name);
             if (checkName)
             {
-                throw new ItemIsAlreadyUsedException("Name is already in use.");
+                throw new ItemIsAlreadyUsedException(HttpStatusCode.Conflict,"Name is already in use.");
             }
 
             eventToEdit = _mapper.Map<Event>(eventRequest);
@@ -81,7 +82,7 @@ namespace EventTracker.BLL.Services
             var eventToDelete = await _unitOfWork.Events.GetByIdAsync(eventId);
             if (eventToDelete == null)
             {
-                throw new ItemDoesNotExistException("Event doesn't exist.");
+                throw new ItemDoesNotExistException(HttpStatusCode.NotFound, "Event doesn't exist.");
             }
 
             _unitOfWork.Events.Delete(eventToDelete);

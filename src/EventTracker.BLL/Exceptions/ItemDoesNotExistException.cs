@@ -1,14 +1,14 @@
 ﻿using System;
+using System.Net;
 
 namespace EventTracker.BLL.Exceptions
 {
 
-    public class ItemDoesNotExistException : Exception
+    public class ItemDoesNotExistException : HttpException
     {
-
-        public ItemDoesNotExistException(string message) : base(message)
+        public ItemDoesNotExistException(HttpStatusCode statusCode, string message):base(message)
         {
+          StatusCode = HttpStatusCode.NotFound;            
         }
-
     }
 }
