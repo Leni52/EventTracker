@@ -9,8 +9,6 @@ using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 using System;
 using System.Text;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Hosting;
 namespace APIGateway
 {
     public class Startup
