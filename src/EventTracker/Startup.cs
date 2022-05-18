@@ -96,10 +96,10 @@ namespace EventTracker
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "EventTracker v1"));
             }
+
             app.UseExceptionHandler(new ExceptionHandlerConfig().CustomOptions);
-     
+
             app.UseHttpsRedirection();
-           
             app.UseRouting();        
 
             app.UseAuthorization();

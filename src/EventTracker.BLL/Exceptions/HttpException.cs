@@ -8,10 +8,10 @@ namespace EventTracker.BLL.Exceptions
     public abstract class HttpException:Exception
     {    
         public  HttpStatusCode StatusCode { get; set; }
-        public string _message { get; set; }
-        public HttpException(string message)
+       
+        public HttpException(string message):base(message)
         {
-            _message = message;            
+                     
         }      
 
     }

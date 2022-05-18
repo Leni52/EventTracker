@@ -6,9 +6,9 @@ namespace EventTracker.BLL.Exceptions
     public class ItemIsAlreadyUsedException : HttpException
     {
 
-        public ItemIsAlreadyUsedException(HttpStatusCode statusCode, string message) : base(message)
+        public ItemIsAlreadyUsedException(string message = "Item is already in use.") : base(message)
         {
-            StatusCode = statusCode;
+            StatusCode = HttpStatusCode.Conflict;
         }
     }
 }

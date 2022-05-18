@@ -34,10 +34,11 @@ namespace EventTracker.BLL.Services
         public async Task<Comment> GetCommentByIdAsync(Guid commentId)
         {
             var comment = await _unitOfWork.Comments.GetByIdAsync(commentId);
-            if (comment != null)
-                return comment;
-             throw new ItemDoesNotExistException(HttpStatusCode.NotFound, "There isn't such comment.");
-            
+            if (comment == null)
+            {
+                throw new ItemDoesNotExistException();
+            }
+            return comment;            
         }
 
         public async Task CreateCommentAsync(CommentCreateModel commentRequest)
@@ -55,12 +56,11 @@ namespace EventTracker.BLL.Services
             var comment = await _unitOfWork.Comments.GetByIdAsync(commentId);
             if (comment == null)
             {
-                throw new ItemDoesNotExistException(HttpStatusCode.NotFound, "Comment doesn't exist.");
+                throw new ItemDoesNotExistException();
             }
 
             comment = _mapper.Map<Comment>(commentRequest);
             comment.LastModifiedAt = DateTime.Now;
-
             _unitOfWork.Comments.Update(comment);
             await _unitOfWork.SaveAsync();
         }
@@ -70,7 +70,7 @@ namespace EventTracker.BLL.Services
             var commentToDelete = await _unitOfWork.Comments.GetByIdAsync(commentId);
             if (commentToDelete == null)
             {
-                throw new ItemDoesNotExistException(HttpStatusCode.NotFound, "Comment doesn't exist.");
+                throw new ItemDoesNotExistException();
             }
 
             _unitOfWork.Comments.Delete(commentToDelete);

@@ -11,6 +11,9 @@ namespace EventTracker.Middleware
     {
         public ExceptionHandlerOptions CustomOptions
         {
+
+
+
             get
             {
                 return new ExceptionHandlerOptions()
@@ -18,28 +21,36 @@ namespace EventTracker.Middleware
                     ExceptionHandler = async context =>
                     {
                         var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
-                        Exception error = contextFeature.Error;                     
-                        HttpException httpException = (HttpException)error;
-                        var httpCode = httpException.StatusCode;
+                        Exception error = contextFeature.Error;
+                        var response = context.Response;
 
-                        if (error == null)
+                        if (error == null || error is not HttpException)
                         {
                             Exception initialError = new Exception("internal error");
-                        }
+                        }                      
+                      
                         
+                        HttpException exception = (HttpException)error;
+                        var httpCode = exception.StatusCode;
+
                         context.Response.StatusCode = (int)httpCode;
                         context.Response.ContentType = "application/json";
-                       
-                        var result = JsonSerializer.Serialize(new
-                        {
-                            ExceptionType = $"{error.GetType().Name}",
-                            DefaultMessage = "There was an exception trying to process your request",
-                            SpecificMessage = $"{error.Message}"
-                        });
-                         context.Response.WriteAsync(result).Wait();
-                    }
+                        var result = JsonSerializer.Serialize(
+                             new
+                             {
+                                 ErrorMessage = "There was an exception",
+                                 ExceptionType = error.GetType().Name.ToString()
+                             });
+                        await response.WriteAsync(result);
+
+                    }                  
+                    
+
                 };
+
             }
+
         }
     }
 }
+
