@@ -15,9 +15,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityProvider", "Identit
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APIGateway", "APIGateway\APIGateway.csproj", "{82D56621-C0F8-46D2-8DC6-20CFC18BF20A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventTrackerBlog.WebAPI", "EventTrackerBlog.WebAPI\EventTrackerBlog.WebAPI.csproj", "{D960C7AF-6E5C-4112-BCF3-ED7848B9D97C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventTrackerBlog.WebAPI", "EventTrackerBlog.WebAPI\EventTrackerBlog.WebAPI.csproj", "{D960C7AF-6E5C-4112-BCF3-ED7848B9D97C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventTrackerBlog.BLL", "EventTrackerBlog.BLL\EventTrackerBlog.BLL.csproj", "{08175BC2-075F-452B-B9E7-F04BA50D393A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventTrackerBlog.BLL", "EventTrackerBlog.BLL\EventTrackerBlog.BLL.csproj", "{08175BC2-075F-452B-B9E7-F04BA50D393A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventTrackerBlog.DAL", "EventTrackerBlog.DAL\EventTrackerBlog.DAL.csproj", "{EE27FC94-2FA3-4842-9A4C-678B759AE17F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EventTrackerBlog", "EventTrackerBlog", "{2753AE3F-0D4E-4C86-8B9F-0A01EA44EA97}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,9 +61,18 @@ Global
 		{08175BC2-075F-452B-B9E7-F04BA50D393A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{08175BC2-075F-452B-B9E7-F04BA50D393A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{08175BC2-075F-452B-B9E7-F04BA50D393A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE27FC94-2FA3-4842-9A4C-678B759AE17F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE27FC94-2FA3-4842-9A4C-678B759AE17F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE27FC94-2FA3-4842-9A4C-678B759AE17F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE27FC94-2FA3-4842-9A4C-678B759AE17F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D960C7AF-6E5C-4112-BCF3-ED7848B9D97C} = {2753AE3F-0D4E-4C86-8B9F-0A01EA44EA97}
+		{08175BC2-075F-452B-B9E7-F04BA50D393A} = {2753AE3F-0D4E-4C86-8B9F-0A01EA44EA97}
+		{EE27FC94-2FA3-4842-9A4C-678B759AE17F} = {2753AE3F-0D4E-4C86-8B9F-0A01EA44EA97}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {45F49AD9-3D6E-459F-A161-77077E1AA5D7}
