@@ -19,7 +19,7 @@ namespace EventTrackerBlog.DAL.Seed
 
         private static void Seed(BlogDbContext context)
         {
-            // context.Database.EnsureCreated();
+             context.Database.EnsureCreated();
 
             if (!context.Articles.Any())
             {

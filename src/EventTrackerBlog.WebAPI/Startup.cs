@@ -1,5 +1,6 @@
 using EventTrackerBlog.DAL.Data;
 using EventTrackerBlog.DAL.Seed;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -29,12 +30,16 @@ namespace EventTrackerBlog.WebAPI
             });
 
             services.AddDbContext<BlogDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:Default"]));
+
+            services.AddScoped<IBlogDbContext, BlogDbContext>();
+
+            services.AddMediatR(typeof(Startup));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-           // BlogDbSeeder.PrepPopulation(app);
+            BlogDbSeeder.PrepPopulation(app);
 
             if (env.IsDevelopment())
             {
