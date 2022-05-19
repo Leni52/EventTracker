@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace EventTrackerBlog.DAL.Data
 {
-    public class BlogDbContext : DbContext, IBlogDbContext
+    public class BlogDbContext : DbContext
     {
         public BlogDbContext()
         {
@@ -27,10 +27,10 @@ namespace EventTrackerBlog.DAL.Data
 
             base.OnConfiguring(optionsBuilder);
         }
-        public async Task<int> SaveChanges()
-        {
+        //public async Task<int> SaveChanges()
+        //{
           
-           return await base.SaveChangesAsync();
-        }
+        //   return await base.SaveChangesAsync();
+        //}
     }
 }

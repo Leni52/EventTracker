@@ -1,5 +1,10 @@
+using System.Collections.Generic;
+using EventTrackerBlog.BLL.Handlers.Comments;
+using EventTrackerBlog.BLL.Queries.Comments;
 using EventTrackerBlog.DAL.Data;
+using EventTrackerBlog.DAL.Entities;
 using EventTrackerBlog.DAL.Seed;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -29,6 +34,10 @@ namespace EventTrackerBlog.WebAPI
             });
 
             services.AddDbContext<BlogDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:Default"]));
+            //services.AddScoped<IBlogDbContext, BlogDbContext>();
+            services.AddMediatR(typeof(Startup));
+            services.AddScoped<IRequestHandler<GetAllCommentsQuery, IEnumerable<Comment>>, GetAllCommentsHandler>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
