@@ -24,7 +24,7 @@ namespace EventTracker.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles ="Admin, RegularUser")]
+        [Authorize(Roles ="RegularUser")]
         public async Task<IEnumerable<EventResponseModel>> GetAllEventsAsync()
         {
             var events = await _eventService.GetAllEventsAsync();
@@ -40,7 +40,6 @@ namespace EventTracker.Controllers
         }
 
         [HttpPost]
-        //[Authorize("AdminOrEventHolder")]
         [Authorize(Roles ="Admin, EventHolder")]
         public async Task<IActionResult> CreateEventAsync(EventRequestModel eventRequest)
         {
@@ -67,7 +66,6 @@ namespace EventTracker.Controllers
         }
 
         [HttpDelete("{eventId}")]
-        //[Authorize("AdminOrEventHolder")]
         [Authorize(Roles = "Admin, EventHolder")]
         public async Task<IActionResult> DeleteEventAsync(Guid eventId)
         {
@@ -88,7 +86,7 @@ namespace EventTracker.Controllers
             return _mapper.Map<IEnumerable<CommentViewModel>>(comments);
         }
 
-        [HttpGet("{eventId}/SignUp")]
+        [HttpPut("{eventId}/SignUp")]
         [Authorize(Roles = "RegularUser")]
         public async Task<IActionResult> SignUpForEvent(Guid eventId)
         {
@@ -99,7 +97,7 @@ namespace EventTracker.Controllers
 
             await _eventService.SignUpRegularUser(eventId, User);
 
-            return Ok("Event deleted successfully.");
+            return Ok();
         }
     }
 }

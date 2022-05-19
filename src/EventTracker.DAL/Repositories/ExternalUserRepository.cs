@@ -14,7 +14,7 @@ namespace EventTracker.DAL.Repositories
 
         public async Task<ExternalUser> GetByExternalId(string externalId)
         {
-            return await  _context.ExternalUsers.FirstOrDefaultAsync(u => u.ExternalUserId.Equals(externalId));
+            return await  _context.ExternalUsers.FirstOrDefaultAsync(u => u.ExternalUserId.ToString().Equals(externalId));
         }
     }
 }

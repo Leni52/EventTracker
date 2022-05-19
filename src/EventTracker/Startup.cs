@@ -62,9 +62,6 @@ namespace EventTracker
 
             services.AddAuthorization(options =>
             {
-            //    options.AddPolicy("AdminOrEventHolder", policy =>
-            //    policy.Requirements.Add(new AdminOrEventHolderRequirement()));
-
                 options.AddPolicy("AdminOrEventHolder", policy =>
                 policy.RequireRole("AdminOrEventHolder"));
 
