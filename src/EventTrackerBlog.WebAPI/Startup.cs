@@ -37,6 +37,7 @@ namespace EventTrackerBlog.WebAPI
                 options.UseSqlServer(Configuration["ConnectionStrings:Default"]));
             services.AddMediatR(typeof(Startup));
             services.AddScoped<IRequestHandler<GetAllCommentsQuery, IEnumerable<Comment>>, GetAllCommentsHandler>();
+            services.AddScoped<IRequestHandler<GetCommentByIdQuery, Comment>, GetCommentByIdHandler>();
 
         }
 

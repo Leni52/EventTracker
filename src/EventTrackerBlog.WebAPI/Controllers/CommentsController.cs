@@ -38,14 +38,9 @@ namespace EventTrackerBlog.WebAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Comment>> GetComment(Guid id)
         {
-            var comment = await _context.Comments.FindAsync(id);
-
-            if (comment == null)
-            {
-                return NotFound();
-            }
-
-            return comment;
+            var query = new GetCommentByIdQuery(id);
+            var result = await _mediator.Send(query);
+            return result != null ? Ok(result) : NotFound();
         }
 
         // PUT: api/Comments/5
