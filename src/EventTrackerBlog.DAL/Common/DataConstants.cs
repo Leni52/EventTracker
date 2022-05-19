@@ -4,5 +4,7 @@
     {
         public const int TitleMaxLength = 200;
         public const int ContentMaxLength = 10000;
+
+        public const int CommentMaxLength = 3000;
     }
 }
