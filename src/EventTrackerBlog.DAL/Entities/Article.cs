@@ -1,4 +1,5 @@
-﻿using EventTracker.DAL.Entities;
+﻿using System.Collections.Generic;
+using EventTracker.DAL.Entities;
 using System.ComponentModel.DataAnnotations;
 
 namespace EventTrackerBlog.DAL.Entities
@@ -13,5 +14,7 @@ namespace EventTrackerBlog.DAL.Entities
         [Required]
         [MaxLength(ContentMaxLength)]
         public string Content { get; set; }
+
+        public IEnumerable<Comment> Comments { get; set; }
     }
 }
