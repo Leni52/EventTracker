@@ -1,5 +1,7 @@
 ﻿using EventTrackerBlog.DAL.Entities;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Threading.Tasks;
 
 namespace EventTrackerBlog.DAL.Data
 {
@@ -23,6 +25,11 @@ namespace EventTrackerBlog.DAL.Data
             }
 
             base.OnConfiguring(optionsBuilder);
+        }
+        public async Task<int> SaveChanges()
+        {
+          
+           return await base.SaveChangesAsync();
         }
     }
 }
