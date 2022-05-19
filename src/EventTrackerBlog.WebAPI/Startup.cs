@@ -1,6 +1,3 @@
-using EventTrackerBlog.BLL.Commands;
-using EventTrackerBlog.BLL.Handlers;
-using EventTrackerBlog.BLL.Queries;
 using EventTrackerBlog.DAL.Data;
 using EventTrackerBlog.DAL.Entities;
 using EventTrackerBlog.DAL.Seed;
@@ -38,9 +35,16 @@ namespace EventTrackerBlog.WebAPI
             services.AddDbContext<BlogDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:Default"]));
 
 
-
+            services.AddDbContext<BlogDbContext>(options =>
+                options.UseSqlServer(Configuration["ConnectionStrings:Default"]));
             services.AddMediatR(typeof(Startup));
+           
             //register handlers and queries/commands
+
+            services.AddScoped<IRequestHandler<GetAllCommentsQuery, IEnumerable<Comment>>, GetAllCommentsHandler>();
+
+            
+           
             services.AddScoped<IRequestHandler<GetAllArticlesQuery, IEnumerable<Article>>, GetAllArticlesHandler>();
             services.AddScoped<IRequestHandler<GetArticleByIdQuery, Article>, GetArticleByIdHandler>();
             services.AddScoped<IRequestHandler<CreateArticleCommand, Article>, CreateArticleCommandHandler>();
