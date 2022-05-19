@@ -24,6 +24,7 @@ namespace EventTracker.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "RegularUser")]
         public async Task<IEnumerable<EventResponseModel>> GetAllEventsAsync()
         {
             var events = await _eventService.GetAllEventsAsync();
@@ -31,6 +32,7 @@ namespace EventTracker.Controllers
         }
 
         [HttpGet("{eventId}")]
+        [Authorize(Roles = "RegularUser")]
         public async Task<EventResponseModel> GetEventByIdAsync(Guid eventId)
         {
             var eventById = await _eventService.GetEventByIdAsync(eventId);
@@ -38,7 +40,8 @@ namespace EventTracker.Controllers
         }
 
         [HttpPost]
-        [Authorize("AdminOrEventHolder")]
+        //[Authorize("AdminOrEventHolder")]
+        [Authorize(Roles ="Admin, EventHolder")]
         public async Task<IActionResult> CreateEventAsync(EventRequestModel eventRequest)
         {
             await _eventService.CreateEventAsync(eventRequest);
@@ -51,7 +54,7 @@ namespace EventTracker.Controllers
         }
 
         [HttpPut("{eventId}")]
-        [Authorize("AdminOrEventHolder")]
+        [Authorize(Roles = "Admin, EventHolder")]
         public async Task<IActionResult> EditEventAsync(EventRequestModel eventRequest, Guid eventId)
         {
             await _eventService.EditEventAsync(eventRequest, eventId);
@@ -64,7 +67,8 @@ namespace EventTracker.Controllers
         }
 
         [HttpDelete("{eventId}")]
-        [Authorize("AdminOrEventHolder")]
+        //[Authorize("AdminOrEventHolder")]
+        [Authorize(Roles = "Admin, EventHolder")]
         public async Task<IActionResult> DeleteEventAsync(Guid eventId)
         {
             await _eventService.DeleteEventAsync(eventId);
@@ -85,6 +89,7 @@ namespace EventTracker.Controllers
         }
 
         [HttpGet("{eventId}/SignUp")]
+        [Authorize(Roles = "RegularUser")]
         public async Task<IActionResult> SignUpForEvent(Guid eventId)
         {
             if (!ModelState.IsValid)

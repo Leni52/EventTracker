@@ -57,7 +57,7 @@ namespace APIGateway
                 app.UseDeveloperExceptionPage();
             }
             app.UseRouting();
-            app.UseHttpsRedirection();
+           // app.UseHttpsRedirection();
             app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>

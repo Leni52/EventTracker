@@ -3,7 +3,6 @@ using EventTracker.BLL.Services;
 using EventTracker.DAL.Contracts;
 using EventTracker.DAL.Data;
 using EventTracker.DAL.Repositories;
-using IdentityProvider.Authorization.Requirements;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +15,7 @@ using System;
 using EventTracker.Data;
 using EventTracker.BLL.Entities;
 using System.Text;
+using MailKit.Net.Smtp;
 
 namespace EventTracker
 {
@@ -62,8 +62,14 @@ namespace EventTracker
 
             services.AddAuthorization(options =>
             {
+            //    options.AddPolicy("AdminOrEventHolder", policy =>
+            //    policy.Requirements.Add(new AdminOrEventHolderRequirement()));
+
                 options.AddPolicy("AdminOrEventHolder", policy =>
-                policy.Requirements.Add(new AdminOrEventHolderRequirement()));
+                policy.RequireRole("AdminOrEventHolder"));
+
+                options.AddPolicy("RegularUser", policy =>
+                policy.RequireRole("RegularUser"));
             });
 
             //end of gateway part
@@ -81,17 +87,19 @@ namespace EventTracker
 
             services.AddTransient<IEventService, EventService>();
             services.AddTransient<ICommentService, CommentService>();
-            services.AddTransient<IMailService, MailService>();
-            services.AddTransient<INotificationService, NotificationService>();
+            services.AddScoped<IMailService, MailService>();
+            services.AddScoped<INotificationService, NotificationService>();
+            services.AddScoped<SmtpClient>();
 
             services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
             services.AddTransient<IUnitOfWork, UnitOfWork>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            DatabaseSeeder.PrepPopulation(app);
+           // DatabaseSeeder.PrepPopulation(app);
 
             if (env.IsDevelopment())
             {
@@ -100,7 +108,7 @@ namespace EventTracker
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "EventTracker v1"));
             }
 
-            app.UseHttpsRedirection();
+           // app.UseHttpsRedirection();
 
             app.UseRouting();
 

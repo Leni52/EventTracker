@@ -10,7 +10,6 @@
         }
       ],
       "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": []
       },
       "UpstreamPathTemplate": "/gateway/events",
@@ -26,7 +25,6 @@
         }
       ],
       "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": []
       },
       "UpstreamPathTemplate": "/gateway/events/{id}",
