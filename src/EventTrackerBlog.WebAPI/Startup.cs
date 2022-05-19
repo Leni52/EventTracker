@@ -1,3 +1,8 @@
+using EventTrackerBlog.BLL.Commands;
+using EventTrackerBlog.BLL.Handlers;
+using EventTrackerBlog.BLL.Handlers.Comments;
+using EventTrackerBlog.BLL.Queries;
+using EventTrackerBlog.BLL.Queries.Comments;
 using EventTrackerBlog.DAL.Data;
 using EventTrackerBlog.DAL.Entities;
 using EventTrackerBlog.DAL.Seed;
