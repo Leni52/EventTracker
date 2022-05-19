@@ -24,7 +24,7 @@ namespace EventTrackerBlog.WebAPI.Controllers
         public async Task<IActionResult> GetAllArticles()
         {
          
-            return Ok(await Mediator.Send(new GetArticleListsQuery()));
+            return Ok(await Mediator.Send(new GetAllArticlesQuery()));
         }
         [HttpGet("{articleId}")]
         public async Task<IActionResult> GetById(Guid articleId)

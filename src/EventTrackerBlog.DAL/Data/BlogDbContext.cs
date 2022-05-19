@@ -27,10 +27,6 @@ namespace EventTrackerBlog.DAL.Data
 
             base.OnConfiguring(optionsBuilder);
         }
-        //public async Task<int> SaveChanges()
-        //{
-          
-        //   return await base.SaveChangesAsync();
-        //}
+       
     }
 }
