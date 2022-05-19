@@ -13,30 +13,32 @@ namespace EventTrackerBlog.DAL.Seed
     {
         public static void PrepPopulation(IApplicationBuilder app)
         {
-            using var serviceScope = app.ApplicationServices.CreateScope();
-            Seed(serviceScope.ServiceProvider.GetService<BlogDbContext>());
+            using (var serviceScope = app.ApplicationServices.CreateScope())
+            {
+                Seed(serviceScope.ServiceProvider.GetService<BlogDbContext>());
+            }
         }
 
         private static void Seed(BlogDbContext context)
         {
-             context.Database.EnsureCreated();
+            context.Database.EnsureCreated();
 
             if (!context.Articles.Any())
             {
                 SeedArticles(context);
+                context.SaveChanges();
             }
 
             if (!context.Comments.Any())
             {
                 SeedComments(context);
+                context.SaveChanges();
             }
-
-            context.SaveChanges();
         }
 
-        private static void SeedArticles(DbContext context)
+        private static void SeedArticles(BlogDbContext context)
         {
-            context.AddRange(new List<Article>
+            context.Articles.AddRange(new List<Article>
             {
                 new()
                 {
@@ -55,21 +57,25 @@ namespace EventTrackerBlog.DAL.Seed
             });
         }
 
-        private static void SeedComments(DbContext context)
+        private static void SeedComments(BlogDbContext context)
         {
-            context.AddRange(new List<Comment>
+            var articleId = context.Articles
+                .Select(a => a.Id)
+                .FirstOrDefault();
+
+            context.Comments.AddRange(new List<Comment>
             {
                 new()
                 {
                     Content = "Test Article Comment",
-                    ArticleId = new Guid("E2333320-8BEA-47B1-7187-08DA395D2539"),
+                    ArticleId = articleId,
                     CreatedAt = DateTime.Now,
                     LastModifiedAt = DateTime.Now
                 },
                 new()
                 {
                     Content = "Another Article Comment",
-                    ArticleId = new Guid("A61EB005-074E-4805-7188-08DA395D2539"),
+                    ArticleId = articleId,
                     CreatedAt = DateTime.Now,
                     LastModifiedAt = DateTime.Now
                 }
