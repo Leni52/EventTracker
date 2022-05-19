@@ -24,7 +24,7 @@ namespace EventTracker.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "RegularUser")]
+        [Authorize(Roles ="Admin, RegularUser")]
         public async Task<IEnumerable<EventResponseModel>> GetAllEventsAsync()
         {
             var events = await _eventService.GetAllEventsAsync();

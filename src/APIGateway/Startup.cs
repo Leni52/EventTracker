@@ -26,25 +26,25 @@ namespace APIGateway
            
             services.AddOcelot();
             
-            var audienceConfig = Configuration.GetSection("JWTConfig");
-            var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(audienceConfig["Secret"]));
+            //var audienceConfig = Configuration.GetSection("JWTConfig");
+            //var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(audienceConfig["Secret"]));
 
-            var tokenValidationParameters = new TokenValidationParameters
-            {
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKey = signingKey,
-                ValidateIssuer = true,
-                ValidIssuer = audienceConfig["Issuer"],
-                ValidateAudience = true,
-                ValidAudience = audienceConfig["Audience"],
-                //ValidateLifetime = true,
-                ClockSkew = TimeSpan.Zero
-            };
-            services.AddAuthentication().
-                AddJwtBearer("Bearer", options =>
-                {
-                    options.TokenValidationParameters = tokenValidationParameters;
-                });
+            //var tokenValidationParameters = new TokenValidationParameters
+            //{
+            //    ValidateIssuerSigningKey = true,
+            //    IssuerSigningKey = signingKey,
+            //    ValidateIssuer = true,
+            //    ValidIssuer = audienceConfig["Issuer"],
+            //    ValidateAudience = true,
+            //    ValidAudience = audienceConfig["Audience"],
+            //    //ValidateLifetime = true,
+            //    ClockSkew = TimeSpan.Zero
+            //};
+            //services.AddAuthentication().
+            //    AddJwtBearer("Bearer", options =>
+            //    {
+            //        options.TokenValidationParameters = tokenValidationParameters;
+            //    });
 
 
         }
