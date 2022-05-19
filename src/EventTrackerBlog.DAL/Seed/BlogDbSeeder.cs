@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using EventTracker.DAL.Data;
-using EventTracker.DAL.Entities;
-using EventTracker.DAL.Enums;
 using EventTrackerBlog.DAL.Data;
 using EventTrackerBlog.DAL.Entities;
 using Microsoft.AspNetCore.Builder;
