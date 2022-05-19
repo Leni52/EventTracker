@@ -3,13 +3,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EventTrackerBlog.DAL.Data
 {
-    public class BlogDbContext : DbContext
+    public class BlogDbContext : DbContext, IBlogDbContext
     {
         public BlogDbContext()
         {
         }
 
-        public BlogDbContext(DbContextOptions options):base(options)
+        public BlogDbContext(DbContextOptions options) : base(options)
         {
         }
 
