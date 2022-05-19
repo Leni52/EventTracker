@@ -33,8 +33,8 @@ namespace EventTrackerBlog.WebAPI
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "EventTrackerBlog.WebAPI", Version = "v1" });
             });
 
-            services.AddDbContext<BlogDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:Default"]));
-            //services.AddScoped<IBlogDbContext, BlogDbContext>();
+            services.AddDbContext<BlogDbContext>(options =>
+                options.UseSqlServer(Configuration["ConnectionStrings:Default"]));
             services.AddMediatR(typeof(Startup));
             services.AddScoped<IRequestHandler<GetAllCommentsQuery, IEnumerable<Comment>>, GetAllCommentsHandler>();
 

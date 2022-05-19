@@ -23,6 +23,7 @@ namespace EventTrackerBlog.WebAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllArticles()
         {
+         
             return Ok(await Mediator.Send(new GetArticleListsQuery()));
         }
         [HttpGet("{articleId}")]
