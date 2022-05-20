@@ -13,7 +13,7 @@ namespace EventTrackerBlog.DAL.Migrations
     [Migration("20220519105911_Second")]
     partial class Second
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

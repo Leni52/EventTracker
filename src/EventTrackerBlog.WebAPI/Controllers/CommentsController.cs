@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EventTrackerBlog.Application.Commands.Comments;
 using EventTrackerBlog.Application.Queries.Comments;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -25,8 +26,7 @@ namespace EventTrackerBlog.WebAPI.Controllers
             _context = context;
             _mediator = mediator;
         }
-
-        // GET: api/Comments
+        
         [HttpGet("{articleId}/comments")]
         public async Task<ActionResult<IEnumerable<Comment>>> GetComments(Guid articleId)
         {
@@ -34,8 +34,7 @@ namespace EventTrackerBlog.WebAPI.Controllers
             var result = await _mediator.Send(query);
             return Ok(result);
         }
-
-        // GET: api/Comments/5
+        
         [HttpGet("{id}")]
         public async Task<ActionResult<Comment>> GetCommentById(Guid id)
         {
@@ -49,11 +48,28 @@ namespace EventTrackerBlog.WebAPI.Controllers
 
             return Ok(result);
         }
+        
+        [HttpPost]
+        public async Task<ActionResult<Comment>> CreateComment(CommentRequestModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
 
-        // PUT: api/Comments/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+            var command = new CreateCommentCommand
+            {
+                ArticleId = model.ArticleId,
+                Content = model.Content
+            };
+
+            var result = await _mediator.Send(command);
+
+            return Ok(result);
+        }
+        
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutComment(Guid id, Comment comment)
+        public async Task<IActionResult> ЕditComment(Guid id, Comment comment)
         {
             if (id != comment.Id)
             {
@@ -80,27 +96,7 @@ namespace EventTrackerBlog.WebAPI.Controllers
 
             return NoContent();
         }
-
-        // POST: api/Comments
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Comment>> CreateComment(CommentRequestModel command)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
-
-            var result = await _mediator.Send(new CommentResponseModel
-            {
-                ArticleId = command.ArticleId,
-                Content = command.Content
-            });
-
-            return Ok(result);
-        }
-
-        // DELETE: api/Comments/5
+        
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteComment(Guid id)
         {
