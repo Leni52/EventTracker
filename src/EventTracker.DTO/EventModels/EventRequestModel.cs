@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace EventTracker.DTO.EventModels
 {
-    public class EventRequestModel
+    public class EventRequestModel : IValidatableObject
     {
         [Required]
         [MaxLength(50)]
