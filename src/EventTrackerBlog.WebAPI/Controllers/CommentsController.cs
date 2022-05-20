@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 
 namespace EventTrackerBlog.WebAPI.Controllers
 {
@@ -17,12 +18,12 @@ namespace EventTrackerBlog.WebAPI.Controllers
     [ApiController]
     public class CommentsController : ControllerBase
     {
-        private readonly BlogDbContext _context;
+        private readonly IMapper _mapper;
         private readonly IMediator _mediator;
 
-        public CommentsController(BlogDbContext context, IMediator mediator)
+        public CommentsController(IMapper mapper, IMediator mediator)
         {
-            _context = context;
+            _mapper = mapper;
             _mediator = mediator;
         }
 
@@ -55,13 +56,8 @@ namespace EventTrackerBlog.WebAPI.Controllers
             {
                 return BadRequest();
             }
-
-            var command = new CreateCommentCommand
-            {
-                ArticleId = model.ArticleId,
-                Content = model.Content
-            };
-
+            
+            var command = _mapper.Map<CreateCommentCommand>(model);
             var result = await _mediator.Send(command);
 
             return Ok(result);
@@ -74,13 +70,8 @@ namespace EventTrackerBlog.WebAPI.Controllers
             {
                 return BadRequest();
             }
-
-            var command = new EditCommentCommand
-            {
-                Id = model.Id,
-                Content = model.Content
-            };
-
+            
+            var command = _mapper.Map<EditCommentCommand>(model);
             var result = await _mediator.Send(command);
 
             if (result == null)
