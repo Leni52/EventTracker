@@ -12,7 +12,5 @@ namespace IdentityProvider.Interfaces
         Task<List<IdentityUser>> GetAllUsersInRole(string roleName);
         Task<bool> AddUserToRole(string roleName, string userId);
         Task<bool> RemoveUserFromRole(string roleName, string userId);
-        Task<bool> IsUserAdminOrEventHolder(IdentityUser user);
-        Task<bool> IsRegularUser(IdentityUser user);
     }
 }

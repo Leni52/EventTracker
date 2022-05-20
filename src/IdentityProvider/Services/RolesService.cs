@@ -110,25 +110,5 @@ namespace IdentityProvider
 
             return false;
         }
-
-        public async Task<bool> IsUserAdminOrEventHolder(IdentityUser user)
-        {
-            if (await _userManager.IsInRoleAsync(user, "Admin") || await _userManager.IsInRoleAsync(user, "EventHolder"))
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        public async Task<bool> IsRegularUser(IdentityUser user)
-        {
-            if (await _userManager.IsInRoleAsync(user, "RegularUser"))
-            {
-                return true;
-            }
-
-            return false;
-        }
     }
 }
