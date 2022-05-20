@@ -1,4 +1,4 @@
-﻿using EventTrackerBlog.BLL.Commands;
+﻿using EventTrackerBlog.BLL.Commands.Articles;
 using EventTrackerBlog.DAL.Data;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace EventTrackerBlog.BLL.Handlers
+namespace EventTrackerBlog.BLL.Handlers.Articles
 {
     public class UpdateArticleCommandHandler : IRequestHandler<UpdateArticleCommand, Guid>
     {

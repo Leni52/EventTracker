@@ -1,4 +1,4 @@
-﻿using EventTrackerBlog.BLL.Commands;
+﻿using EventTrackerBlog.BLL.Commands.Articles;
 using EventTrackerBlog.DAL.Data;
 using EventTrackerBlog.DAL.Entities;
 using MediatR;
@@ -6,7 +6,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace EventTrackerBlog.BLL.Handlers
+namespace EventTrackerBlog.BLL.Handlers.Articles
 {
     public class CreateArticleCommandHandler : IRequestHandler<CreateArticleCommand, Article>
     {
@@ -16,7 +16,7 @@ namespace EventTrackerBlog.BLL.Handlers
             _context = context;
         }
 
-       public async Task<Article> Handle(CreateArticleCommand request, CancellationToken cancellationToken)
+        public async Task<Article> Handle(CreateArticleCommand request, CancellationToken cancellationToken)
         {
             var article = new Article();
             article.Title = request.Title;
