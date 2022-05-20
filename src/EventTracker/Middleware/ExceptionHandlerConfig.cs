@@ -11,46 +11,32 @@ namespace EventTracker.Middleware
     {
         public ExceptionHandlerOptions CustomOptions
         {
-
-
-
-            get
+            get => new ExceptionHandlerOptions()
             {
-                return new ExceptionHandlerOptions()
+                ExceptionHandler = async context =>
                 {
-                    ExceptionHandler = async context =>
+                    var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
+                    Exception error = contextFeature.Error;
+                    var response = context.Response;
+                    if (error == null || error is not HttpException)
                     {
-                        var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
-                        Exception error = contextFeature.Error;
-                        var response = context.Response;
-
-                        if (error == null || error is not HttpException)
-                        {
-                            Exception initialError = new Exception("internal error");
-                        }                      
-                      
-                        
-                        HttpException exception = (HttpException)error;
-                        var httpCode = exception.StatusCode;
-
-                        context.Response.StatusCode = (int)httpCode;
-                        context.Response.ContentType = "application/json";
-                        var result = JsonSerializer.Serialize(
-                             new
-                             {
-                                 ErrorMessage = "There was an exception",
-                                 ExceptionType = error.GetType().Name.ToString()
-                             });
-                        await response.WriteAsync(result);
-
-                    }                  
-                    
-
-                };
-
-            }
-
+                        Exception initialError = new Exception("internal error");
+                    }
+                    HttpException exception = (HttpException)error;
+                    var httpCode = exception.StatusCode;
+                    context.Response.StatusCode = (int)httpCode;
+                    context.Response.ContentType = "application/json";
+                    var result = JsonSerializer.Serialize(
+                         new
+                         {
+                             ErrorMessage = "There was an exception",
+                             ExceptionType = error.GetType().Name.ToString()
+                         });
+                    await response.WriteAsync(result);
+                }
+            };
         }
     }
 }
+
 
