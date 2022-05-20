@@ -39,12 +39,13 @@ namespace EventTrackerBlog.WebAPI
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "EventTrackerBlog.WebAPI", Version = "v1" });
             });
+
+            services.AddAutoMapper(typeof(Startup));
             //dbcontext and sqlserver
             services.AddDbContext<BlogDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:Default"]));
 
             services.AddDbContext<BlogDbContext>(options =>
                 options.UseSqlServer(Configuration["ConnectionStrings:Default"]));
-
 
             //register handlers and queries/commands
             services.AddMediatR(typeof(Startup));
