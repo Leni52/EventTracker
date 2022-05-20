@@ -69,32 +69,27 @@ namespace EventTrackerBlog.WebAPI.Controllers
         }
         
         [HttpPut("{id}")]
-        public async Task<IActionResult> ЕditComment(Guid id, Comment comment)
+        public async Task<IActionResult> ЕditComment(CommentEditRequestModel model)
         {
-            if (id != comment.Id)
+            if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
 
-            _context.Entry(comment).State = EntityState.Modified;
+            var command = new EditCommentCommand
+            {
+                Id = model.Id,
+                Content = model.Content
+            };
 
-            try
+            var result = await _mediator.Send(command);
+
+            if (result == null)
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CommentExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return NotFound();
             }
 
-            return NoContent();
+            return Ok(result);
         }
         
         [HttpDelete("{id}")]
