@@ -1,12 +1,10 @@
-﻿using EventTrackerBlog.BLL.Queries.Articles;
+﻿using EventTrackerBlog.Application.Exceptions;
+using EventTrackerBlog.BLL.Queries.Articles;
 using EventTrackerBlog.DAL.Data;
 using EventTrackerBlog.DAL.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -19,13 +17,12 @@ namespace EventTrackerBlog.BLL.Handlers.Articles
         {
             _context = context;
         }
-
         public async Task<IEnumerable<Article>> Handle(GetAllArticlesQuery request, CancellationToken cancellationToken)
         {
             var articlesList = await _context.Articles.ToListAsync();
             if (articlesList == null)
             {
-                return null;
+                throw new ItemDoesNotExistException();
             }
             return articlesList.AsReadOnly();
         }

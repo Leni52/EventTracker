@@ -18,6 +18,7 @@ using System;
 using System.Collections.Generic;
 using EventTrackerBlog.BLL.Commands.Comments;
 using EventTrackerBlog.DAL.DTO.Comments.Response;
+using EventTrackerBlog.WebAPI.Middleware;
 
 namespace EventTrackerBlog.WebAPI
 {
@@ -38,21 +39,21 @@ namespace EventTrackerBlog.WebAPI
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "EventTrackerBlog.WebAPI", Version = "v1" });
             });
-
+            //dbcontext and sqlserver
             services.AddDbContext<BlogDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:Default"]));
-
 
             services.AddDbContext<BlogDbContext>(options =>
                 options.UseSqlServer(Configuration["ConnectionStrings:Default"]));
-            services.AddMediatR(typeof(Startup));
-           
+
+
             //register handlers and queries/commands
+            services.AddMediatR(typeof(Startup));
 
             services.AddScoped<IRequestHandler<GetAllCommentsQuery, IEnumerable<Comment>>, GetAllCommentsHandler>();
             services.AddScoped<IRequestHandler<GetCommentByIdQuery, Comment>, GetCommentByIdHandler>();
             services.AddScoped<IRequestHandler<CreateCommentCommand, CommentResponseModel>, CreateCommentHandler>();
-            
-           
+
+
             services.AddScoped<IRequestHandler<GetAllArticlesQuery, IEnumerable<Article>>, GetAllArticlesHandler>();
             services.AddScoped<IRequestHandler<GetArticleByIdQuery, Article>, GetArticleByIdHandler>();
             services.AddScoped<IRequestHandler<CreateArticleCommand, Article>, CreateArticleCommandHandler>();
@@ -63,7 +64,7 @@ namespace EventTrackerBlog.WebAPI
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-              BlogDbSeeder.PrepPopulation(app);
+            BlogDbSeeder.PrepPopulation(app);
 
             if (env.IsDevelopment())
             {
@@ -71,6 +72,7 @@ namespace EventTrackerBlog.WebAPI
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "EventTrackerBlog.WebAPI v1"));
             }
+            app.UseExceptionHandler(new ExceptionHandlerConfig().CustomOptions);
 
             app.UseHttpsRedirection();
 

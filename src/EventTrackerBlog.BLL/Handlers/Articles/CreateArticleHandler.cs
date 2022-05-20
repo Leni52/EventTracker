@@ -2,7 +2,6 @@
 using EventTrackerBlog.DAL.Data;
 using EventTrackerBlog.DAL.Entities;
 using MediatR;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -15,7 +14,6 @@ namespace EventTrackerBlog.BLL.Handlers.Articles
         {
             _context = context;
         }
-
         public async Task<Article> Handle(CreateArticleCommand request, CancellationToken cancellationToken)
         {
             var article = new Article();

@@ -1,5 +1,4 @@
 ﻿using EventTrackerBlog.BLL.Commands.Articles;
-using EventTrackerBlog.BLL.Queries;
 using EventTrackerBlog.BLL.Queries.Articles;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -24,14 +23,16 @@ namespace EventTrackerBlog.WebAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllArticles()
         {
-         
+
             return Ok(await Mediator.Send(new GetAllArticlesQuery()));
         }
         [HttpGet("{articleId}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
         public async Task<IActionResult> GetById(Guid articleId)
         {
-            return Ok(await Mediator.Send(new GetArticleByIdQuery { ArticleId = articleId }));
-
+            var article = await Mediator.Send(new GetArticleByIdQuery { ArticleId = articleId });
+            return Ok(article);
         }
         [HttpDelete("{articleId}")]
         public async Task<IActionResult> DeleteArticle(Guid articleId)
@@ -39,7 +40,7 @@ namespace EventTrackerBlog.WebAPI.Controllers
             return Ok(await Mediator.Send(new DeleteArticleByIdCommand { ArticleId = articleId }));
         }
         [HttpPut("articleId")]
-        public async Task<IActionResult>UpdateArticle(Guid articleId, UpdateArticleCommand command)
+        public async Task<IActionResult> UpdateArticle(Guid articleId, UpdateArticleCommand command)
         {
             if (articleId != command.ArticleId)
             {
