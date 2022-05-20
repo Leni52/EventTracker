@@ -6,5 +6,6 @@
         public const int ContentMaxLength = 10000;
 
         public const int CommentMaxLength = 3000;
+        public const int CommentMinLength = 3;
     }
 }

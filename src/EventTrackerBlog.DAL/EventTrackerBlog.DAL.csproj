@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="DTO\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\EventTracker.DAL\EventTracker.DAL.csproj" />
   </ItemGroup>
 
