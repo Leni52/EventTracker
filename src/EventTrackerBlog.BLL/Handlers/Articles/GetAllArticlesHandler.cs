@@ -1,4 +1,4 @@
-﻿using EventTrackerBlog.BLL.Queries;
+﻿using EventTrackerBlog.BLL.Queries.Articles;
 using EventTrackerBlog.DAL.Data;
 using EventTrackerBlog.DAL.Entities;
 using MediatR;
@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace EventTrackerBlog.BLL.Handlers
+namespace EventTrackerBlog.BLL.Handlers.Articles
 {
     public class GetAllArticlesHandler : IRequestHandler<GetAllArticlesQuery, IEnumerable<Article>>
     {

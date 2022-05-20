@@ -6,11 +6,11 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace EventTrackerBlog.BLL.Queries
+namespace EventTrackerBlog.BLL.Queries.Articles
 {
     public class GetArticleByIdQuery : IRequest<Article>
     {
-        public Guid ArticleId { get; set; }      
-        
+        public Guid ArticleId { get; set; }
+       
     }
 }

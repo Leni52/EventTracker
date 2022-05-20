@@ -1,5 +1,6 @@
-﻿using EventTrackerBlog.BLL.Commands;
+﻿using EventTrackerBlog.BLL.Commands.Articles;
 using EventTrackerBlog.BLL.Queries;
+using EventTrackerBlog.BLL.Queries.Articles;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
