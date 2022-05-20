@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using EventTracker.BLL.Exceptions;
 using EventTracker.BLL.Interfaces;
 using EventTracker.DAL.Contracts;
 using EventTracker.DAL.Data;
@@ -8,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -32,8 +34,11 @@ namespace EventTracker.BLL.Services
         public async Task<Comment> GetCommentByIdAsync(Guid commentId)
         {
             var comment = await _unitOfWork.Comments.GetByIdAsync(commentId);
-            if (comment != null) return comment;
-            throw new Exception("Comment doesn't exist.");
+            if (comment == null)
+            {
+                throw new ItemDoesNotExistException();
+            }
+            return comment;            
         }
 
         public async Task CreateCommentAsync(CommentCreateModel commentRequest)
@@ -51,12 +56,11 @@ namespace EventTracker.BLL.Services
             var comment = await _unitOfWork.Comments.GetByIdAsync(commentId);
             if (comment == null)
             {
-                throw new Exception("Comment doesn't exist.");
+                throw new ItemDoesNotExistException();
             }
 
             comment = _mapper.Map<Comment>(commentRequest);
             comment.LastModifiedAt = DateTime.Now;
-
             _unitOfWork.Comments.Update(comment);
             await _unitOfWork.SaveAsync();
         }
@@ -66,7 +70,7 @@ namespace EventTracker.BLL.Services
             var commentToDelete = await _unitOfWork.Comments.GetByIdAsync(commentId);
             if (commentToDelete == null)
             {
-                throw new Exception("Comment doesn't exist.");
+                throw new ItemDoesNotExistException();
             }
 
             _unitOfWork.Comments.Delete(commentToDelete);
