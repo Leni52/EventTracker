@@ -1,16 +1,15 @@
-﻿using System;
+﻿using EventTrackerBlog.Application.Commands.Comments;
+using EventTrackerBlog.Application.Queries.Comments;
+using EventTrackerBlog.Domain.Data;
+using EventTrackerBlog.Domain.DTO.Comments.Request;
+using EventTrackerBlog.Domain.Entities;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using EventTrackerBlog.Application.Commands.Comments;
-using EventTrackerBlog.Application.Queries.Comments;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using EventTrackerBlog.Domain.Data;
-using EventTrackerBlog.Domain.DTO.Comments.Request;
-using EventTrackerBlog.Domain.DTO.Comments.Response;
-using EventTrackerBlog.Domain.Entities;
-using MediatR;
 
 namespace EventTrackerBlog.WebAPI.Controllers
 {
@@ -26,7 +25,7 @@ namespace EventTrackerBlog.WebAPI.Controllers
             _context = context;
             _mediator = mediator;
         }
-        
+
         [HttpGet("{articleId}/comments")]
         public async Task<ActionResult<IEnumerable<Comment>>> GetComments(Guid articleId)
         {
@@ -34,7 +33,7 @@ namespace EventTrackerBlog.WebAPI.Controllers
             var result = await _mediator.Send(query);
             return Ok(result);
         }
-        
+
         [HttpGet("{id}")]
         public async Task<ActionResult<Comment>> GetCommentById(Guid id)
         {
@@ -48,7 +47,7 @@ namespace EventTrackerBlog.WebAPI.Controllers
 
             return Ok(result);
         }
-        
+
         [HttpPost]
         public async Task<ActionResult<Comment>> CreateComment(CommentRequestModel model)
         {
@@ -67,7 +66,7 @@ namespace EventTrackerBlog.WebAPI.Controllers
 
             return Ok(result);
         }
-        
+
         [HttpPut("{id}")]
         public async Task<IActionResult> ЕditComment(Guid id, Comment comment)
         {
@@ -96,7 +95,7 @@ namespace EventTrackerBlog.WebAPI.Controllers
 
             return NoContent();
         }
-        
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteComment(Guid id)
         {

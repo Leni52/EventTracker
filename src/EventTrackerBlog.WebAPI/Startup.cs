@@ -1,3 +1,14 @@
+using EventTrackerBlog.Application.Commands.Articles;
+using EventTrackerBlog.Application.Commands.Comments;
+using EventTrackerBlog.Application.Handlers.Articles;
+using EventTrackerBlog.Application.Handlers.Comments;
+using EventTrackerBlog.Application.Queries.Articles;
+using EventTrackerBlog.Application.Queries.Comments;
+using EventTrackerBlog.Domain.Data;
+using EventTrackerBlog.Domain.DTO.Comments.Response;
+using EventTrackerBlog.Domain.Entities;
+using EventTrackerBlog.Domain.Seed;
+using EventTrackerBlog.WebAPI.Middleware;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -8,9 +19,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
-using EventTrackerBlog.BLL.Commands.Comments;
-using EventTrackerBlog.DAL.DTO.Comments.Response;
-using EventTrackerBlog.WebAPI.Middleware;
 
 namespace EventTrackerBlog.WebAPI
 {
