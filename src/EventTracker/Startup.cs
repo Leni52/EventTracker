@@ -1,8 +1,12 @@
+using EventTracker.BLL.Entities;
 using EventTracker.BLL.Interfaces;
 using EventTracker.BLL.Services;
 using EventTracker.DAL.Contracts;
 using EventTracker.DAL.Data;
 using EventTracker.DAL.Repositories;
+using EventTracker.Data;
+using EventTracker.Middleware;
+using MailKit.Net.Smtp;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -12,10 +16,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
-using EventTracker.Data;
-using EventTracker.BLL.Entities;
 using System.Text;
-using MailKit.Net.Smtp;
 
 namespace EventTracker
 {
@@ -23,7 +24,7 @@ namespace EventTracker
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;            
+            Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
@@ -105,8 +106,8 @@ namespace EventTracker
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "EventTracker v1"));
             }
 
-           // app.UseHttpsRedirection();
-
+            app.UseExceptionHandler(new ExceptionHandlerConfig().CustomOptions);
+            app.UseHttpsRedirection();
             app.UseRouting();
 
             app.UseAuthentication();

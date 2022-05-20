@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
+using EventTracker.BLL.Exceptions;
 using EventTracker.BLL.Interfaces;
 using EventTracker.DAL.Contracts;
 using EventTracker.DAL.Entities;
 using EventTracker.DTO.EventModels;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -31,7 +32,12 @@ namespace EventTracker.BLL.Services
 
         public async Task<Event> GetEventByIdAsync(Guid eventId)
         {
-            return await _unitOfWork.Events.GetByIdAsync(eventId);
+            var eventFromDb = await _unitOfWork.Events.GetByIdAsync(eventId);
+            if(eventFromDb==null)
+            {
+                throw new ItemDoesNotExistException();
+            }
+            return eventFromDb;
         }
 
         public async Task<IEnumerable<Comment>> GetAllCommentsFromEvent(Guid eventId)
@@ -45,7 +51,7 @@ namespace EventTracker.BLL.Services
             bool EventExists = await _unitOfWork.Events.CheckIfNameExistsCreate(eventRequest.Name);
             if (EventExists)
             {
-                throw new Exception("Name is already in use.");
+                throw new ItemIsAlreadyUsedException();
             }
 
             var eventToCreate = _mapper.Map<Event>(eventRequest);
@@ -62,13 +68,13 @@ namespace EventTracker.BLL.Services
             var eventToEdit = await _unitOfWork.Events.GetByIdAsync(eventId);
             if (eventToEdit == null)
             {
-                throw new Exception("Event doesn't exist.");
+                throw new ItemDoesNotExistException();
             }
 
             bool checkName = await _unitOfWork.Events.CheckIfNameExistsEdit(eventRequest.Name, eventToEdit.Name);
             if (checkName)
             {
-                throw new Exception("Name is already in use.");
+                throw new ItemIsAlreadyUsedException();
             }
 
             eventToEdit = _mapper.Map<Event>(eventRequest);
@@ -83,7 +89,7 @@ namespace EventTracker.BLL.Services
             var eventToDelete = await _unitOfWork.Events.GetByIdAsync(eventId);
             if (eventToDelete == null)
             {
-                throw new Exception("Event doesn't exist.");
+                throw new ItemDoesNotExistException();
             }
 
             _unitOfWork.Events.Delete(eventToDelete);
