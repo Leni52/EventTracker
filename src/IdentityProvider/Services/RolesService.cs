@@ -111,11 +111,6 @@ namespace IdentityProvider
             return false;
         }
 
-        public async Task<IdentityUser> GetCurrentUser(ClaimsPrincipal claimsPrincipal)
-        {
-            return await _userManager.GetUserAsync(claimsPrincipal);
-        }
-
         public async Task<bool> IsUserAdminOrEventHolder(IdentityUser user)
         {
             if (await _userManager.IsInRoleAsync(user, "Admin") || await _userManager.IsInRoleAsync(user, "EventHolder"))
