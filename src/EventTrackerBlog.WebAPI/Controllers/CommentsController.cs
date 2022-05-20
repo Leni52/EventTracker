@@ -1,14 +1,12 @@
-﻿using EventTrackerBlog.Application.Commands.Comments;
-using EventTrackerBlog.Application.Queries.Comments;
+﻿using EventTrackerBlog.Application.Features.Comments.Commands;
+using EventTrackerBlog.Application.Features.Comments.Queries;
 using EventTrackerBlog.Domain.Data;
 using EventTrackerBlog.Domain.DTO.Comments.Request;
 using EventTrackerBlog.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace EventTrackerBlog.WebAPI.Controllers
@@ -27,9 +25,9 @@ namespace EventTrackerBlog.WebAPI.Controllers
         }
 
         [HttpGet("{articleId}/comments")]
-        public async Task<ActionResult<IEnumerable<Comment>>> GetComments(Guid articleId)
+        public async Task<ActionResult<IEnumerable<Comment>>> GetComments()
         {
-            var query = new GetAllCommentsQuery(articleId);
+            var query = new GetAllCommentsQuery();
             var result = await _mediator.Send(query);
             return Ok(result);
         }

@@ -1,9 +1,9 @@
-using EventTrackerBlog.Application.Commands.Articles;
-using EventTrackerBlog.Application.Commands.Comments;
+using EventTrackerBlog.Application.Features.Articles.Commands;
+using EventTrackerBlog.Application.Features.Articles.Queries;
+using EventTrackerBlog.Application.Features.Comments.Commands;
+using EventTrackerBlog.Application.Features.Comments.Queries;
 using EventTrackerBlog.Application.Handlers.Articles;
 using EventTrackerBlog.Application.Handlers.Comments;
-using EventTrackerBlog.Application.Queries.Articles;
-using EventTrackerBlog.Application.Queries.Comments;
 using EventTrackerBlog.Domain.Data;
 using EventTrackerBlog.Domain.DTO.Comments.Response;
 using EventTrackerBlog.Domain.Entities;
@@ -55,7 +55,7 @@ namespace EventTrackerBlog.WebAPI
             services.AddScoped<IRequestHandler<CreateCommentCommand, CommentResponseModel>, CreateCommentHandler>();
             services.AddScoped<IRequestHandler<EditCommentCommand, CommentEditResponseModel>, EditCommentHandler>();
             services.AddScoped<IRequestHandler<DeleteCommentCommand, Guid>, DeleteCommentHandler>();
-           
+
             services.AddScoped<IRequestHandler<GetAllArticlesQuery, IEnumerable<Article>>, GetAllArticlesHandler>();
             services.AddScoped<IRequestHandler<GetArticleByIdQuery, Article>, GetArticleByIdHandler>();
             services.AddScoped<IRequestHandler<CreateArticleCommand, Article>, CreateArticleCommandHandler>();

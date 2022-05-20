@@ -1,5 +1,5 @@
-﻿using EventTrackerBlog.Application.Commands.Articles;
-using EventTrackerBlog.Application.Queries.Articles;
+﻿using EventTrackerBlog.Application.Features.Articles.Commands;
+using EventTrackerBlog.Application.Features.Articles.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;

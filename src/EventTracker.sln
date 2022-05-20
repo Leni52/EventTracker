@@ -17,11 +17,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APIGateway", "APIGateway\AP
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventTrackerBlog.WebAPI", "EventTrackerBlog.WebAPI\EventTrackerBlog.WebAPI.csproj", "{D960C7AF-6E5C-4112-BCF3-ED7848B9D97C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventTrackerBlog.Application", "EventTrackerBlog.BLL\EventTrackerBlog.Application.csproj", "{08175BC2-075F-452B-B9E7-F04BA50D393A}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventTrackerBlog.Domain", "EventTrackerBlog.DAL\EventTrackerBlog.Domain.csproj", "{EE27FC94-2FA3-4842-9A4C-678B759AE17F}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EventTrackerBlog", "EventTrackerBlog", "{2753AE3F-0D4E-4C86-8B9F-0A01EA44EA97}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventTrackerBlog.Application", "EventTrackerBlog.Application\EventTrackerBlog.Application.csproj", "{24B68DE0-A229-4AF2-B18E-6B05500BB1CE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventTrackerBlog.Domain", "EventTrackerBlog.Domain\EventTrackerBlog.Domain.csproj", "{DDC98B5D-CD25-49FE-B089-9E32E81D87EC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,22 +57,22 @@ Global
 		{D960C7AF-6E5C-4112-BCF3-ED7848B9D97C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D960C7AF-6E5C-4112-BCF3-ED7848B9D97C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D960C7AF-6E5C-4112-BCF3-ED7848B9D97C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{08175BC2-075F-452B-B9E7-F04BA50D393A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{08175BC2-075F-452B-B9E7-F04BA50D393A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{08175BC2-075F-452B-B9E7-F04BA50D393A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{08175BC2-075F-452B-B9E7-F04BA50D393A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EE27FC94-2FA3-4842-9A4C-678B759AE17F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EE27FC94-2FA3-4842-9A4C-678B759AE17F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EE27FC94-2FA3-4842-9A4C-678B759AE17F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EE27FC94-2FA3-4842-9A4C-678B759AE17F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24B68DE0-A229-4AF2-B18E-6B05500BB1CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24B68DE0-A229-4AF2-B18E-6B05500BB1CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24B68DE0-A229-4AF2-B18E-6B05500BB1CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24B68DE0-A229-4AF2-B18E-6B05500BB1CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DDC98B5D-CD25-49FE-B089-9E32E81D87EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDC98B5D-CD25-49FE-B089-9E32E81D87EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDC98B5D-CD25-49FE-B089-9E32E81D87EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDC98B5D-CD25-49FE-B089-9E32E81D87EC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{D960C7AF-6E5C-4112-BCF3-ED7848B9D97C} = {2753AE3F-0D4E-4C86-8B9F-0A01EA44EA97}
-		{08175BC2-075F-452B-B9E7-F04BA50D393A} = {2753AE3F-0D4E-4C86-8B9F-0A01EA44EA97}
-		{EE27FC94-2FA3-4842-9A4C-678B759AE17F} = {2753AE3F-0D4E-4C86-8B9F-0A01EA44EA97}
+		{24B68DE0-A229-4AF2-B18E-6B05500BB1CE} = {2753AE3F-0D4E-4C86-8B9F-0A01EA44EA97}
+		{DDC98B5D-CD25-49FE-B089-9E32E81D87EC} = {2753AE3F-0D4E-4C86-8B9F-0A01EA44EA97}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {45F49AD9-3D6E-459F-A161-77077E1AA5D7}
