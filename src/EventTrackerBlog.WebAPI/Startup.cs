@@ -54,7 +54,7 @@ namespace EventTrackerBlog.WebAPI
             services.AddScoped<IRequestHandler<GetCommentByIdQuery, Comment>, GetCommentByIdHandler>();
             services.AddScoped<IRequestHandler<CreateCommentCommand, CommentResponseModel>, CreateCommentHandler>();
             services.AddScoped<IRequestHandler<EditCommentCommand, CommentEditResponseModel>, EditCommentHandler>();
-            
+            services.AddScoped<IRequestHandler<DeleteCommentCommand, Guid>, DeleteCommentHandler>();
            
             services.AddScoped<IRequestHandler<GetAllArticlesQuery, IEnumerable<Article>>, GetAllArticlesHandler>();
             services.AddScoped<IRequestHandler<GetArticleByIdQuery, Article>, GetArticleByIdHandler>();
