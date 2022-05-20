@@ -1,4 +1,5 @@
 ﻿using System;
+using EventTrackerBlog.DAL.DTO.Comments.Request;
 using EventTrackerBlog.DAL.DTO.Comments.Response;
 using MediatR;
 

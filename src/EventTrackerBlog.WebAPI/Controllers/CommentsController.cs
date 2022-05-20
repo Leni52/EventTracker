@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using EventTrackerBlog.DAL.Data;
 using EventTrackerBlog.DAL.DTO.Comments.Request;
+using EventTrackerBlog.DAL.DTO.Comments.Response;
 using EventTrackerBlog.DAL.Entities;
 using MediatR;
 
@@ -91,8 +92,13 @@ namespace EventTrackerBlog.WebAPI.Controllers
                 return BadRequest();
             }
 
-            var result = await _mediator.Send(command);
-            return CreatedAtAction("GetCommentById", new {commentId = result.Id}, result);
+            var result = await _mediator.Send(new CommentResponseModel
+            {
+                ArticleId = command.ArticleId,
+                Content = command.Content
+            });
+
+            return Ok(result);
         }
 
         // DELETE: api/Comments/5
