@@ -16,6 +16,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
+using EventTrackerBlog.BLL.Commands.Comments;
+using EventTrackerBlog.DAL.DTO.Comments.Response;
 
 namespace EventTrackerBlog.WebAPI
 {
@@ -48,7 +50,7 @@ namespace EventTrackerBlog.WebAPI
 
             services.AddScoped<IRequestHandler<GetAllCommentsQuery, IEnumerable<Comment>>, GetAllCommentsHandler>();
             services.AddScoped<IRequestHandler<GetCommentByIdQuery, Comment>, GetCommentByIdHandler>();
-
+            services.AddScoped<IRequestHandler<CreateCommentCommand, CommentResponseModel>, CreateCommentHandler>();
             
            
             services.AddScoped<IRequestHandler<GetAllArticlesQuery, IEnumerable<Article>>, GetAllArticlesHandler>();
