@@ -94,21 +94,14 @@ namespace EventTrackerBlog.WebAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteComment(Guid id)
         {
-            var comment = await _context.Comments.FindAsync(id);
-            if (comment == null)
+            var command = new DeleteCommentCommand
             {
-                return NotFound();
-            }
+                CommentId = id
+            };
 
-            _context.Comments.Remove(comment);
-            await _context.SaveChangesAsync();
+            var result = await _mediator.Send(command);
 
-            return NoContent();
-        }
-
-        private bool CommentExists(Guid id)
-        {
-            return _context.Comments.Any(e => e.Id == id);
+            return Ok(result);
         }
     }
 }
