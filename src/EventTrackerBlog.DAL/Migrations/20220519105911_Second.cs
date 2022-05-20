@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace EventTrackerBlog.DAL.Migrations
+namespace EventTrackerBlog.Domain.Migrations
 {
     public partial class Second : Migration
     {

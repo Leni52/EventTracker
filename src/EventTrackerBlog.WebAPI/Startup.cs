@@ -1,11 +1,3 @@
-using EventTrackerBlog.BLL.Commands.Articles;
-using EventTrackerBlog.BLL.Handlers.Articles;
-using EventTrackerBlog.BLL.Handlers.Comments;
-using EventTrackerBlog.BLL.Queries.Articles;
-using EventTrackerBlog.BLL.Queries.Comments;
-using EventTrackerBlog.DAL.Data;
-using EventTrackerBlog.DAL.Entities;
-using EventTrackerBlog.DAL.Seed;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

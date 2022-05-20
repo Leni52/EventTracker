@@ -1,11 +1,12 @@
 ﻿using EventTrackerBlog.BLL.Commands.Articles;
 using EventTrackerBlog.BLL.Queries.Articles;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Threading.Tasks;
+using EventTrackerBlog.Application.Commands.Articles;
+using EventTrackerBlog.Application.Queries.Articles;
 
 namespace EventTrackerBlog.WebAPI.Controllers
 {

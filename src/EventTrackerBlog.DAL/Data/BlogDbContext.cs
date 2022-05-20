@@ -1,9 +1,7 @@
-﻿using EventTrackerBlog.DAL.Entities;
+﻿using EventTrackerBlog.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Threading.Tasks;
 
-namespace EventTrackerBlog.DAL.Data
+namespace EventTrackerBlog.Domain.Data
 {
     public class BlogDbContext : DbContext
     {

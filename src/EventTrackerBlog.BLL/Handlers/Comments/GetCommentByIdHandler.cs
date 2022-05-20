@@ -1,12 +1,12 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using EventTrackerBlog.BLL.Queries.Comments;
-using EventTrackerBlog.DAL.Data;
-using EventTrackerBlog.DAL.Entities;
+using EventTrackerBlog.Application.Queries.Comments;
+using EventTrackerBlog.Domain.Data;
+using EventTrackerBlog.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace EventTrackerBlog.BLL.Handlers.Comments
+namespace EventTrackerBlog.Application.Handlers.Comments
 {
     public class GetCommentByIdHandler : IRequestHandler<GetCommentByIdQuery, Comment>
     {

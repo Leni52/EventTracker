@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using EventTrackerBlog.DAL.Entities;
+using EventTrackerBlog.Domain.Entities;
 using MediatR;
 
-namespace EventTrackerBlog.BLL.Queries.Comments
+namespace EventTrackerBlog.Application.Queries.Comments
 {
     public class GetAllCommentsQuery : IRequest<IEnumerable<Comment>>
     {

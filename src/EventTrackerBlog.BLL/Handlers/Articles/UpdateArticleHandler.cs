@@ -7,8 +7,12 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using EventTrackerBlog.Application.Commands.Articles;
+using EventTrackerBlog.Domain.Data;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
 
-namespace EventTrackerBlog.BLL.Handlers.Articles
+namespace EventTrackerBlog.Application.Handlers.Articles
 {
     public class UpdateArticleCommandHandler : IRequestHandler<UpdateArticleCommand, Guid>
     {

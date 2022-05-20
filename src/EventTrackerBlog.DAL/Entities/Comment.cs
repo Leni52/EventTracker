@@ -1,9 +1,10 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using EventTrackerBlog.Domain.Common;
 
-namespace EventTrackerBlog.DAL.Entities
+namespace EventTrackerBlog.Domain.Entities
 {
-    using static Common.DataConstants;
+    using static DataConstants;
     public class Comment : BaseEntity
     {
         [Required]

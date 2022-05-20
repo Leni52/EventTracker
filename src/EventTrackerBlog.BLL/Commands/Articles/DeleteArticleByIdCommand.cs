@@ -1,7 +1,9 @@
-﻿using MediatR;
+﻿using EventTrackerBlog.DAL.Data;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System;
 
-namespace EventTrackerBlog.BLL.Commands.Articles
+namespace EventTrackerBlog.Application.Commands.Articles
 {
     public class DeleteArticleByIdCommand : IRequest<Guid>
     {

@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using System;
 
-namespace EventTrackerBlog.BLL.Commands.Articles
+namespace EventTrackerBlog.Application.Commands.Articles
 {
     public class UpdateArticleCommand : IRequest<Guid>
     {

@@ -6,8 +6,12 @@ using MediatR;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using EventTrackerBlog.Application.Queries.Articles;
+using EventTrackerBlog.Domain.Data;
+using EventTrackerBlog.Domain.Entities;
+using MediatR;
 
-namespace EventTrackerBlog.BLL.Handlers.Articles
+namespace EventTrackerBlog.Application.Handlers.Articles
 {
     public class GetArticleByIdHandler : IRequestHandler<GetArticleByIdQuery, Article>
     {

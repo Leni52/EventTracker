@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using EventTrackerBlog.BLL.Commands.Comments;
-using EventTrackerBlog.DAL.Data;
-using EventTrackerBlog.DAL.DTO.Comments.Response;
-using EventTrackerBlog.DAL.Entities;
+using EventTrackerBlog.Application.Commands.Comments;
+using EventTrackerBlog.Domain.Data;
+using EventTrackerBlog.Domain.DTO.Comments.Response;
+using EventTrackerBlog.Domain.Entities;
 using MediatR;
 
-namespace EventTrackerBlog.BLL.Handlers.Comments
+namespace EventTrackerBlog.Application.Handlers.Comments
 {
     public class CreateCommentHandler : IRequestHandler<CreateCommentCommand, CommentResponseModel>
     {

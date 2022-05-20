@@ -1,7 +1,7 @@
 ﻿using EventTrackerBlog.DAL.Entities;
 using MediatR;
 
-namespace EventTrackerBlog.BLL.Commands.Articles
+namespace EventTrackerBlog.Application.Commands.Articles
 {
     public class CreateArticleCommand : IRequest<Article>
     {

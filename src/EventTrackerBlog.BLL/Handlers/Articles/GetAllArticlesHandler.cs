@@ -7,8 +7,13 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using EventTrackerBlog.Application.Queries.Articles;
+using EventTrackerBlog.Domain.Data;
+using EventTrackerBlog.Domain.Entities;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
 
-namespace EventTrackerBlog.BLL.Handlers.Articles
+namespace EventTrackerBlog.Application.Handlers.Articles
 {
     public class GetAllArticlesHandler : IRequestHandler<GetAllArticlesQuery, IEnumerable<Article>>
     {

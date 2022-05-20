@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
-using EventTracker.DAL.Entities;
 using System.ComponentModel.DataAnnotations;
+using EventTrackerBlog.Domain.Common;
+using BaseEntity = EventTrackerBlog.Domain.Entities.BaseEntity;
+using Comment = EventTrackerBlog.Domain.Entities.Comment;
 
-namespace EventTrackerBlog.DAL.Entities
+namespace EventTrackerBlog.Domain.Entities
 {
-    using static Common.DataConstants;
+    using static DataConstants;
 
     public class Article : BaseEntity
     {

@@ -4,8 +4,12 @@ using EventTrackerBlog.DAL.Entities;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
+using EventTrackerBlog.Application.Commands.Articles;
+using EventTrackerBlog.Domain.Data;
+using EventTrackerBlog.Domain.Entities;
+using MediatR;
 
-namespace EventTrackerBlog.BLL.Handlers.Articles
+namespace EventTrackerBlog.Application.Handlers.Articles
 {
     public class CreateArticleCommandHandler : IRequestHandler<CreateArticleCommand, Article>
     {

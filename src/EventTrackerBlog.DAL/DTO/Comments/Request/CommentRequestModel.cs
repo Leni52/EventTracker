@@ -1,9 +1,10 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using EventTrackerBlog.Domain.Common;
 
-namespace EventTrackerBlog.DAL.DTO.Comments.Request
+namespace EventTrackerBlog.Domain.DTO.Comments.Request
 {
-    using static Common.DataConstants;
+    using static DataConstants;
     public class CommentRequestModel
     {
         [Required]

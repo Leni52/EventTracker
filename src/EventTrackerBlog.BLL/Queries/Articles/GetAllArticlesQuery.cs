@@ -1,12 +1,8 @@
-﻿using EventTrackerBlog.DAL.Data;
-using EventTrackerBlog.DAL.Entities;
+﻿using System.Collections.Generic;
+using EventTrackerBlog.Domain.Entities;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 
-namespace EventTrackerBlog.BLL.Queries.Articles
+namespace EventTrackerBlog.Application.Queries.Articles
 {
     public class GetAllArticlesQuery : IRequest<IEnumerable<Article>>
     {
