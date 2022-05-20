@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using EventTrackerBlog.BLL.Queries.Comments;
-using Microsoft.AspNetCore.Http;
+using EventTrackerBlog.Application.Queries.Comments;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using EventTrackerBlog.DAL.Data;
-using EventTrackerBlog.DAL.DTO.Comments.Request;
-using EventTrackerBlog.DAL.DTO.Comments.Response;
-using EventTrackerBlog.DAL.Entities;
+using EventTrackerBlog.Domain.Data;
+using EventTrackerBlog.Domain.DTO.Comments.Request;
+using EventTrackerBlog.Domain.DTO.Comments.Response;
+using EventTrackerBlog.Domain.Entities;
 using MediatR;
 
 namespace EventTrackerBlog.WebAPI.Controllers

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace EventTrackerBlog.DAL.DTO.Comments.Response
+namespace EventTrackerBlog.Domain.DTO.Comments.Response
 {
     public class CommentResponseModel
     {

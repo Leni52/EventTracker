@@ -1,9 +1,8 @@
 ﻿using System;
-using EventTrackerBlog.DAL.DTO.Comments.Request;
-using EventTrackerBlog.DAL.DTO.Comments.Response;
+using EventTrackerBlog.Domain.DTO.Comments.Response;
 using MediatR;
 
-namespace EventTrackerBlog.BLL.Commands.Comments
+namespace EventTrackerBlog.Application.Commands.Comments
 {
     public class CreateCommentCommand : IRequest<CommentResponseModel>
     {

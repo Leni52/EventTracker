@@ -1,15 +1,13 @@
-﻿using EventTrackerBlog.BLL.Commands.Articles;
-using EventTrackerBlog.DAL.Data;
-using MediatR;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using EventTrackerBlog.Application.Commands.Articles;
+using EventTrackerBlog.Domain.Data;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
 
-namespace EventTrackerBlog.BLL.Handlers.Articles
+namespace EventTrackerBlog.Application.Handlers.Articles
 {
     public class UpdateArticleCommandHandler : IRequestHandler<UpdateArticleCommand, Guid>
     {

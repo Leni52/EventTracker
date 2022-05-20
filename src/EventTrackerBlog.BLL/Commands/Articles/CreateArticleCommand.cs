@@ -1,11 +1,7 @@
-﻿using EventTrackerBlog.DAL.Data;
-using EventTrackerBlog.DAL.Entities;
+﻿using EventTrackerBlog.Domain.Entities;
 using MediatR;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 
-namespace EventTrackerBlog.BLL.Commands.Articles
+namespace EventTrackerBlog.Application.Commands.Articles
 {
     public class CreateArticleCommand : IRequest<Article>
     {
