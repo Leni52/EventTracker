@@ -19,8 +19,8 @@ namespace IdentityProvider.Data
 
         private static void Seed(IdentityContext context)
         {
-            context.Database.EnsureCreated();
-            context.Database.Migrate();
+          //  context.Database.EnsureCreated();
+          //  context.Database.Migrate();
 
             if (!context.Users.Any())
             {
