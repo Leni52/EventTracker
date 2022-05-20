@@ -1,16 +1,12 @@
-﻿using EventTrackerBlog.Application.Exceptions;
-using EventTrackerBlog.BLL.Commands.Articles;
-using EventTrackerBlog.DAL.Data;
+﻿using EventTrackerBlog.Application.Commands.Articles;
+using EventTrackerBlog.Application.Exceptions;
+using EventTrackerBlog.Domain.Data;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using EventTrackerBlog.Application.Commands.Articles;
-using EventTrackerBlog.Domain.Data;
-using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace EventTrackerBlog.Application.Handlers.Articles
 {

@@ -1,13 +1,9 @@
-﻿using EventTrackerBlog.BLL.Commands.Articles;
-using EventTrackerBlog.DAL.Data;
-using EventTrackerBlog.DAL.Entities;
-using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
-using EventTrackerBlog.Application.Commands.Articles;
+﻿using EventTrackerBlog.Application.Commands.Articles;
 using EventTrackerBlog.Domain.Data;
 using EventTrackerBlog.Domain.Entities;
 using MediatR;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace EventTrackerBlog.Application.Handlers.Articles
 {

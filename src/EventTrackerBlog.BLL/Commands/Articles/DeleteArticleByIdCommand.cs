@@ -1,6 +1,4 @@
-﻿using EventTrackerBlog.DAL.Data;
-using MediatR;
-using Microsoft.EntityFrameworkCore;
+﻿using MediatR;
 using System;
 
 namespace EventTrackerBlog.Application.Commands.Articles
