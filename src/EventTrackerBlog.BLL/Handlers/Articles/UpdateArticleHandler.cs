@@ -1,4 +1,9 @@
-﻿using System;
+﻿using EventTrackerBlog.Application.Exceptions;
+using EventTrackerBlog.BLL.Commands.Articles;
+using EventTrackerBlog.DAL.Data;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -21,7 +26,7 @@ namespace EventTrackerBlog.Application.Handlers.Articles
             var article = await _context.Articles.Where(a => a.Id == command.ArticleId).FirstOrDefaultAsync();
             if (article == null)
             {
-                return default;
+                throw new ItemDoesNotExistException();
             }
             else
             {
@@ -30,7 +35,6 @@ namespace EventTrackerBlog.Application.Handlers.Articles
                 _context.SaveChanges();
                 return article.Id;
             }
-
         }
     }
 }

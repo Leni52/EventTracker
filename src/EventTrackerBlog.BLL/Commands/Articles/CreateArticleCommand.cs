@@ -1,4 +1,4 @@
-﻿using EventTrackerBlog.Domain.Entities;
+﻿using EventTrackerBlog.DAL.Entities;
 using MediatR;
 
 namespace EventTrackerBlog.Application.Commands.Articles
@@ -7,6 +7,5 @@ namespace EventTrackerBlog.Application.Commands.Articles
     {
         public string Title { get; set; }
         public string Content { get; set; }
-
     }
 }

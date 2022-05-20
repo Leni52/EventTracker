@@ -1,5 +1,5 @@
-﻿using System;
-using MediatR;
+﻿using MediatR;
+using System;
 
 namespace EventTrackerBlog.Application.Commands.Articles
 {
@@ -8,6 +8,5 @@ namespace EventTrackerBlog.Application.Commands.Articles
         public Guid ArticleId { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
-
     }
 }

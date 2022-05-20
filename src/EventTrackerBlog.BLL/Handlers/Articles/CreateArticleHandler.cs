@@ -1,4 +1,8 @@
-﻿using System.Threading;
+﻿using EventTrackerBlog.BLL.Commands.Articles;
+using EventTrackerBlog.DAL.Data;
+using EventTrackerBlog.DAL.Entities;
+using MediatR;
+using System.Threading;
 using System.Threading.Tasks;
 using EventTrackerBlog.Application.Commands.Articles;
 using EventTrackerBlog.Domain.Data;
@@ -14,7 +18,6 @@ namespace EventTrackerBlog.Application.Handlers.Articles
         {
             _context = context;
         }
-
         public async Task<Article> Handle(CreateArticleCommand request, CancellationToken cancellationToken)
         {
             var article = new Article();
