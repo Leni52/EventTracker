@@ -1,0 +1,12 @@
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace EventTrackerBlog.DAL.DTO.Comments.Request
+{
+    using static Common.DataConstants;
+    public class CommentRequestModel
+    {
+        [Required]
+        [StringLength(CommentMaxLength, MinimumLength = CommentMinLength)]
+        public string Content { get; set; }
+    }
+}

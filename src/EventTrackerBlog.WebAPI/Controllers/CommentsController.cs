@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using EventTrackerBlog.DAL.Data;
+using EventTrackerBlog.DAL.DTO.Comments.Request;
 using EventTrackerBlog.DAL.Entities;
 using MediatR;
 
@@ -40,7 +41,13 @@ namespace EventTrackerBlog.WebAPI.Controllers
         {
             var query = new GetCommentByIdQuery(id);
             var result = await _mediator.Send(query);
-            return result != null ? Ok(result) : NotFound();
+
+            if (result == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(result);
         }
 
         // PUT: api/Comments/5
@@ -77,12 +84,15 @@ namespace EventTrackerBlog.WebAPI.Controllers
         // POST: api/Comments
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Comment>> PostComment(Comment comment)
+        public async Task<ActionResult<Comment>> CreateComment(CommentRequestModel command)
         {
-            _context.Comments.Add(comment);
-            await _context.SaveChangesAsync();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
 
-            return CreatedAtAction("GetComment", new { id = comment.Id }, comment);
+            var result = await _mediator.Send(command);
+            return CreatedAtAction("GetCommentById", new {commentId = result.Id}, result);
         }
 
         // DELETE: api/Comments/5
