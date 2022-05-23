@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using EventTrackerBlog.Domain.Data;
+﻿using EventTrackerBlog.Domain.Data;
 using EventTrackerBlog.Domain.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace EventTrackerBlog.Domain.Seed
 {
