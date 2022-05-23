@@ -51,6 +51,7 @@ namespace EventTrackerBlog.WebAPI
             services.AddMediatR(typeof(Startup));
 
             services.AddScoped<IRequestHandler<GetAllCommentsQuery, IEnumerable<Comment>>, GetAllCommentsHandler>();
+            services.AddScoped<IRequestHandler<GetCommentsByArticleQuery, IEnumerable<Comment>>, GetCommentsByArticleHandler>();
             services.AddScoped<IRequestHandler<GetCommentByIdQuery, Comment>, GetCommentByIdHandler>();
             services.AddScoped<IRequestHandler<CreateCommentCommand, CommentResponseModel>, CreateCommentHandler>();
             services.AddScoped<IRequestHandler<EditCommentCommand, CommentEditResponseModel>, EditCommentHandler>();

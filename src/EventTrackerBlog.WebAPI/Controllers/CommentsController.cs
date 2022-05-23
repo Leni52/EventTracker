@@ -25,10 +25,18 @@ namespace EventTrackerBlog.WebAPI.Controllers
             _mediator = mediator;
         }
 
+        [HttpGet("/comments")]
+        public async Task<ActionResult<IEnumerable<Comment>>> GetAllComments()
+        {
+            var query = new GetAllCommentsQuery();
+            var result = await _mediator.Send(query);
+            return Ok(result);
+        }
+
         [HttpGet("{articleId}/comments")]
         public async Task<ActionResult<IEnumerable<Comment>>> GetCommentsByArticle(Guid articleId)
         {
-            var query = new GetAllCommentsQuery(articleId);
+            var query = new GetCommentsByArticleQuery(articleId);
             var result = await _mediator.Send(query);
             return Ok(result);
         }

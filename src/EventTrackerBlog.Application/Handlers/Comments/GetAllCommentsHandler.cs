@@ -1,12 +1,12 @@
-﻿using EventTrackerBlog.Application.Features.Comments.Queries;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+using EventTrackerBlog.Application.Features.Comments.Queries;
 using EventTrackerBlog.Domain.Data;
 using EventTrackerBlog.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace EventTrackerBlog.Application.Handlers.Comments
 {
@@ -21,7 +21,6 @@ namespace EventTrackerBlog.Application.Handlers.Comments
         public async Task<IEnumerable<Comment>> Handle(GetAllCommentsQuery request, CancellationToken cancellationToken)
         {
             var comments = await _context.Comments
-                .Where(c => c.ArticleId == request.ArticleId)
                 .ToListAsync(cancellationToken: cancellationToken);
 
             return comments;
