@@ -26,9 +26,9 @@ namespace EventTrackerBlog.WebAPI.Controllers
         }
 
         [HttpGet("{articleId}/comments")]
-        public async Task<ActionResult<IEnumerable<Comment>>> GetComments()
+        public async Task<ActionResult<IEnumerable<Comment>>> GetCommentsByArticle(Guid articleId)
         {
-            var query = new GetAllCommentsQuery();
+            var query = new GetAllCommentsQuery(articleId);
             var result = await _mediator.Send(query);
             return Ok(result);
         }

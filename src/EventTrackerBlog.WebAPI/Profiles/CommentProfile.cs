@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using EventTrackerBlog.Application.Commands.Comments;
+using EventTrackerBlog.Application.Features.Comments.Commands;
 using EventTrackerBlog.Domain.DTO.Comments.Request;
 using EventTrackerBlog.Domain.DTO.Comments.Response;
 using EventTrackerBlog.Domain.Entities;
