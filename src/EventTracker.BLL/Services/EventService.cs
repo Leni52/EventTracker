@@ -2,13 +2,12 @@
 using EventTracker.BLL.Exceptions;
 using EventTracker.BLL.Interfaces;
 using EventTracker.DAL.Contracts;
-using EventTracker.DAL.Data;
 using EventTracker.DAL.Entities;
 using EventTracker.DTO.EventModels;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace EventTracker.BLL.Services
@@ -94,6 +93,21 @@ namespace EventTracker.BLL.Services
             }
 
             _unitOfWork.Events.Delete(eventToDelete);
+            await _unitOfWork.SaveAsync();
+        }
+
+        public async Task SignUpRegularUser(Guid eventId, ClaimsPrincipal claimsPrincipal)
+        {
+            var userId = claimsPrincipal.FindFirstValue(ClaimTypes.NameIdentifier);
+            var externalUser = await _unitOfWork.ExternalUsers.GetByExternalId(userId);
+            var eventData = await _unitOfWork.Events.GetByIdAsync(eventId);
+
+            if (eventData == null)
+            {
+                throw new Exception("Event doesn't exist.");
+            }
+
+            eventData.Users.Add(externalUser);
             await _unitOfWork.SaveAsync();
         }
     }
