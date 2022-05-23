@@ -10,5 +10,11 @@ namespace EventTrackerBlog.Application.Features.Articles.Commands
         public Guid ArticleId { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
+        public UpdateArticleCommand(string title, string content, Guid articleId)
+        {
+            Title = title;
+            Content = content;
+            ArticleId = articleId;
+        }
     }
 }

@@ -20,6 +20,8 @@ namespace EventTrackerBlog.WebAPI.Controllers
             return Ok(await Mediator.Send(command));
         }
         [HttpGet]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
         public async Task<IActionResult> GetAllArticles()
         {
 
@@ -36,7 +38,8 @@ namespace EventTrackerBlog.WebAPI.Controllers
         [HttpDelete("{articleId}")]
         public async Task<IActionResult> DeleteArticle(Guid articleId)
         {
-            return Ok(await Mediator.Send(new DeleteArticleByIdCommand { ArticleId = articleId }));
+            await Mediator.Send(new DeleteArticleByIdCommand { ArticleId = articleId });
+            return NoContent();
         }
         [HttpPut("articleId")]
         public async Task<IActionResult> UpdateArticle(Guid articleId, UpdateArticleCommand command)
