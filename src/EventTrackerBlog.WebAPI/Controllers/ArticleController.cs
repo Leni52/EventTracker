@@ -20,6 +20,8 @@ namespace EventTrackerBlog.WebAPI.Controllers
             return Ok(await Mediator.Send(command));
         }
         [HttpGet]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
         public async Task<IActionResult> GetAllArticles()
         {
 

@@ -2,7 +2,6 @@
 using EventTrackerBlog.Application.Features.Articles.Commands;
 using EventTrackerBlog.Domain.Data;
 using EventTrackerBlog.Domain.DTO.Articles.Request;
-using EventTrackerBlog.Domain.DTO.Articles.Response;
 using EventTrackerBlog.Domain.Entities;
 using MediatR;
 using System.Threading;

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace EventTrackerBlog.Domain.DTO.Articles.Response
+﻿namespace EventTrackerBlog.Domain.DTO.Articles.Response
 {
     public class ArticleResponseModel
     {
