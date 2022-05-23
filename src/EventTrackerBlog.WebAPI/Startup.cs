@@ -63,7 +63,7 @@ namespace EventTrackerBlog.WebAPI
             services.AddScoped<IRequestHandler<GetArticleByIdQuery, ArticleResponseModel>, GetArticleByIdHandler>();
             services.AddScoped<IRequestHandler<CreateArticleCommand, ArticleRequestModel>, CreateArticleCommandHandler>();
             services.AddScoped<IRequestHandler<DeleteArticleByIdCommand, Guid>, DeleteArticleByIdCommandHandler>();
-            services.AddScoped<IRequestHandler<UpdateArticleCommand, Guid>, UpdateArticleCommandHandler>();
+            services.AddScoped<IRequestHandler<UpdateArticleCommand, ArticleResponseModel>, UpdateArticleCommandHandler>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
