@@ -61,7 +61,7 @@ namespace EventTrackerBlog.WebAPI.Controllers
         }
 
         [HttpPut("/api/{articleId:guid}/comments/edit/{commentId:guid}")]
-        public async Task<IActionResult> ЕditComment(Guid articleId, Guid commentId, CommentEditRequestModel model)
+        public async Task<IActionResult> ЕditComment(Guid articleId, Guid commentId, CommentRequestModel model)
         {
             if (!ModelState.IsValid)
             {
