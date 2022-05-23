@@ -1,6 +1,5 @@
 ﻿using EventTrackerBlog.Application.Features.Comments.Commands;
 using EventTrackerBlog.Application.Features.Comments.Queries;
-using EventTrackerBlog.Domain.Data;
 using EventTrackerBlog.Domain.DTO.Comments.Request;
 using EventTrackerBlog.Domain.Entities;
 using MediatR;
@@ -91,13 +90,8 @@ namespace EventTrackerBlog.WebAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteComment(Guid id)
         {
-            var command = new DeleteCommentCommand
-            {
-                CommentId = id
-            };
-
+            var command = new DeleteCommentCommand(id);
             var result = await _mediator.Send(command);
-
             return Ok(result);
         }
     }
