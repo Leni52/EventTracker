@@ -30,7 +30,7 @@ namespace EventTrackerBlog.WebAPI.Controllers
         [ProducesResponseType(404)]
         public async Task<IActionResult> GetById(Guid articleId)
         {
-            var article = await Mediator.Send(new GetArticleByIdQuery { ArticleId = articleId });
+            var article = await Mediator.Send(new GetArticleByIdQuery(articleId) { ArticleId = articleId });
             return Ok(article);
         }
         [HttpDelete("{articleId}")]

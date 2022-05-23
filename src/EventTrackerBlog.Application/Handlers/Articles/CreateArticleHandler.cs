@@ -1,5 +1,7 @@
-﻿using EventTrackerBlog.Application.Features.Articles.Commands;
+﻿using AutoMapper;
+using EventTrackerBlog.Application.Features.Articles.Commands;
 using EventTrackerBlog.Domain.Data;
+using EventTrackerBlog.Domain.DTO.Articles.Request;
 using EventTrackerBlog.Domain.DTO.Articles.Response;
 using EventTrackerBlog.Domain.Entities;
 using MediatR;
@@ -8,14 +10,16 @@ using System.Threading.Tasks;
 
 namespace EventTrackerBlog.Application.Handlers.Articles
 {
-    public class CreateArticleCommandHandler : IRequestHandler<CreateArticleCommand, Article>
+    public class CreateArticleCommandHandler : IRequestHandler<CreateArticleCommand, ArticleRequestModel>
     {
         private readonly BlogDbContext _context;
-        public CreateArticleCommandHandler(BlogDbContext context)
+        private readonly IMapper _mapper;
+        public CreateArticleCommandHandler(BlogDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
-        public async Task<Article> Handle(CreateArticleCommand request, CancellationToken cancellationToken)
+        public async Task<ArticleRequestModel> Handle(CreateArticleCommand request, CancellationToken cancellationToken)
         {
             var article = new Article()
             {
@@ -25,8 +29,8 @@ namespace EventTrackerBlog.Application.Handlers.Articles
 
             _context.Articles.Add(article);
             _context.SaveChanges();
-
-            return article;
+            var articleResponse = _mapper.Map<ArticleRequestModel>(article);
+            return articleResponse;
         }
     }
 }

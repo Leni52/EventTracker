@@ -5,6 +5,8 @@ using EventTrackerBlog.Application.Features.Comments.Queries;
 using EventTrackerBlog.Application.Handlers.Articles;
 using EventTrackerBlog.Application.Handlers.Comments;
 using EventTrackerBlog.Domain.Data;
+using EventTrackerBlog.Domain.DTO.Articles.Request;
+using EventTrackerBlog.Domain.DTO.Articles.Response;
 using EventTrackerBlog.Domain.DTO.Comments.Response;
 using EventTrackerBlog.Domain.Entities;
 using EventTrackerBlog.Domain.Seed;
@@ -57,9 +59,9 @@ namespace EventTrackerBlog.WebAPI
             services.AddScoped<IRequestHandler<EditCommentCommand, CommentEditResponseModel>, EditCommentHandler>();
             services.AddScoped<IRequestHandler<DeleteCommentCommand, Guid>, DeleteCommentHandler>();
 
-            services.AddScoped<IRequestHandler<GetAllArticlesQuery, IEnumerable<Article>>, GetAllArticlesHandler>();
-            services.AddScoped<IRequestHandler<GetArticleByIdQuery, Article>, GetArticleByIdHandler>();
-            services.AddScoped<IRequestHandler<CreateArticleCommand, Article>, CreateArticleCommandHandler>();
+            services.AddScoped<IRequestHandler<GetAllArticlesQuery, IEnumerable<ArticleResponseModel>>, GetAllArticlesHandler>();
+            services.AddScoped<IRequestHandler<GetArticleByIdQuery, ArticleResponseModel>, GetArticleByIdHandler>();
+            services.AddScoped<IRequestHandler<CreateArticleCommand, ArticleRequestModel>, CreateArticleCommandHandler>();
             services.AddScoped<IRequestHandler<DeleteArticleByIdCommand, Guid>, DeleteArticleByIdCommandHandler>();
             services.AddScoped<IRequestHandler<UpdateArticleCommand, Guid>, UpdateArticleCommandHandler>();
         }

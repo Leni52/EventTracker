@@ -1,6 +1,8 @@
-﻿using EventTrackerBlog.Application.Exceptions;
+﻿using AutoMapper;
+using EventTrackerBlog.Application.Exceptions;
 using EventTrackerBlog.Application.Features.Articles.Queries;
 using EventTrackerBlog.Domain.Data;
+using EventTrackerBlog.Domain.DTO.Articles.Response;
 using EventTrackerBlog.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -10,21 +12,24 @@ using System.Threading.Tasks;
 
 namespace EventTrackerBlog.Application.Handlers.Articles
 {
-    public class GetAllArticlesHandler : IRequestHandler<GetAllArticlesQuery, IEnumerable<Article>>
+    public class GetAllArticlesHandler : IRequestHandler<GetAllArticlesQuery, IEnumerable<ArticleResponseModel>>
     {
         private readonly BlogDbContext _context;
-        public GetAllArticlesHandler(BlogDbContext context)
+        private readonly IMapper _mapper;
+        public GetAllArticlesHandler(BlogDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
-        public async Task<IEnumerable<Article>> Handle(GetAllArticlesQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<ArticleResponseModel>> Handle(GetAllArticlesQuery request, CancellationToken cancellationToken)
         {
             var articlesList = await _context.Articles.ToListAsync();
-            if (articlesList == null)
+            var articlesResponse = _mapper.Map<IEnumerable<ArticleResponseModel>>(articlesList);
+            if (articlesResponse == null)
             {
                 throw new ItemDoesNotExistException();
             }
-            return articlesList;
+            return articlesResponse;
         }
     }
 }
