@@ -1,10 +1,10 @@
 ﻿using System;
-using EventTrackerBlog.Domain.Entities;
+using EventTrackerBlog.Domain.DTO.Comments.Response;
 using MediatR;
 
 namespace EventTrackerBlog.Application.Features.Comments.Queries
 {
-    public class GetCommentByIdQuery : IRequest<Comment>
+    public class GetCommentByIdQuery : IRequest<CommentResponseModel>
     {
         public Guid Id { get; }
 
