@@ -6,7 +6,13 @@ namespace EventTrackerBlog.Application.Features.Comments.Commands
 {
     public class CreateCommentCommand : IRequest<CommentResponseModel>
     {
-        public string Content { get; set; }
-        public Guid ArticleId { get; set; }
+        public string Content { get; }
+        public Guid ArticleId { get; }
+
+        public CreateCommentCommand(string content, Guid articleId)
+        {
+            Content = content;
+            ArticleId = articleId;
+        }
     }
 }

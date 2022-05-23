@@ -6,7 +6,7 @@ namespace EventTrackerBlog.Application.Features.Comments.Queries
 {
     public class GetCommentByIdQuery : IRequest<Comment>
     {
-        public Guid Id { get; set; }
+        public Guid Id { get; }
 
         public GetCommentByIdQuery(Guid id)
         {
