@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using EventTrackerBlog.Domain.DTO.Comments.Response;
 
 namespace EventTrackerBlog.WebAPI.Controllers
 {
@@ -25,7 +26,7 @@ namespace EventTrackerBlog.WebAPI.Controllers
         }
 
         [HttpGet("/comments")]
-        public async Task<ActionResult<IEnumerable<Comment>>> GetAllComments()
+        public async Task<ActionResult<IEnumerable<CommentResponseModel>>> GetAllComments()
         {
             var query = new GetAllCommentsQuery();
             var result = await _mediator.Send(query);
@@ -33,7 +34,7 @@ namespace EventTrackerBlog.WebAPI.Controllers
         }
 
         [HttpGet("{articleId}/comments")]
-        public async Task<ActionResult<IEnumerable<Comment>>> GetCommentsByArticle(Guid articleId)
+        public async Task<ActionResult<IEnumerable<CommentResponseModel>>> GetCommentsByArticle(Guid articleId)
         {
             var query = new GetCommentsByArticleQuery(articleId);
             var result = await _mediator.Send(query);
@@ -41,16 +42,10 @@ namespace EventTrackerBlog.WebAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Comment>> GetCommentById(Guid id)
+        public async Task<ActionResult<CommentResponseModel>> GetCommentById(Guid id)
         {
             var query = new GetCommentByIdQuery(id);
             var result = await _mediator.Send(query);
-
-            if (result == null)
-            {
-                return NotFound();
-            }
-
             return Ok(result);
         }
 
@@ -64,7 +59,6 @@ namespace EventTrackerBlog.WebAPI.Controllers
             
             var command = _mapper.Map<CreateCommentCommand>(model);
             var result = await _mediator.Send(command);
-
             return Ok(result);
         }
 
@@ -75,15 +69,9 @@ namespace EventTrackerBlog.WebAPI.Controllers
             {
                 return BadRequest();
             }
-            
+
             var command = _mapper.Map<EditCommentCommand>(model);
             var result = await _mediator.Send(command);
-
-            if (result == null)
-            {
-                return NotFound();
-            }
-
             return Ok(result);
         }
 
