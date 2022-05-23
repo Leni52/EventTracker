@@ -79,7 +79,7 @@ namespace IdentityProvider.Services
 
             foreach (var role in userRoles)
             {
-                claims.Add(new Claim("Role", role));
+                claims.Add(new Claim(ClaimsIdentity.DefaultRoleClaimType, role));
             }
 
             SymmetricSecurityKey securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_options.Secret));

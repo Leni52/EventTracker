@@ -2,6 +2,7 @@
 using EventTracker.DTO.EventModels;
 using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace EventTracker.BLL.Interfaces
@@ -14,5 +15,6 @@ namespace EventTracker.BLL.Interfaces
         Task<Event> GetEventByIdAsync(Guid eventId);
         Task EditEventAsync(EventRequestModel eventRequest, Guid eventId);
         Task<IEnumerable<Comment>> GetAllCommentsFromEvent(Guid eventId);
+        Task SignUpRegularUser(Guid eventId, ClaimsPrincipal claimsPrincipal);
     }
 }

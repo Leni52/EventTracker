@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace IdentityProvider.Interfaces
@@ -13,6 +12,5 @@ namespace IdentityProvider.Interfaces
         Task<List<IdentityUser>> GetAllUsersInRole(string roleName);
         Task<bool> AddUserToRole(string roleName, string userId);
         Task<bool> RemoveUserFromRole(string roleName, string userId);
-
     }
 }
