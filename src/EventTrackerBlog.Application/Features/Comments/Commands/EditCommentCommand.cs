@@ -4,14 +4,16 @@ using MediatR;
 
 namespace EventTrackerBlog.Application.Features.Comments.Commands
 {
-    public class EditCommentCommand : IRequest<CommentEditResponseModel>
+    public class EditCommentCommand : IRequest<CommentResponseModel>
     {
-        public Guid Id { get; }
+        public Guid ArticleId { get; set; }
+        public Guid CommentId { get; }
         public string Content { get; }
 
-        public EditCommentCommand(Guid id, string content)
+        public EditCommentCommand(Guid articleId, Guid commentId, string content)
         {
-            Id = id;
+            ArticleId = articleId;
+            CommentId = commentId;
             Content = content;
         }
     }

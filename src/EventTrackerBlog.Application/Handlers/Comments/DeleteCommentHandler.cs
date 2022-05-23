@@ -6,6 +6,7 @@ using EventTrackerBlog.Application.Exceptions;
 using EventTrackerBlog.Application.Features.Comments.Commands;
 using EventTrackerBlog.Domain.Data;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace EventTrackerBlog.Application.Handlers.Comments
 {
@@ -20,7 +21,16 @@ namespace EventTrackerBlog.Application.Handlers.Comments
 
         public async Task<Guid> Handle(DeleteCommentCommand request, CancellationToken cancellationToken)
         {
-            var comment = _context.Comments
+            var article = await _context.Articles
+                .Include(a => a.Comments)
+                .FirstOrDefaultAsync(a => a.Id == request.ArticleId, cancellationToken: cancellationToken);
+
+            if (article == null)
+            {
+                throw new ItemDoesNotExistException();
+            }
+
+            var comment = article.Comments
                 .FirstOrDefault(c => c.Id == request.CommentId);
 
             if (comment == null)

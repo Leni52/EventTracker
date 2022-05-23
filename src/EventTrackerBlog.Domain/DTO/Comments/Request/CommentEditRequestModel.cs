@@ -7,8 +7,6 @@ namespace EventTrackerBlog.Domain.DTO.Comments.Request
     public class CommentEditRequestModel
     {
         [Required]
-        public Guid Id { get; set; }
-        [Required]
         [StringLength(CommentMaxLength, MinimumLength = CommentMinLength)]
         public string Content { get; set; }
     }

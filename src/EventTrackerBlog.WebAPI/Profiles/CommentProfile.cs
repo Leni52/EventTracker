@@ -13,8 +13,6 @@ namespace EventTrackerBlog.WebAPI.Profiles
         {
             CreateMap<Comment, CommentRequestModel>().ReverseMap();
             CreateMap<Comment, CommentResponseModel>().ReverseMap();
-            CreateMap<Comment, CommentEditRequestModel>().ReverseMap();
-            CreateMap<Comment, CommentEditResponseModel>().ReverseMap();
             CreateMap<CommentRequestModel, CreateCommentCommand>().ReverseMap();
             CreateMap<CommentEditRequestModel, EditCommentCommand>().ReverseMap();
             CreateMap<CreateCommentCommand, Comment>()

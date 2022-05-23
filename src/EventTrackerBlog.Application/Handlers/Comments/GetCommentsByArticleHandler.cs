@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using EventTrackerBlog.Application.Exceptions;
 using EventTrackerBlog.Domain.DTO.Comments.Response;
 
 namespace EventTrackerBlog.Application.Handlers.Comments
@@ -24,9 +25,17 @@ namespace EventTrackerBlog.Application.Handlers.Comments
 
         public async Task<IEnumerable<CommentResponseModel>> Handle(GetCommentsByArticleQuery request, CancellationToken cancellationToken)
         {
-            var comments = await _context.Comments
-                .Where(c => c.ArticleId == request.ArticleId)
-                .ToListAsync(cancellationToken: cancellationToken);
+            var article = await _context.Articles
+                .Include(a => a.Comments)
+                .FirstOrDefaultAsync(a => a.Id == request.ArticleId, cancellationToken: cancellationToken);
+
+            if (article == null)
+            {
+                throw new ItemDoesNotExistException();
+            }
+
+            var comments = article
+                .Comments.ToList();
 
             return _mapper.Map<IEnumerable<CommentResponseModel>>(comments);
         }

@@ -16,16 +16,14 @@ namespace EventTrackerBlog.WebAPI.Controllers
     [ApiController]
     public class CommentsController : ControllerBase
     {
-        private readonly IMapper _mapper;
         private readonly IMediator _mediator;
 
-        public CommentsController(IMapper mapper, IMediator mediator)
+        public CommentsController(IMediator mediator)
         {
-            _mapper = mapper;
             _mediator = mediator;
         }
 
-        [HttpGet("/comments")]
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<CommentResponseModel>>> GetAllComments()
         {
             var query = new GetAllCommentsQuery();
@@ -33,7 +31,7 @@ namespace EventTrackerBlog.WebAPI.Controllers
             return Ok(result);
         }
 
-        [HttpGet("{articleId}/comments")]
+        [HttpGet("/api/{articleId:guid}/comments")]
         public async Task<ActionResult<IEnumerable<CommentResponseModel>>> GetCommentsByArticle(Guid articleId)
         {
             var query = new GetCommentsByArticleQuery(articleId);
@@ -41,46 +39,46 @@ namespace EventTrackerBlog.WebAPI.Controllers
             return Ok(result);
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<CommentResponseModel>> GetCommentById(Guid id)
+        [HttpGet("/api/{articleId:guid}/comments/{commentId:guid}")]
+        public async Task<ActionResult<CommentResponseModel>> GetCommentById(Guid articleId, Guid commentId)
         {
-            var query = new GetCommentByIdQuery(id);
+            var query = new GetCommentByIdQuery(articleId, commentId);
             var result = await _mediator.Send(query);
             return Ok(result);
         }
 
-        [HttpPost]
-        public async Task<ActionResult<Comment>> CreateComment(CommentRequestModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
-            
-            var command = _mapper.Map<CreateCommentCommand>(model);
-            var result = await _mediator.Send(command);
-            return Ok(result);
-        }
-
-        [HttpPut("{id}")]
-        public async Task<IActionResult> ЕditComment(CommentEditRequestModel model)
+        [HttpPost("/api/{articleId:guid}/comments/new")]
+        public async Task<ActionResult<Comment>> CreateComment(CommentRequestModel model, Guid articleId)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
 
-            var command = _mapper.Map<EditCommentCommand>(model);
+            var command = new CreateCommentCommand(model.Content, articleId);
             var result = await _mediator.Send(command);
             return Ok(result);
         }
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteComment(Guid id)
+        [HttpPut("/api/{articleId:guid}/comments/edit/{commentId:guid}")]
+        public async Task<IActionResult> ЕditComment(Guid articleId, Guid commentId, CommentEditRequestModel model)
         {
-            var command = new DeleteCommentCommand(id);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var command = new EditCommentCommand(articleId, commentId, model.Content);
             var result = await _mediator.Send(command);
             return Ok(result);
+        }
+
+        [HttpDelete("/api/{articleId:guid}/comments/delete/{commentId:guid}")]
+        public async Task<IActionResult> DeleteComment(Guid articleId, Guid commentId)
+        {
+            var command = new DeleteCommentCommand(articleId, commentId);
+            await _mediator.Send(command);
+            return NoContent();
         }
     }
 }
