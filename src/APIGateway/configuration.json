@@ -10,7 +10,6 @@
         }
       ],
       "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": []
       },
       "UpstreamPathTemplate": "/gateway/events",
@@ -25,10 +24,6 @@
           "Port": 5021
         }
       ],
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": []
-      },
       "UpstreamPathTemplate": "/gateway/events/{id}",
       "UpstreamHttpMethod": [ "GET" ]
     },
@@ -41,10 +36,6 @@
           "Port": 5021
         }
       ],
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": []
-      },
       "RouteClaimsRequirement": {
         "Role": "EventHolder",
         "UserType": "Registered"
@@ -61,10 +52,6 @@
           "Port": 5021
         }
       ],
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": []
-      },
       "UpstreamPathTemplate": "/gateway/events/{eventId}/comments",
       "UpstreamHttpMethod": [ "GET" ]
     },
@@ -77,10 +64,6 @@
           "Port": 5021
         }
       ],
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": []
-      },
       "UpstreamPathTemplate": "/gateway/events/{eventId}/comments/{commentId}",
       "UpstreamHttpMethod": [ "GET" ]
     },
@@ -93,10 +76,6 @@
           "Port": 5021
         }
       ],
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": []
-      },
       "UpstreamPathTemplate": "/gateway/events/{eventId}/comments/{commentId}",
       "UpstreamHttpMethod": [ "POST", "PUT", "DELETE" ]
     },

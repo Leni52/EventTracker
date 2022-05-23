@@ -14,5 +14,8 @@ namespace EventTracker.DAL.Entities
         [MaxLength(30)]
         public string Username { get; set; }
         public Guid ExternalUserId { get; set; }
+
+        public virtual List<Event> Events { get; set; }
+
     }
 }

@@ -26,7 +26,7 @@ namespace EventTracker.DAL.Data
             base.OnModelCreating(builder);
 
             builder.Entity<Comment>().HasOne(c => c.Event).WithMany(e => e.Comments);
-
+            builder.Entity<Event>().HasMany(e => e.Users).WithMany(u => u.Events);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder builder)
