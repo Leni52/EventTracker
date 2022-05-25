@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using AutoMapper;
 using EventTrackerBlog.Domain.DTO.Comments.Response;
 
 namespace EventTrackerBlog.WebAPI.Controllers

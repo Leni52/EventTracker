@@ -1,6 +1,4 @@
-﻿
-using System;
-using EventTrackerBlog.Domain.Entities;
+﻿using System;
 using MediatR;
 using System.Collections.Generic;
 using EventTrackerBlog.Domain.DTO.Comments.Response;
