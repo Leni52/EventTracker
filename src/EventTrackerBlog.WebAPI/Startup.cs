@@ -3,7 +3,6 @@ using EventTrackerBlog.Application.Features.Articles.Queries;
 using EventTrackerBlog.Application.Features.Comments.Commands;
 using EventTrackerBlog.Application.Features.Comments.Queries;
 using EventTrackerBlog.Application.Handlers.Articles;
-using EventTrackerBlog.Application.Handlers.Comments;
 using EventTrackerBlog.Domain.Data;
 using EventTrackerBlog.Domain.DTO.Articles.Request;
 using EventTrackerBlog.Domain.DTO.Articles.Response;
@@ -21,6 +20,12 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
+using static EventTrackerBlog.Application.Features.Comments.Commands.CreateComment;
+using static EventTrackerBlog.Application.Features.Comments.Commands.DeleteComment;
+using static EventTrackerBlog.Application.Features.Comments.Commands.EditComment;
+using static EventTrackerBlog.Application.Features.Comments.Queries.GetAllComments;
+using static EventTrackerBlog.Application.Features.Comments.Queries.GetCommentById;
+using static EventTrackerBlog.Application.Features.Comments.Queries.GetCommentsByArticle;
 
 namespace EventTrackerBlog.WebAPI
 {
@@ -52,12 +57,12 @@ namespace EventTrackerBlog.WebAPI
             //register handlers and queries/commands
             services.AddMediatR(typeof(Startup));
 
-            services.AddScoped<IRequestHandler<GetAllCommentsQuery, IEnumerable<CommentResponseModel>>, GetAllCommentsHandler>();
-            services.AddScoped<IRequestHandler<GetCommentsByArticleQuery, IEnumerable<CommentResponseModel>>, GetCommentsByArticleHandler>();
-            services.AddScoped<IRequestHandler<GetCommentByIdQuery, CommentResponseModel>, GetCommentByIdHandler>();
-            services.AddScoped<IRequestHandler<CreateCommentCommand, CommentResponseModel>, CreateCommentHandler>();
-            services.AddScoped<IRequestHandler<EditCommentCommand, CommentResponseModel>, EditCommentHandler>();
-            services.AddScoped<IRequestHandler<DeleteCommentCommand, Guid>, DeleteCommentHandler>();
+            services.AddScoped<IRequestHandler<GetAllComments, IEnumerable<CommentResponseModel>>, GetAllCommentsHandler>();
+            services.AddScoped<IRequestHandler<GetCommentsByArticle, IEnumerable<CommentResponseModel>>, GetCommentsByArticleHandler>();
+            services.AddScoped<IRequestHandler<GetCommentById, CommentResponseModel>, GetCommentByIdHandler>();
+            services.AddScoped<IRequestHandler<CreateComment, CommentResponseModel>, CreateCommentHandler>();
+            services.AddScoped<IRequestHandler<EditComment, CommentResponseModel>, EditCommentHandler>();
+            services.AddScoped<IRequestHandler<DeleteComment, Guid>, DeleteCommentHandler>();
 
             services.AddScoped<IRequestHandler<GetAllArticlesQuery, IEnumerable<ArticleResponseModel>>, GetAllArticlesHandler>();
             services.AddScoped<IRequestHandler<GetArticleByIdQuery, ArticleResponseModel>, GetArticleByIdHandler>();
