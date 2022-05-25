@@ -27,8 +27,8 @@
 
 
 	<ItemGroup>
-		<ProjectReference Include="..\EventTrackerBlog.Application\EventTrackerBlog.Application.csproj" />
-		<ProjectReference Include="..\EventTrackerBlog.Domain\EventTrackerBlog.Domain.csproj" />
+		<ProjectReference Include="..\EventTrackerBlog.Application\EventTrackerBlog.Domain.csproj" />
+		<ProjectReference Include="..\EventTrackerBlog.Domain\EventTrackerBlog.Data.csproj" />
 	</ItemGroup>
 
 </Project>

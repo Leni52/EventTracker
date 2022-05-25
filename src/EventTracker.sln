@@ -19,9 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventTrackerBlog.WebAPI", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EventTrackerBlog", "EventTrackerBlog", "{2753AE3F-0D4E-4C86-8B9F-0A01EA44EA97}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventTrackerBlog.Application", "EventTrackerBlog.Application\EventTrackerBlog.Application.csproj", "{24B68DE0-A229-4AF2-B18E-6B05500BB1CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventTrackerBlog.Domain", "EventTrackerBlog.Application\EventTrackerBlog.Domain.csproj", "{24B68DE0-A229-4AF2-B18E-6B05500BB1CE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventTrackerBlog.Domain", "EventTrackerBlog.Domain\EventTrackerBlog.Domain.csproj", "{DDC98B5D-CD25-49FE-B089-9E32E81D87EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventTrackerBlog.Data", "EventTrackerBlog.Domain\EventTrackerBlog.Data.csproj", "{DDC98B5D-CD25-49FE-B089-9E32E81D87EC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
