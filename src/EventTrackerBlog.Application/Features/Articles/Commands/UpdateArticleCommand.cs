@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using EventTrackerBlog.Application.Exceptions;
 using EventTrackerBlog.Domain.Data;
 using EventTrackerBlog.Domain.DTO.Articles.Response;
+using ExceptionHandling.Exceptions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -27,11 +27,13 @@ namespace EventTrackerBlog.Application.Features.Articles.Commands
         {
             private readonly BlogDbContext _context;
             private readonly IMapper _mapper;
+
             public UpdateArticleHandler(BlogDbContext context, IMapper mapper)
             {
                 _context = context;
                 _mapper = mapper;
             }
+
             public async Task<ArticleResponseModel> Handle(UpdateArticle command, CancellationToken cancellationToken)
             {
                 var articleToUpdate = await _context.Articles.Where(a => a.Id == command.ArticleId).FirstOrDefaultAsync();

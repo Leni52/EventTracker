@@ -1,11 +1,11 @@
-﻿using System;
+﻿using EventTrackerBlog.Domain.Data;
+using ExceptionHandling.Exceptions;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using EventTrackerBlog.Application.Exceptions;
-using EventTrackerBlog.Domain.Data;
-using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace EventTrackerBlog.Application.Features.Comments.Commands
 {

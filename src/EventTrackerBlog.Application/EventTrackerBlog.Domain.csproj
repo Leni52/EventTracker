@@ -12,6 +12,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\EventTrackerBlog.Domain\EventTrackerBlog.Data.csproj" />
+		<ProjectReference Include="..\ExceptionHandling\ExceptionHandling.csproj" />
 	</ItemGroup>
 
 </Project>

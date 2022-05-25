@@ -1,5 +1,5 @@
-﻿using EventTrackerBlog.Application.Exceptions;
-using EventTrackerBlog.Domain.Data;
+﻿using EventTrackerBlog.Domain.Data;
+using ExceptionHandling.Exceptions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -20,10 +20,12 @@ namespace EventTrackerBlog.Application.Features.Articles.Commands
         public class DeleteArticleByIdHandler : IRequestHandler<DeleteArticleById, Guid>
         {
             private readonly BlogDbContext _context;
+
             public DeleteArticleByIdHandler(BlogDbContext context)
             {
                 _context = context;
             }
+
             public async Task<Guid> Handle(DeleteArticleById command, CancellationToken cancellationToken)
             {
                 var article = await _context.Articles.Where(a => a.Id == command.ArticleId).FirstOrDefaultAsync();

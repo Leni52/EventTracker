@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace EventTrackerBlog.Application.Exceptions
+namespace ExceptionHandling.Exceptions
 {
     public class ItemDoesNotExistException : HttpException
     {

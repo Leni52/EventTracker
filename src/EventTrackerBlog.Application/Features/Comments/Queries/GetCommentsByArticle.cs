@@ -1,14 +1,14 @@
-﻿using System;
-using MediatR;
-using System.Collections.Generic;
-using EventTrackerBlog.Domain.DTO.Comments.Response;
-using System.Threading.Tasks;
-using System.Threading;
-using EventTrackerBlog.Application.Exceptions;
+﻿using AutoMapper;
 using EventTrackerBlog.Domain.Data;
-using AutoMapper;
+using EventTrackerBlog.Domain.DTO.Comments.Response;
+using ExceptionHandling.Exceptions;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace EventTrackerBlog.Application.Features.Comments.Queries
 {

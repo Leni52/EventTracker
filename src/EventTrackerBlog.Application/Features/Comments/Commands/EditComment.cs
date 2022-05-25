@@ -1,13 +1,13 @@
-﻿using System;
+﻿using AutoMapper;
+using EventTrackerBlog.Domain.Data;
+using EventTrackerBlog.Domain.DTO.Comments.Response;
+using ExceptionHandling.Exceptions;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
-using EventTrackerBlog.Application.Exceptions;
-using EventTrackerBlog.Domain.Data;
-using EventTrackerBlog.Domain.DTO.Comments.Response;
-using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace EventTrackerBlog.Application.Features.Comments.Commands
 {

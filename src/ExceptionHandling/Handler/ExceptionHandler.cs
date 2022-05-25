@@ -1,11 +1,11 @@
-﻿using EventTrackerBlog.Application.Exceptions;
+﻿using ExceptionHandling.Exceptions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Text.Json;
 
-namespace EventTrackerBlog.WebAPI.Middleware
+namespace ExceptionHandling.Handler
 {
     public class ExceptionHandlerConfig
     {

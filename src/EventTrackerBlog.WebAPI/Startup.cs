@@ -7,7 +7,7 @@ using EventTrackerBlog.Domain.DTO.Articles.Request;
 using EventTrackerBlog.Domain.DTO.Articles.Response;
 using EventTrackerBlog.Domain.DTO.Comments.Response;
 using EventTrackerBlog.Domain.Seed;
-using EventTrackerBlog.WebAPI.Middleware;
+using ExceptionHandling.Handler;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -58,7 +58,6 @@ namespace EventTrackerBlog.WebAPI
                 options.UseSqlServer(Configuration["ConnectionStrings:Default"]));
 
             //register handlers and queries/commands
-            services.AddMediatR(typeof(Startup));
 
             services.AddScoped<IRequestHandler<GetAllComments, IEnumerable<CommentResponseModel>>, GetAllCommentsHandler>();
             services.AddScoped<IRequestHandler<GetCommentsByArticle, IEnumerable<CommentResponseModel>>, GetCommentsByArticleHandler>();
@@ -72,6 +71,8 @@ namespace EventTrackerBlog.WebAPI
             services.AddScoped<IRequestHandler<CreateArticle, ArticleRequestModel>, CreateArticleHandler>();
             services.AddScoped<IRequestHandler<DeleteArticleById, Guid>, DeleteArticleByIdHandler>();
             services.AddScoped<IRequestHandler<UpdateArticle, ArticleResponseModel>, UpdateArticleHandler>();
+
+            services.AddMediatR(typeof(Startup));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

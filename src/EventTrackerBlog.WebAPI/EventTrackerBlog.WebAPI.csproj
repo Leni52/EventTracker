@@ -21,14 +21,9 @@
 
 
 	<ItemGroup>
-		<Folder Include="Middleware\" />
-	</ItemGroup>
-
-
-
-	<ItemGroup>
 		<ProjectReference Include="..\EventTrackerBlog.Application\EventTrackerBlog.Domain.csproj" />
 		<ProjectReference Include="..\EventTrackerBlog.Domain\EventTrackerBlog.Data.csproj" />
+		<ProjectReference Include="..\ExceptionHandling\ExceptionHandling.csproj" />
 	</ItemGroup>
 
 </Project>

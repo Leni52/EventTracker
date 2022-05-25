@@ -22,11 +22,13 @@ namespace EventTrackerBlog.Application.Features.Articles.Commands
         {
             private readonly BlogDbContext _context;
             private readonly IMapper _mapper;
+
             public CreateArticleHandler(BlogDbContext context, IMapper mapper)
             {
                 _context = context;
                 _mapper = mapper;
             }
+
             public async Task<ArticleRequestModel> Handle(CreateArticle request, CancellationToken cancellationToken)
             {
                 var article = new Article()
