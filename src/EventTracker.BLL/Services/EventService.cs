@@ -94,6 +94,7 @@ namespace EventTracker.BLL.Services
 
             _unitOfWork.Events.Delete(eventToDelete);
             await _unitOfWork.SaveAsync();
+            _notificationService.SendNotificationAsync(eventToDelete);
         }
 
         public async Task SignUpRegularUser(Guid eventId, ClaimsPrincipal claimsPrincipal)
