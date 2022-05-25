@@ -10,8 +10,8 @@ namespace EventTrackerBlog.Application.Features.Articles.Commands
 {
     public class CreateArticle : IRequest<ArticleRequestModel>
     {
-        public string Title { get; set; }
-        public string Content { get; set; }
+        public string Title { get; }
+        public string Content { get; }
         public CreateArticle(string title, string content)
         {
             Title = title;

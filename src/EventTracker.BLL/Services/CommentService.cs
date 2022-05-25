@@ -1,16 +1,11 @@
 ﻿using AutoMapper;
-using EventTracker.BLL.Exceptions;
 using EventTracker.BLL.Interfaces;
 using EventTracker.DAL.Contracts;
-using EventTracker.DAL.Data;
 using EventTracker.DAL.Entities;
 using EventTracker.DTO.CommentModels;
-using Microsoft.EntityFrameworkCore;
+using ExceptionHandling.Exceptions;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace EventTracker.BLL.Services
@@ -38,7 +33,7 @@ namespace EventTracker.BLL.Services
             {
                 throw new ItemDoesNotExistException();
             }
-            return comment;            
+            return comment;
         }
 
         public async Task CreateCommentAsync(CommentCreateModel commentRequest)

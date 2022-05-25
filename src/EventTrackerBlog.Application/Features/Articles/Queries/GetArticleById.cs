@@ -12,7 +12,7 @@ namespace EventTrackerBlog.Application.Features.Articles.Queries
 {
     public class GetArticleById : IRequest<ArticleResponseModel>
     {
-        public Guid ArticleId { get; set; }
+        public Guid ArticleId { get; }
         public GetArticleById(Guid articleId)
         {
             ArticleId = articleId;

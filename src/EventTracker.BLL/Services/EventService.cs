@@ -1,12 +1,11 @@
 ﻿using AutoMapper;
-using EventTracker.BLL.Exceptions;
 using EventTracker.BLL.Interfaces;
 using EventTracker.DAL.Contracts;
 using EventTracker.DAL.Entities;
 using EventTracker.DTO.EventModels;
+using ExceptionHandling.Exceptions;
 using System;
 using System.Collections.Generic;
-using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -33,7 +32,7 @@ namespace EventTracker.BLL.Services
         public async Task<Event> GetEventByIdAsync(Guid eventId)
         {
             var eventFromDb = await _unitOfWork.Events.GetByIdAsync(eventId);
-            if(eventFromDb==null)
+            if (eventFromDb == null)
             {
                 throw new ItemDoesNotExistException();
             }

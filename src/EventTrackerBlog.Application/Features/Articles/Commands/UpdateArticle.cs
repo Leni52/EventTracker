@@ -13,9 +13,9 @@ namespace EventTrackerBlog.Application.Features.Articles.Commands
 {
     public class UpdateArticle : IRequest<ArticleResponseModel>
     {
-        public Guid ArticleId { get; set; }
-        public string Title { get; set; }
-        public string Content { get; set; }
+        public Guid ArticleId { get; }
+        public string Title { get; }
+        public string Content { get; }
         public UpdateArticle(string title, string content, Guid articleId)
         {
             Title = title;
