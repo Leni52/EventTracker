@@ -11,7 +11,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\EventTrackerBlog.Domain\EventTrackerBlog.Domain.csproj" />
+		<ProjectReference Include="..\EventTrackerBlog.Domain\EventTrackerBlog.Data.csproj" />
 	</ItemGroup>
 
 </Project>
