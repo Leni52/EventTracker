@@ -13,11 +13,11 @@ namespace EventTrackerBlog.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CommentsController : ControllerBase
+    public class CommentController : ControllerBase
     {
         private readonly IMediator _mediator;
 
-        public CommentsController(IMediator mediator)
+        public CommentController(IMediator mediator)
         {
             _mediator = mediator;
         }
@@ -30,7 +30,7 @@ namespace EventTrackerBlog.WebAPI.Controllers
             return Ok(result);
         }
 
-        [HttpGet("/api/{articleId:guid}/comments")]
+        [HttpGet("{articleId:guid}")]
         public async Task<ActionResult<IEnumerable<CommentResponseModel>>> GetCommentsByArticle(Guid articleId)
         {
             var query = new GetCommentsByArticle(articleId);
@@ -38,7 +38,7 @@ namespace EventTrackerBlog.WebAPI.Controllers
             return Ok(result);
         }
 
-        [HttpGet("/api/{articleId:guid}/comments/{commentId:guid}")]
+        [HttpGet("{articleId:guid}/{commentId:guid}")]
         public async Task<ActionResult<CommentResponseModel>> GetCommentById(Guid articleId, Guid commentId)
         {
             var query = new GetCommentById(articleId, commentId);
@@ -46,7 +46,7 @@ namespace EventTrackerBlog.WebAPI.Controllers
             return Ok(result);
         }
 
-        [HttpPost("/api/{articleId:guid}/comments/new")]
+        [HttpPost]
         public async Task<ActionResult<Comment>> CreateComment(CommentRequestModel model, Guid articleId)
         {
             if (!ModelState.IsValid)
@@ -59,7 +59,7 @@ namespace EventTrackerBlog.WebAPI.Controllers
             return Ok(result);
         }
 
-        [HttpPut("/api/{articleId:guid}/comments/edit/{commentId:guid}")]
+        [HttpPut("{articleId:guid}/edit/{commentId:guid}")]
         public async Task<IActionResult> ЕditComment(Guid articleId, Guid commentId, CommentRequestModel model)
         {
             if (!ModelState.IsValid)
@@ -72,7 +72,7 @@ namespace EventTrackerBlog.WebAPI.Controllers
             return Ok(result);
         }
 
-        [HttpDelete("/api/{articleId:guid}/comments/delete/{commentId:guid}")]
+        [HttpDelete("{articleId:guid}/delete/{commentId:guid}")]
         public async Task<IActionResult> DeleteComment(Guid articleId, Guid commentId)
         {
             var command = new DeleteComment(articleId, commentId);
