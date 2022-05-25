@@ -1,9 +1,12 @@
 ﻿using EventTrackerBlog.Application.Features.Articles.Commands;
 using EventTrackerBlog.Application.Features.Articles.Queries;
+using EventTrackerBlog.Domain.DTO.Articles.Request;
+using EventTrackerBlog.Domain.DTO.Articles.Response;
+using EventTrackerBlog.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace EventTrackerBlog.WebAPI.Controllers
@@ -13,42 +16,66 @@ namespace EventTrackerBlog.WebAPI.Controllers
     public class ArticleController : ControllerBase
     {
         private IMediator _mediator;
-        protected IMediator Mediator => _mediator ??= HttpContext.RequestServices.GetService<IMediator>();
-        [HttpPost]
-        public async Task<IActionResult> CreateArticle(CreateArticleCommand command)
+        public ArticleController(IMediator mediator)
         {
-            return Ok(await Mediator.Send(command));
+            _mediator = mediator;
         }
-        [HttpGet]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(404)]
-        public async Task<IActionResult> GetAllArticles()
-        {
 
-            return Ok(await Mediator.Send(new GetAllArticlesQuery()));
-        }
-        [HttpGet("{articleId}")]
+        [HttpPost]
         [ProducesResponseType(200)]
-        [ProducesResponseType(404)]
-        public async Task<IActionResult> GetById(Guid articleId)
+        [ProducesResponseType(403)]
+        public async Task<ActionResult<Article>> CreateArticle(ArticleRequestModel request)
         {
-            var article = await Mediator.Send(new GetArticleByIdQuery(articleId) { ArticleId = articleId });
-            return Ok(article);
-        }
-        [HttpDelete("{articleId}")]
-        public async Task<IActionResult> DeleteArticle(Guid articleId)
-        {
-            await Mediator.Send(new DeleteArticleByIdCommand { ArticleId = articleId });
-            return NoContent();
-        }
-        [HttpPut("articleId")]
-        public async Task<IActionResult> UpdateArticle(Guid articleId, UpdateArticleCommand command)
-        {
-            if (articleId != command.ArticleId)
+            if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
-            return Ok(await Mediator.Send(command));
+
+            var command = new CreateArticle(request.Title, request.Content);
+            var result = await _mediator.Send(command);
+            return Ok(result);
+        }
+
+        [HttpGet]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
+        public async Task<ActionResult<IEnumerable<ArticleResponseModel>>> GetAllArticles()
+        {
+            var query = new GetAllArticles();
+            var result = await _mediator.Send(query);
+            return Ok(result);
+        }
+
+        [HttpGet("{articleId}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
+        public async Task<ActionResult<ArticleResponseModel>> GetById(Guid articleId)
+        {
+            var query = new GetArticleById(articleId);
+            var result = await _mediator.Send(query);
+            return Ok(result);
+        }
+
+        [HttpDelete("{articleId}")]
+        [ProducesResponseType(204)]
+        public async Task<ActionResult> DeleteArticle(Guid articleId)
+        {
+            var command = new DeleteArticleById();
+            await _mediator.Send(command);
+            return NoContent();
+        }
+        [HttpPut("articleId")]
+        [ProducesResponseType(403)]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> UpdateArticle(Guid articleId, ArticleRequestModel request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            var command = new UpdateArticle(request.Title, request.Content, articleId);
+            var result = await _mediator.Send(command);
+            return Ok(result);
         }
     }
 }

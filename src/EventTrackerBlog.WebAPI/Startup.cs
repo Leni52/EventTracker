@@ -2,13 +2,11 @@ using EventTrackerBlog.Application.Features.Articles.Commands;
 using EventTrackerBlog.Application.Features.Articles.Queries;
 using EventTrackerBlog.Application.Features.Comments.Commands;
 using EventTrackerBlog.Application.Features.Comments.Queries;
-using EventTrackerBlog.Application.Handlers.Articles;
 using EventTrackerBlog.Application.Handlers.Comments;
 using EventTrackerBlog.Domain.Data;
 using EventTrackerBlog.Domain.DTO.Articles.Request;
 using EventTrackerBlog.Domain.DTO.Articles.Response;
 using EventTrackerBlog.Domain.DTO.Comments.Response;
-using EventTrackerBlog.Domain.Entities;
 using EventTrackerBlog.Domain.Seed;
 using EventTrackerBlog.WebAPI.Middleware;
 using MediatR;
@@ -21,6 +19,11 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
+using static EventTrackerBlog.Application.Features.Articles.Commands.CreateArticle;
+using static EventTrackerBlog.Application.Features.Articles.Commands.DeleteArticleById;
+using static EventTrackerBlog.Application.Features.Articles.Commands.UpdateArticle;
+using static EventTrackerBlog.Application.Features.Articles.Queries.GetAllArticles;
+using static EventTrackerBlog.Application.Features.Articles.Queries.GetArticleById;
 
 namespace EventTrackerBlog.WebAPI
 {
@@ -59,11 +62,11 @@ namespace EventTrackerBlog.WebAPI
             services.AddScoped<IRequestHandler<EditCommentCommand, CommentResponseModel>, EditCommentHandler>();
             services.AddScoped<IRequestHandler<DeleteCommentCommand, Guid>, DeleteCommentHandler>();
 
-            services.AddScoped<IRequestHandler<GetAllArticlesQuery, IEnumerable<ArticleResponseModel>>, GetAllArticlesHandler>();
-            services.AddScoped<IRequestHandler<GetArticleByIdQuery, ArticleResponseModel>, GetArticleByIdHandler>();
-            services.AddScoped<IRequestHandler<CreateArticleCommand, ArticleRequestModel>, CreateArticleCommandHandler>();
-            services.AddScoped<IRequestHandler<DeleteArticleByIdCommand, Guid>, DeleteArticleByIdCommandHandler>();
-            services.AddScoped<IRequestHandler<UpdateArticleCommand, ArticleResponseModel>, UpdateArticleCommandHandler>();
+            services.AddScoped<IRequestHandler<GetAllArticles, IEnumerable<ArticleResponseModel>>, GetAllArticlesHandler>();
+            services.AddScoped<IRequestHandler<GetArticleById, ArticleResponseModel>, GetArticleByIdHandler>();
+            services.AddScoped<IRequestHandler<CreateArticle, ArticleRequestModel>, CreateArticleHandler>();
+            services.AddScoped<IRequestHandler<DeleteArticleById, Guid>, DeleteArticleByIdHandler>();
+            services.AddScoped<IRequestHandler<UpdateArticle, ArticleResponseModel>, UpdateArticleHandler>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
