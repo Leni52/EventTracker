@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using EventTrackerBlog.Domain.Common;
 
 namespace EventTrackerBlog.Domain.DTO.Comments.Request

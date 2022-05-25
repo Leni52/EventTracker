@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using AutoMapper;
 using EventTrackerBlog.Domain.DTO.Comments.Response;
 
 namespace EventTrackerBlog.WebAPI.Controllers
@@ -26,7 +25,7 @@ namespace EventTrackerBlog.WebAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CommentResponseModel>>> GetAllComments()
         {
-            var query = new GetAllCommentsQuery();
+            var query = new GetAllComments();
             var result = await _mediator.Send(query);
             return Ok(result);
         }
@@ -34,7 +33,7 @@ namespace EventTrackerBlog.WebAPI.Controllers
         [HttpGet("/api/{articleId:guid}/comments")]
         public async Task<ActionResult<IEnumerable<CommentResponseModel>>> GetCommentsByArticle(Guid articleId)
         {
-            var query = new GetCommentsByArticleQuery(articleId);
+            var query = new GetCommentsByArticle(articleId);
             var result = await _mediator.Send(query);
             return Ok(result);
         }
@@ -42,7 +41,7 @@ namespace EventTrackerBlog.WebAPI.Controllers
         [HttpGet("/api/{articleId:guid}/comments/{commentId:guid}")]
         public async Task<ActionResult<CommentResponseModel>> GetCommentById(Guid articleId, Guid commentId)
         {
-            var query = new GetCommentByIdQuery(articleId, commentId);
+            var query = new GetCommentById(articleId, commentId);
             var result = await _mediator.Send(query);
             return Ok(result);
         }
@@ -55,7 +54,7 @@ namespace EventTrackerBlog.WebAPI.Controllers
                 return BadRequest();
             }
 
-            var command = new CreateCommentCommand(model.Content, articleId);
+            var command = new CreateComment(model.Content, articleId);
             var result = await _mediator.Send(command);
             return Ok(result);
         }
@@ -68,7 +67,7 @@ namespace EventTrackerBlog.WebAPI.Controllers
                 return BadRequest();
             }
 
-            var command = new EditCommentCommand(articleId, commentId, model.Content);
+            var command = new EditComment(articleId, commentId, model.Content);
             var result = await _mediator.Send(command);
             return Ok(result);
         }
@@ -76,7 +75,7 @@ namespace EventTrackerBlog.WebAPI.Controllers
         [HttpDelete("/api/{articleId:guid}/comments/delete/{commentId:guid}")]
         public async Task<IActionResult> DeleteComment(Guid articleId, Guid commentId)
         {
-            var command = new DeleteCommentCommand(articleId, commentId);
+            var command = new DeleteComment(articleId, commentId);
             await _mediator.Send(command);
             return NoContent();
         }

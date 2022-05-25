@@ -13,9 +13,9 @@ namespace EventTrackerBlog.WebAPI.Profiles
         {
             CreateMap<Comment, CommentRequestModel>().ReverseMap();
             CreateMap<Comment, CommentResponseModel>().ReverseMap();
-            CreateMap<CommentRequestModel, CreateCommentCommand>().ReverseMap();
-            CreateMap<CommentRequestModel, EditCommentCommand>().ReverseMap();
-            CreateMap<CreateCommentCommand, Comment>()
+            CreateMap<CommentRequestModel, CreateComment>().ReverseMap();
+            CreateMap<CommentRequestModel, EditComment>().ReverseMap();
+            CreateMap<CreateComment, Comment>()
                 .ForMember(c => c.CreatedAt, opt => opt.MapFrom(x => DateTime.Now))
                 .ForMember(c => c.LastModifiedAt, opt => opt.MapFrom(x => DateTime.Now))
                 .ReverseMap();
