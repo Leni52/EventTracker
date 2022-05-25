@@ -60,7 +60,7 @@ namespace EventTrackerBlog.WebAPI.Controllers
         [ProducesResponseType(204)]
         public async Task<ActionResult> DeleteArticle(Guid articleId)
         {
-            var command = new DeleteArticleById();
+            var command = new DeleteArticleById(articleId);
             await _mediator.Send(command);
             return NoContent();
         }

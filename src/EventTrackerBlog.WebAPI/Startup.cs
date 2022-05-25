@@ -2,8 +2,6 @@ using EventTrackerBlog.Application.Features.Articles.Commands;
 using EventTrackerBlog.Application.Features.Articles.Queries;
 using EventTrackerBlog.Application.Features.Comments.Commands;
 using EventTrackerBlog.Application.Features.Comments.Queries;
-using EventTrackerBlog.Application.Handlers.Comments;
-using EventTrackerBlog.Application.Handlers.Articles;
 using EventTrackerBlog.Domain.Data;
 using EventTrackerBlog.Domain.DTO.Articles.Request;
 using EventTrackerBlog.Domain.DTO.Articles.Response;

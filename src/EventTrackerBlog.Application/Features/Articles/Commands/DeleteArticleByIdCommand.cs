@@ -11,7 +11,11 @@ namespace EventTrackerBlog.Application.Features.Articles.Commands
 {
     public class DeleteArticleById : IRequest<Guid>
     {
-        public Guid ArticleId { get; set; }
+        public Guid ArticleId { get; }
+        public DeleteArticleById(Guid articleId)
+        {
+            ArticleId = articleId;
+        }
 
         public class DeleteArticleByIdHandler : IRequestHandler<DeleteArticleById, Guid>
         {
