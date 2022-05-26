@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace EventTracker.BLL.Services
 {
+    using static Common.NotificationMessages;
     public class EventService : IEventService
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -60,7 +61,6 @@ namespace EventTracker.BLL.Services
 
             await _unitOfWork.Events.CreateAsync(eventToCreate);
             await _unitOfWork.SaveAsync();
-            _notificationService.SendNotificationAsync(eventToCreate);
         }
 
         public async Task EditEventAsync(EventRequestModel eventRequest, Guid eventId)
@@ -94,6 +94,10 @@ namespace EventTracker.BLL.Services
 
             _unitOfWork.Events.Delete(eventToDelete);
             await _unitOfWork.SaveAsync();
+
+            var subject = string.Format(DeletedEventSubject, eventToDelete.Name);
+            var body = string.Format(DeletedEventBody, eventToDelete.Name, eventToDelete.Location, eventToDelete.StartDate, eventToDelete.EndDate);
+            _notificationService.SendNotificationAsync(eventToDelete, subject, body);
         }
 
         public async Task SignUpRegularUser(Guid eventId, ClaimsPrincipal claimsPrincipal)
@@ -109,6 +113,36 @@ namespace EventTracker.BLL.Services
 
             eventData.Users.Add(externalUser);
             await _unitOfWork.SaveAsync();
+
+            var subject = string.Format(SubscribedToEventSubject, eventData.Name);
+            var body = string.Format(SubscribedToEventBody, eventData.Name, eventData.Location, eventData.StartDate,
+                eventData.EndDate);
+            _notificationService.SendNotificationAsync(eventData, subject, body);
+        }
+
+        public async Task SignOutRegularUserAsync(Guid eventId, ClaimsPrincipal claimsPrincipal)
+        {
+            var userId = claimsPrincipal.FindFirstValue(ClaimTypes.NameIdentifier);
+            var externalUser = await _unitOfWork.ExternalUsers.GetByExternalId(userId);
+            var eventData = await _unitOfWork.Events.GetByIdAsync(eventId);
+
+            if (eventData == null)
+            {
+                throw new ItemDoesNotExistException();
+            }
+
+            if (!eventData.Users.Contains(externalUser))
+            {
+                throw new InvalidSubscriberException();
+            }
+
+            eventData.Users.Remove(externalUser);
+            await _unitOfWork.SaveAsync();
+
+            var subject = string.Format(SubscribedToEventSubject, eventData.Name);
+            var body = string.Format(SubscribedToEventBody, eventData.Name, eventData.Location, eventData.StartDate,
+                eventData.EndDate);
+            _notificationService.SendNotificationAsync(eventData, subject, body);
         }
     }
 }
