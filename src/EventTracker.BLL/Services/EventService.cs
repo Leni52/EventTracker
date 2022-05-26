@@ -119,5 +119,30 @@ namespace EventTracker.BLL.Services
                 eventData.EndDate);
             _notificationService.SendNotificationAsync(eventData, subject, body);
         }
+
+        public async Task SignOutRegularUserAsync(Guid eventId, ClaimsPrincipal claimsPrincipal)
+        {
+            var userId = claimsPrincipal.FindFirstValue(ClaimTypes.NameIdentifier);
+            var externalUser = await _unitOfWork.ExternalUsers.GetByExternalId(userId);
+            var eventData = await _unitOfWork.Events.GetByIdAsync(eventId);
+
+            if (eventData == null)
+            {
+                throw new ItemDoesNotExistException();
+            }
+
+            if (!eventData.Users.Contains(externalUser))
+            {
+                throw new InvalidSubscriberException();
+            }
+
+            eventData.Users.Remove(externalUser);
+            await _unitOfWork.SaveAsync();
+
+            var subject = string.Format(SubscribedToEventSubject, eventData.Name);
+            var body = string.Format(SubscribedToEventBody, eventData.Name, eventData.Location, eventData.StartDate,
+                eventData.EndDate);
+            _notificationService.SendNotificationAsync(eventData, subject, body);
+        }
     }
 }
