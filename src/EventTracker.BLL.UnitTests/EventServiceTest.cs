@@ -1,4 +1,5 @@
-﻿using EventTracker.BLL.Services;
+﻿using EventTracker.BLL.Exceptions;
+using EventTracker.BLL.Services;
 using EventTracker.DAL.Entities;
 using EventTracker.DTO.EventModels;
 using Moq;
@@ -32,7 +33,7 @@ namespace EventTracker.BLL.UnitTests
 
             unitOfWork.Setup(uof => uof.Events.CheckIfNameExistsCreate(It.IsAny<string>())).ReturnsAsync(true);
 
-            await Assert.ThrowsAsync<Exception>(async () => await sut.CreateEventAsync(new Event())); 
+            await Assert.ThrowsAsync<ItemIsAlreadyUsedException>(async () => await sut.CreateEventAsync(new Event())); 
         }
 
         [Fact]
@@ -50,7 +51,7 @@ namespace EventTracker.BLL.UnitTests
         }
 
         [Fact]
-        public async Task EditEventAsync_ThrowsNullException()
+        public async Task EditEventAsync_ThrowsItemDoesNotExistException()
         {
             var sut = new EventService(unitOfWork.Object, notificationService.Object);
 
@@ -58,11 +59,11 @@ namespace EventTracker.BLL.UnitTests
 
             unitOfWork.Setup(uof => uof.Events.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync(testEvent);
 
-            await Assert.ThrowsAsync<Exception>(async () => await sut.EditEventAsync(new Event(), new Guid()));
+            await Assert.ThrowsAsync<ItemDoesNotExistException>(async () => await sut.EditEventAsync(new Event(), new Guid()));
         }
 
         [Fact]
-        public async Task EditEventAsync_ThrowsNameInUseException()
+        public async Task EditEventAsync_ThrowsItemAlreadyUsedException()
         {
             var sut = new EventService(unitOfWork.Object, notificationService.Object);
             var testEvent = new Event();
@@ -70,7 +71,7 @@ namespace EventTracker.BLL.UnitTests
             unitOfWork.Setup(uof => uof.Events.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync(testEvent);
             unitOfWork.Setup(uof => uof.Events.CheckIfNameExistsEdit(It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(true);
 
-            await Assert.ThrowsAsync<Exception>(async () => await sut.EditEventAsync(new Event(), new Guid()));
+            await Assert.ThrowsAsync<ItemIsAlreadyUsedException>(async () => await sut.EditEventAsync(new Event(), new Guid()));
         }
 
         [Fact]
@@ -87,7 +88,7 @@ namespace EventTracker.BLL.UnitTests
         }
 
         [Fact]
-        public async Task DeleteEventAsync_ThrowsNullException()
+        public async Task DeleteEventAsync_ThrowsItemDoesNotExistException()
         {
             var sut = new EventService(unitOfWork.Object, notificationService.Object);
 
@@ -95,7 +96,7 @@ namespace EventTracker.BLL.UnitTests
 
             unitOfWork.Setup(uof => uof.Events.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync(testEvent);
 
-            await Assert.ThrowsAsync<Exception>(async () => await sut.DeleteEventAsync(new Guid()));
+            await Assert.ThrowsAsync<ItemDoesNotExistException>(async () => await sut.DeleteEventAsync(new Guid()));
         }
 
         [Fact]
@@ -112,7 +113,7 @@ namespace EventTracker.BLL.UnitTests
         }
 
         [Fact]
-        public async Task GetEventByIdAsync_ThrowsNullException()
+        public async Task GetEventByIdAsync_ThrowsItemDoesNotExistException()
         {
             var sut = new EventService(unitOfWork.Object, notificationService.Object);
 
@@ -120,7 +121,7 @@ namespace EventTracker.BLL.UnitTests
 
             unitOfWork.Setup(uof => uof.Events.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync(testEvent);
 
-            await Assert.ThrowsAsync<Exception>(async () => await sut.GetEventByIdAsync(new Guid()));
+            await Assert.ThrowsAsync<ItemDoesNotExistException>(async () => await sut.GetEventByIdAsync(new Guid()));
         }
 
         [Fact]
