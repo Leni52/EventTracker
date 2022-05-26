@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using EventTracker.BLL.Interfaces;
+using EventTracker.DAL.Entities;
 using EventTracker.DTO.CommentModels;
 using EventTracker.DTO.EventModels;
 using Microsoft.AspNetCore.Authorization;

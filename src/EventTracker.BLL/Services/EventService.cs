@@ -31,13 +31,11 @@ namespace EventTracker.BLL.Services
 
         public async Task<Event> GetEventByIdAsync(Guid eventId)
         {
-            var eventFromDb = await _unitOfWork.Events.GetByIdAsync(eventId);
-            if(eventFromDb==null)
+            var eventToReturn = await _unitOfWork.Events.GetByIdAsync(eventId);
+            if(eventToReturn==null)
             {
-                throw new ItemDoesNotExistException();
+                throw new ItemDoesNotExistException("Event does not exist.");
             }
-            return eventFromDb;
-        }
 
             return eventToReturn;
         }
