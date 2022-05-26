@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using EventTracker.BLL.Entities;
+using EventTracker.BLL.Models;
 
 namespace EventTracker.BLL.Interfaces
 {

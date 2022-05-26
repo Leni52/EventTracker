@@ -1,11 +1,11 @@
 ﻿using System.Net;
 
-namespace ExceptionHandling.Exceptions
+namespace EventTracker.BLL.Exceptions
 {
     public class InvalidSubscriberException : HttpException
     {
-        public InvalidSubscriberException(string message = "Cannot unsubscribe from an event you are not subscribed to!")
-        : base(message)
+        public InvalidSubscriberException(string message = "Cannot unsubscribe from an event you are not subscribed to!") 
+            : base(message)
         {
             StatusCode = HttpStatusCode.Forbidden;
         }
