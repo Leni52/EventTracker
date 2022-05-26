@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace EventTracker.BLL.Services
 {
+    using static Common.NotificationMessages;
     public class EventService : IEventService
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -60,7 +61,6 @@ namespace EventTracker.BLL.Services
 
             await _unitOfWork.Events.CreateAsync(eventToCreate);
             await _unitOfWork.SaveAsync();
-            _notificationService.SendNotificationAsync(eventToCreate);
         }
 
         public async Task EditEventAsync(EventRequestModel eventRequest, Guid eventId)
@@ -94,7 +94,10 @@ namespace EventTracker.BLL.Services
 
             _unitOfWork.Events.Delete(eventToDelete);
             await _unitOfWork.SaveAsync();
-            _notificationService.SendNotificationAsync(eventToDelete);
+
+            var subject = string.Format(DeletedEventSubject, eventToDelete.Name);
+            var body = string.Format(DeletedEventBody, eventToDelete.Name);
+            _notificationService.SendNotificationAsync(eventToDelete, subject, body);
         }
 
         public async Task SignUpRegularUser(Guid eventId, ClaimsPrincipal claimsPrincipal)
