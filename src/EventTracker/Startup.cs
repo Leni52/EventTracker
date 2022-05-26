@@ -1,8 +1,12 @@
+using EventTracker.BLL.Entities;
 using EventTracker.BLL.Interfaces;
 using EventTracker.BLL.Services;
 using EventTracker.DAL.Contracts;
 using EventTracker.DAL.Data;
 using EventTracker.DAL.Repositories;
+using EventTracker.Data;
+using EventTracker.Middleware;
+using MailKit.Net.Smtp;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -12,10 +16,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
-using EventTracker.Data;
-using EventTracker.BLL.Entities;
 using System.Text;
-using MailKit.Net.Smtp;
 
 namespace EventTracker
 {
@@ -23,7 +24,7 @@ namespace EventTracker
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;            
+            Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
@@ -60,6 +61,15 @@ namespace EventTracker
                 x.TokenValidationParameters = tokenValidationParameters;
             });
 
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("AdminOrEventHolder", policy =>
+                policy.RequireRole("AdminOrEventHolder"));
+
+                options.AddPolicy("RegularUser", policy =>
+                policy.RequireRole("RegularUser"));
+            });
+
             //end of gateway part
 
             //dbcontext
@@ -81,12 +91,13 @@ namespace EventTracker
 
             services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
             services.AddTransient<IUnitOfWork, UnitOfWork>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            DatabaseSeeder.PrepPopulation(app);
+           // DatabaseSeeder.PrepPopulation(app);
 
             if (env.IsDevelopment())
             {
@@ -95,10 +106,11 @@ namespace EventTracker
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "EventTracker v1"));
             }
 
+            app.UseExceptionHandler(new ExceptionHandlerConfig().CustomOptions);
             app.UseHttpsRedirection();
-
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

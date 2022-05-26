@@ -1,5 +1,7 @@
-﻿using EventTracker.BLL.Entities;
+﻿using System.Linq;
+using EventTracker.BLL.Entities;
 using EventTracker.BLL.Interfaces;
+using EventTracker.BLL.Models;
 using EventTracker.DAL.Entities;
 
 namespace EventTracker.BLL.Services
@@ -15,13 +17,15 @@ namespace EventTracker.BLL.Services
             _mailService = mailService;
         }
 
-        public async void SendNotificationAsync(Event targetEvent)
+        public async void SendNotificationAsync(Event targetEvent, string subject, string body)
         {
             var mailRequest = new MailRequest
             {
-                ToEmail = "eventtrackermail@gmail.com",
-                Subject = string.Format(CreatedEventSubject, targetEvent.Name),
-                Body = string.Format(CreatedEventBody, targetEvent.Id, targetEvent.Name)
+                Recipients = targetEvent.Users
+                    .Select(x => x.EmailAddress)
+                    .ToList(),
+                Subject = subject,
+                Body = body
             };
 
             await _mailService.SendEmailAsync(mailRequest);

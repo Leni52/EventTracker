@@ -1,10 +1,10 @@
 ﻿using EventTracker.BLL.Entities;
 using EventTracker.BLL.Interfaces;
-using MailKit.Security;
+using MailKit.Net.Smtp;
 using Microsoft.Extensions.Options;
 using MimeKit;
 using System.Threading.Tasks;
-using SmtpClient = MailKit.Net.Smtp.SmtpClient;
+using EventTracker.BLL.Models;
 
 namespace EventTracker.BLL.Services
 {
@@ -27,7 +27,12 @@ namespace EventTracker.BLL.Services
             };
 
             email.From.Add(MailboxAddress.Parse(_mailSettings.Mail));
-            email.To.Add(MailboxAddress.Parse(mailRequest.ToEmail)); 
+
+            foreach (var recipient in mailRequest.Recipients)
+            {
+                email.To.Add(MailboxAddress.Parse(recipient));
+            }
+
             email.Subject = mailRequest.Subject;
 
             var builder = new BodyBuilder
@@ -37,10 +42,10 @@ namespace EventTracker.BLL.Services
 
             email.Body = builder.ToMessageBody();
 
-            _smtpClient.Connect(_mailSettings.Host, _mailSettings.Port, false);
+            await _smtpClient.ConnectAsync(_mailSettings.Host, _mailSettings.Port, false);
 
             await _smtpClient.SendAsync(email);
-            _smtpClient.Disconnect(true);
+            await _smtpClient.DisconnectAsync(true);
         }
     }
 }

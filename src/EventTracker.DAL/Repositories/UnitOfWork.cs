@@ -13,6 +13,7 @@ namespace EventTracker.DAL.Repositories
         private readonly DatabaseContext _context;
         private IEventRepository _eventRepository;
         private ICommentRepository _commentRepository;
+        private IExternalUserRepository _externalUserRepository;
 
         public UnitOfWork(DatabaseContext context)
         {
@@ -23,6 +24,8 @@ namespace EventTracker.DAL.Repositories
             => _eventRepository ??= new EventRepository(_context);
         public ICommentRepository Comments
             => _commentRepository ??= new CommentRepository(_context);
+        public IExternalUserRepository ExternalUsers
+            => _externalUserRepository ??= new ExternalUserRepository(_context);
 
         public async Task SaveAsync()
         {

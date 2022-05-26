@@ -1,16 +1,18 @@
 ﻿using AutoMapper;
+using EventTracker.BLL.Exceptions;
 using EventTracker.BLL.Interfaces;
 using EventTracker.DAL.Contracts;
-using EventTracker.DAL.Data;
 using EventTracker.DAL.Entities;
 using EventTracker.DTO.EventModels;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Net;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace EventTracker.BLL.Services
 {
+    using static Common.NotificationMessages;
     public class EventService : IEventService
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -29,11 +31,13 @@ namespace EventTracker.BLL.Services
 
         public async Task<Event> GetEventByIdAsync(Guid eventId)
         {
-            var eventToReturn = await _unitOfWork.Events.GetByIdAsync(eventId);
-            if (eventToReturn == null)
+            var eventFromDb = await _unitOfWork.Events.GetByIdAsync(eventId);
+            if(eventFromDb==null)
             {
-                throw new Exception("Event does not exist.");
+                throw new ItemDoesNotExistException();
             }
+            return eventFromDb;
+        }
 
             return eventToReturn;
         }
@@ -49,7 +53,7 @@ namespace EventTracker.BLL.Services
             bool eventExists = await _unitOfWork.Events.CheckIfNameExistsCreate(eventToCreate.Name);
             if (eventExists)
             {
-                throw new Exception("Name is already in use.");
+                throw new ItemIsAlreadyUsedException();
             }
 
             eventToCreate.CreatedAt = DateTime.Now;
@@ -57,7 +61,6 @@ namespace EventTracker.BLL.Services
 
             await _unitOfWork.Events.CreateAsync(eventToCreate);
             await _unitOfWork.SaveAsync();
-            //_notificationService.SendNotificationAsync(eventToCreate);
         }
 
         public async Task EditEventAsync(Event editedEvent, Guid eventId)
@@ -65,13 +68,13 @@ namespace EventTracker.BLL.Services
             var eventToEdit = await _unitOfWork.Events.GetByIdAsync(eventId);
             if (eventToEdit == null)
             {
-                throw new Exception("Event doesn't exist.");
+                throw new ItemDoesNotExistException();
             }
 
             bool nameExists = await _unitOfWork.Events.CheckIfNameExistsEdit(editedEvent.Name, eventToEdit.Name);
             if (nameExists)
             {
-                throw new Exception("Name is already in use.");
+                throw new ItemIsAlreadyUsedException();
             }
 
             eventToEdit.Name = editedEvent.Name;
@@ -91,11 +94,60 @@ namespace EventTracker.BLL.Services
             var eventToDelete = await _unitOfWork.Events.GetByIdAsync(eventId);
             if (eventToDelete == null)
             {
-                throw new Exception("Event doesn't exist.");
+                throw new ItemDoesNotExistException();
             }
 
             _unitOfWork.Events.Delete(eventToDelete);
             await _unitOfWork.SaveAsync();
+
+            var subject = string.Format(DeletedEventSubject, eventToDelete.Name);
+            var body = string.Format(DeletedEventBody, eventToDelete.Name, eventToDelete.Location, eventToDelete.StartDate, eventToDelete.EndDate);
+            _notificationService.SendNotificationAsync(eventToDelete, subject, body);
+        }
+
+        public async Task SignUpRegularUser(Guid eventId, ClaimsPrincipal claimsPrincipal)
+        {
+            var userId = claimsPrincipal.FindFirstValue(ClaimTypes.NameIdentifier);
+            var externalUser = await _unitOfWork.ExternalUsers.GetByExternalId(userId);
+            var eventData = await _unitOfWork.Events.GetByIdAsync(eventId);
+
+            if (eventData == null)
+            {
+                throw new Exception("Event doesn't exist.");
+            }
+
+            eventData.Users.Add(externalUser);
+            await _unitOfWork.SaveAsync();
+
+            var subject = string.Format(SubscribedToEventSubject, eventData.Name);
+            var body = string.Format(SubscribedToEventBody, eventData.Name, eventData.Location, eventData.StartDate,
+                eventData.EndDate);
+            _notificationService.SendNotificationAsync(eventData, subject, body);
+        }
+
+        public async Task SignOutRegularUserAsync(Guid eventId, ClaimsPrincipal claimsPrincipal)
+        {
+            var userId = claimsPrincipal.FindFirstValue(ClaimTypes.NameIdentifier);
+            var externalUser = await _unitOfWork.ExternalUsers.GetByExternalId(userId);
+            var eventData = await _unitOfWork.Events.GetByIdAsync(eventId);
+
+            if (eventData == null)
+            {
+                throw new ItemDoesNotExistException();
+            }
+
+            if (!eventData.Users.Contains(externalUser))
+            {
+                throw new InvalidSubscriberException();
+            }
+
+            eventData.Users.Remove(externalUser);
+            await _unitOfWork.SaveAsync();
+
+            var subject = string.Format(SubscribedToEventSubject, eventData.Name);
+            var body = string.Format(SubscribedToEventBody, eventData.Name, eventData.Location, eventData.StartDate,
+                eventData.EndDate);
+            _notificationService.SendNotificationAsync(eventData, subject, body);
         }
     }
 }

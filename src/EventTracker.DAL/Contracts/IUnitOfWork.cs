@@ -10,6 +10,7 @@ namespace EventTracker.DAL.Contracts
     {
         ICommentRepository Comments { get; }
         IEventRepository Events { get; }
+        IExternalUserRepository ExternalUsers { get; }
         Task SaveAsync();
     }
 }
