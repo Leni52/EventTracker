@@ -14,13 +14,11 @@ namespace EventTracker.BLL.Services
     public class EventService : IEventService
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
         private readonly INotificationService _notificationService;
 
-        public EventService(IUnitOfWork unitOfWork, IMapper mapper, INotificationService notificationService)
+        public EventService(IUnitOfWork unitOfWork, INotificationService notificationService)
         {
             _unitOfWork = unitOfWork;
-            _mapper = mapper;
             _notificationService = notificationService;
         }
 
@@ -40,24 +38,23 @@ namespace EventTracker.BLL.Services
             return commentedEvent.Comments;
         }
 
-        public async Task CreateEventAsync(EventRequestModel eventRequest)
+        public async Task CreateEventAsync(Event eventToCreate)
         {
-            bool EventExists = await _unitOfWork.Events.CheckIfNameExistsCreate(eventRequest.Name);
-            if (EventExists)
+            bool eventExists = await _unitOfWork.Events.CheckIfNameExistsCreate(eventToCreate.Name);
+            if (eventExists)
             {
                 throw new Exception("Name is already in use.");
             }
 
-            var eventToCreate = _mapper.Map<Event>(eventRequest);
             eventToCreate.CreatedAt = DateTime.Now;
             eventToCreate.LastModifiedAt = DateTime.Now;
 
             await _unitOfWork.Events.CreateAsync(eventToCreate);
             await _unitOfWork.SaveAsync();
-            _notificationService.SendNotificationAsync(eventToCreate);
+            //_notificationService.SendNotificationAsync(eventToCreate);
         }
 
-        public async Task EditEventAsync(EventRequestModel eventRequest, Guid eventId)
+        public async Task EditEventAsync(Event editedEvent, Guid eventId)
         {
             var eventToEdit = await _unitOfWork.Events.GetByIdAsync(eventId);
             if (eventToEdit == null)
@@ -65,13 +62,18 @@ namespace EventTracker.BLL.Services
                 throw new Exception("Event doesn't exist.");
             }
 
-            bool checkName = await _unitOfWork.Events.CheckIfNameExistsEdit(eventRequest.Name, eventToEdit.Name);
+            bool checkName = await _unitOfWork.Events.CheckIfNameExistsEdit(editedEvent.Name, eventToEdit.Name);
             if (checkName)
             {
                 throw new Exception("Name is already in use.");
             }
 
-            eventToEdit = _mapper.Map<Event>(eventRequest);
+            eventToEdit.Name = editedEvent.Name;
+            eventToEdit.Description = editedEvent.Description;
+            eventToEdit.Category = editedEvent.Category;
+            eventToEdit.Location = editedEvent.Location;
+            eventToEdit.StartDate = editedEvent.StartDate;
+            eventToEdit.EndDate = editedEvent.EndDate;
             eventToEdit.LastModifiedAt = DateTime.Now;
 
             _unitOfWork.Events.Update(eventToEdit);

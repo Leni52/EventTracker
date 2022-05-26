@@ -40,9 +40,11 @@ namespace EventTracker.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateEventAsync(EventRequestModel eventRequest)
         {
-            await _eventService.CreateEventAsync(eventRequest);
+            var eventToCreate = _mapper.Map<Event>(eventRequest);
+
             if (ModelState.IsValid)
             {
+                await _eventService.CreateEventAsync(eventToCreate);
                 return Ok("Event created successfully.");
             }
 
@@ -52,9 +54,11 @@ namespace EventTracker.Controllers
         [HttpPut("{eventId}")]
         public async Task<IActionResult> EditEventAsync(EventRequestModel eventRequest, Guid eventId)
         {
-            await _eventService.EditEventAsync(eventRequest, eventId);
+            var editedEvent = _mapper.Map<Event>(eventRequest);
+
             if (ModelState.IsValid)
             {
+                await _eventService.EditEventAsync(editedEvent, eventId);
                 return Ok("Event updated successfully.");
             }
 
