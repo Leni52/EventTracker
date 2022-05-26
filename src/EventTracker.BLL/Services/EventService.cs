@@ -96,7 +96,7 @@ namespace EventTracker.BLL.Services
             await _unitOfWork.SaveAsync();
 
             var subject = string.Format(DeletedEventSubject, eventToDelete.Name);
-            var body = string.Format(DeletedEventBody, eventToDelete.Name);
+            var body = string.Format(DeletedEventBody, eventToDelete.Name, eventToDelete.Location, eventToDelete.StartDate, eventToDelete.EndDate);
             _notificationService.SendNotificationAsync(eventToDelete, subject, body);
         }
 
@@ -113,6 +113,11 @@ namespace EventTracker.BLL.Services
 
             eventData.Users.Add(externalUser);
             await _unitOfWork.SaveAsync();
+
+            var subject = string.Format(SubscribedToEventSubject, eventData.Name);
+            var body = string.Format(SubscribedToEventBody, eventData.Name, eventData.Location, eventData.StartDate,
+                eventData.EndDate);
+            _notificationService.SendNotificationAsync(eventData, subject, body);
         }
     }
 }
