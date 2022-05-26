@@ -29,7 +29,13 @@ namespace EventTracker.BLL.Services
 
         public async Task<Event> GetEventByIdAsync(Guid eventId)
         {
-            return await _unitOfWork.Events.GetByIdAsync(eventId);
+            var eventToReturn = await _unitOfWork.Events.GetByIdAsync(eventId);
+            if (eventToReturn == null)
+            {
+                throw new Exception("Event does not exist.");
+            }
+
+            return eventToReturn;
         }
 
         public async Task<IEnumerable<Comment>> GetAllCommentsFromEvent(Guid eventId)
@@ -62,8 +68,8 @@ namespace EventTracker.BLL.Services
                 throw new Exception("Event doesn't exist.");
             }
 
-            bool checkName = await _unitOfWork.Events.CheckIfNameExistsEdit(editedEvent.Name, eventToEdit.Name);
-            if (checkName)
+            bool nameExists = await _unitOfWork.Events.CheckIfNameExistsEdit(editedEvent.Name, eventToEdit.Name);
+            if (nameExists)
             {
                 throw new Exception("Name is already in use.");
             }
@@ -76,7 +82,7 @@ namespace EventTracker.BLL.Services
             eventToEdit.EndDate = editedEvent.EndDate;
             eventToEdit.LastModifiedAt = DateTime.Now;
 
-            _unitOfWork.Events.Update(eventToEdit);
+            _unitOfWork.Events.Edit(eventToEdit);
             await _unitOfWork.SaveAsync();
         }
 
