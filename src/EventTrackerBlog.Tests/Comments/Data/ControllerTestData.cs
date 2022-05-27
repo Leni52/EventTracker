@@ -28,12 +28,12 @@ namespace EventTrackerBlog.Tests.Comments.Data
             LastModifiedAt = DateTime.Now
         };
 
-        public static CommentRequestModel ArticleValidRequestModel = new()
+        public static CommentRequestModel CommentValidRequestModel = new()
         {
             Content = "Article request model"
         };
 
-        public static CommentRequestModel ArticleInvalidRequestModel = new()
+        public static CommentRequestModel CommentInvalidRequestModel = new()
         {
             Content = string.Empty
         };
