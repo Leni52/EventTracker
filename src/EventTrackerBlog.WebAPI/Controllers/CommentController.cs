@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using EventTrackerBlog.Domain.DTO.Comments.Response;
+using EventTrackerBlog.Domain.Features.Comments.Queries;
 
 namespace EventTrackerBlog.WebAPI.Controllers
 {
