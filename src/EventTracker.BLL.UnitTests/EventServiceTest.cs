@@ -136,5 +136,21 @@ namespace EventTracker.BLL.UnitTests
 
             Assert.Equal(result, events);
         }
+
+        [Fact]
+        public async Task SignUpRegularUser_SuccessfullValidInput()
+        {
+            var sut = new EventService(unitOfWork.Object, notificationService.Object);
+            var externalUser = new ExternalUser();
+            var testEvent = new Event();
+
+            unitOfWork.Setup(uof => uof.ExternalUsers.GetByExternalId(It.IsAny<string>())).ReturnsAsync(externalUser);
+            unitOfWork.Setup(uof => uof.Events.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync(testEvent);
+
+            await sut.SignUpRegularUser(new Guid(), new System.Security.Claims.ClaimsPrincipal());
+
+            notificationService.Verify(mock => mock
+                .SendNotificationAsync(It.IsAny<Event>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+        }
     }
 }

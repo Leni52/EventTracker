@@ -34,7 +34,7 @@ namespace EventTracker.BLL.Services
             var eventToReturn = await _unitOfWork.Events.GetByIdAsync(eventId);
             if(eventToReturn == null)
             {
-                throw new ItemDoesNotExistException("Event does not exist.");
+                throw new ItemDoesNotExistException();
             }
 
             return eventToReturn;
@@ -51,7 +51,7 @@ namespace EventTracker.BLL.Services
             bool eventExists = await _unitOfWork.Events.CheckIfNameExistsCreate(eventToCreate.Name);
             if (eventExists)
             {
-                throw new ItemIsAlreadyUsedException("Name is already in use.");
+                throw new ItemIsAlreadyUsedException();
             }
 
             eventToCreate.CreatedAt = DateTime.Now;
@@ -66,13 +66,13 @@ namespace EventTracker.BLL.Services
             var eventToEdit = await _unitOfWork.Events.GetByIdAsync(eventId);
             if (eventToEdit == null)
             {
-                throw new ItemDoesNotExistException("Event does not exist.");
+                throw new ItemDoesNotExistException();
             }
 
             bool nameExists = await _unitOfWork.Events.CheckIfNameExistsEdit(editedEvent.Name, eventToEdit.Name);
             if (nameExists)
             {
-                throw new ItemIsAlreadyUsedException("Name is already in use.");
+                throw new ItemIsAlreadyUsedException();
             }
 
             eventToEdit.Name = editedEvent.Name;
@@ -92,7 +92,7 @@ namespace EventTracker.BLL.Services
             var eventToDelete = await _unitOfWork.Events.GetByIdAsync(eventId);
             if (eventToDelete == null)
             {
-                throw new ItemDoesNotExistException("Event does not exist.");
+                throw new ItemDoesNotExistException();
             }
 
             _unitOfWork.Events.Delete(eventToDelete);
@@ -111,10 +111,10 @@ namespace EventTracker.BLL.Services
 
             if (eventData == null)
             {
-                throw new ItemDoesNotExistException("Event does not exist.");
+                throw new ItemDoesNotExistException();
             }
 
-            eventData.Users.Add(externalUser);
+            _unitOfWork.Events.AddUserToEvent(eventData, externalUser);
             await _unitOfWork.SaveAsync();
 
             var subject = string.Format(SubscribedToEventSubject, eventData.Name);
@@ -131,7 +131,7 @@ namespace EventTracker.BLL.Services
 
             if (eventData == null)
             {
-                throw new ItemDoesNotExistException("Event does not exist.");
+                throw new ItemDoesNotExistException();
             }
 
             if (!eventData.Users.Contains(externalUser))
