@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using EventTrackerBlog.Domain.Common;
+using EventTrackerBlog.Data.Common;
 
 namespace EventTrackerBlog.Domain.DTO.Comments.Request
 {

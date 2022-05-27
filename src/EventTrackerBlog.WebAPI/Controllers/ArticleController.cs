@@ -1,13 +1,13 @@
-﻿using EventTrackerBlog.Application.Features.Articles.Commands;
-using EventTrackerBlog.Application.Features.Articles.Queries;
-using EventTrackerBlog.Domain.DTO.Articles.Request;
+﻿using EventTrackerBlog.Domain.DTO.Articles.Request;
 using EventTrackerBlog.Domain.DTO.Articles.Response;
-using EventTrackerBlog.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using EventTrackerBlog.Data.Entities;
+using EventTrackerBlog.Domain.Features.Articles.Commands;
+using EventTrackerBlog.Domain.Features.Articles.Queries;
 
 namespace EventTrackerBlog.WebAPI.Controllers
 {

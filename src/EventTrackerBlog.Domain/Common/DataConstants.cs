@@ -1,4 +1,4 @@
-﻿namespace EventTrackerBlog.Domain.Common
+﻿namespace EventTrackerBlog.Data.Common
 {
     public class DataConstants
     {

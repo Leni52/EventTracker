@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using EventTrackerBlog.Data.Entities;
 using EventTrackerBlog.Domain.DTO.Comments.Request;
-using EventTrackerBlog.Domain.Entities;
 
 namespace EventTrackerBlog.Tests.Comments.Data
 {
