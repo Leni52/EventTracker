@@ -100,7 +100,7 @@ namespace EventTracker.Controllers
                 return BadRequest();
             }
 
-            await _eventService.SignUpRegularUser(eventId, User);
+            await _eventService.SignUpRegularUserAsync(eventId, User);
 
             return Ok();
         }

@@ -33,7 +33,7 @@ namespace EventTracker.BLL.UnitTests
 
             unitOfWork.Setup(uof => uof.Events.CheckIfNameExistsCreate(It.IsAny<string>())).ReturnsAsync(true);
 
-            await Assert.ThrowsAsync<ItemIsAlreadyUsedException>(async () => await sut.CreateEventAsync(new Event())); 
+            await Assert.ThrowsAsync<ItemIsAlreadyUsedException>(async () => await sut.CreateEventAsync(new Event()));
         }
 
         [Fact]
@@ -138,7 +138,7 @@ namespace EventTracker.BLL.UnitTests
         }
 
         [Fact]
-        public async Task SignUpRegularUser_SuccessfullValidInput()
+        public async Task SignUpRegularUserAsync_SuccessfullValidInput()
         {
             var sut = new EventService(unitOfWork.Object, notificationService.Object);
             var externalUser = new ExternalUser();
@@ -147,10 +147,70 @@ namespace EventTracker.BLL.UnitTests
             unitOfWork.Setup(uof => uof.ExternalUsers.GetByExternalId(It.IsAny<string>())).ReturnsAsync(externalUser);
             unitOfWork.Setup(uof => uof.Events.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync(testEvent);
 
-            await sut.SignUpRegularUser(new Guid(), new System.Security.Claims.ClaimsPrincipal());
+            await sut.SignUpRegularUserAsync(new Guid(), new System.Security.Claims.ClaimsPrincipal());
 
             notificationService.Verify(mock => mock
                 .SendNotificationAsync(It.IsAny<Event>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+        }
+
+        [Fact]
+        public async Task SignUpRegularUserAsync_ThrowsItemDoesNotExistException()
+        {
+            var sut = new EventService(unitOfWork.Object, notificationService.Object);
+            var externalUser = new ExternalUser();
+            Event nullEvent = null;
+
+            unitOfWork.Setup(uof => uof.ExternalUsers.GetByExternalId(It.IsAny<string>())).ReturnsAsync(externalUser);
+            unitOfWork.Setup(uof => uof.Events.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync(nullEvent);
+
+            await Assert.ThrowsAsync<ItemDoesNotExistException>(async () => await sut
+                .SignUpRegularUserAsync(new Guid(), new System.Security.Claims.ClaimsPrincipal()));
+        }
+
+        [Fact]
+        public async Task SignOutRegularUserAsync_SuccessfullValidInput()
+        {
+            var sut = new EventService(unitOfWork.Object, notificationService.Object);
+            var externalUser = new ExternalUser();
+            var testEvent = new Event();
+
+            unitOfWork.Setup(uof => uof.ExternalUsers.GetByExternalId(It.IsAny<string>())).ReturnsAsync(externalUser);
+            unitOfWork.Setup(uof => uof.Events.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync(testEvent);
+            unitOfWork.Setup(uof => uof.Events.CheckIfUserIsInEvent(It.IsAny<Event>(), It.IsAny<ExternalUser>())).Returns(true);
+
+            await sut.SignOutRegularUserAsync(new Guid(), new System.Security.Claims.ClaimsPrincipal());
+
+            notificationService.Verify(mock => mock
+                .SendNotificationAsync(It.IsAny<Event>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+        }
+
+        [Fact]
+        public async Task SignOutRegularUserAsync_ThrowsItemDoesNotExistException()
+        {
+            var sut = new EventService(unitOfWork.Object, notificationService.Object);
+            var externalUser = new ExternalUser();
+            Event nullEvent = null;
+
+            unitOfWork.Setup(uof => uof.ExternalUsers.GetByExternalId(It.IsAny<string>())).ReturnsAsync(externalUser);
+            unitOfWork.Setup(uof => uof.Events.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync(nullEvent);
+
+            await Assert.ThrowsAsync<ItemDoesNotExistException>(async () => await sut
+                .SignOutRegularUserAsync(new Guid(), new System.Security.Claims.ClaimsPrincipal()));
+        }
+
+        [Fact]
+        public async Task SignOutRegularUserAsync_ThrowsInvalidSubscriberException()
+        {
+            var sut = new EventService(unitOfWork.Object, notificationService.Object);
+            var externalUser = new ExternalUser();
+            var testEvent = new Event();
+
+            unitOfWork.Setup(uof => uof.ExternalUsers.GetByExternalId(It.IsAny<string>())).ReturnsAsync(externalUser);
+            unitOfWork.Setup(uof => uof.Events.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync(testEvent);
+            unitOfWork.Setup(uof => uof.Events.CheckIfUserIsInEvent(It.IsAny<Event>(), It.IsAny<ExternalUser>())).Returns(false);
+
+            await Assert.ThrowsAsync<InvalidSubscriberException>(async () => await sut
+                .SignOutRegularUserAsync(new Guid(), new System.Security.Claims.ClaimsPrincipal()));
         }
     }
 }

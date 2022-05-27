@@ -103,7 +103,7 @@ namespace EventTracker.BLL.Services
             _notificationService.SendNotificationAsync(eventToDelete, subject, body);
         }
 
-        public async Task SignUpRegularUser(Guid eventId, ClaimsPrincipal claimsPrincipal)
+        public async Task SignUpRegularUserAsync(Guid eventId, ClaimsPrincipal claimsPrincipal)
         {
             var userId = claimsPrincipal.FindFirstValue(ClaimTypes.NameIdentifier);
             var externalUser = await _unitOfWork.ExternalUsers.GetByExternalId(userId);
@@ -134,12 +134,12 @@ namespace EventTracker.BLL.Services
                 throw new ItemDoesNotExistException();
             }
 
-            if (!eventData.Users.Contains(externalUser))
+            if (!_unitOfWork.Events.CheckIfUserIsInEvent(eventData, externalUser))
             {
                 throw new InvalidSubscriberException();
             }
 
-            eventData.Users.Remove(externalUser);
+            _unitOfWork.Events.RemoveUserFromEvent(eventData, externalUser);
             await _unitOfWork.SaveAsync();
 
             var subject = string.Format(SubscribedToEventSubject, eventData.Name);
