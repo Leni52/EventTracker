@@ -7,7 +7,7 @@ using EventTrackerBlog.Domain.DTO.Comments.Response;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace EventTrackerBlog.Application.Features.Comments.Queries
+namespace EventTrackerBlog.Domain.Features.Comments.Queries
 {
     public class GetAllComments : IRequest<IEnumerable<CommentResponseModel>>
     {
