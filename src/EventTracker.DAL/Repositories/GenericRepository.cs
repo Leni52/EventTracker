@@ -36,7 +36,7 @@ namespace EventTracker.DAL.Repositories
             await _entity.AddAsync(entity);
         }
 
-        public void Update(T entity)
+        public void Edit(T entity)
         {
             _entity.Update(entity);
         }

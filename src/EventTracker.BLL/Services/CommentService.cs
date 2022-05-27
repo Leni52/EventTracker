@@ -56,7 +56,8 @@ namespace EventTracker.BLL.Services
 
             comment = _mapper.Map<Comment>(commentRequest);
             comment.LastModifiedAt = DateTime.Now;
-            _unitOfWork.Comments.Update(comment);
+
+            _unitOfWork.Comments.Edit(comment);
             await _unitOfWork.SaveAsync();
         }
 

@@ -16,6 +16,21 @@ namespace EventTracker.DAL.Repositories
         {
         }
 
+        public void AddUserToEvent(Event eventData, ExternalUser user)
+        {
+            eventData.Users.Add(user);
+        }
+
+        public void RemoveUserFromEvent(Event eventData, ExternalUser user)
+        {
+            eventData.Users.Remove(user);
+        }
+
+        public bool CheckIfUserIsInEvent(Event eventData, ExternalUser user)
+        {
+            return eventData.Users.Contains(user);
+        }
+
         public async Task<bool> CheckIfNameExistsCreate(string name)
         {
             return await _context.Events.AnyAsync(e => e.Name == name);

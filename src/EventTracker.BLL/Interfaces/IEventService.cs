@@ -9,13 +9,13 @@ namespace EventTracker.BLL.Interfaces
 {
     public interface IEventService
     {
-        Task CreateEventAsync(EventRequestModel eventRequest);
+        Task CreateEventAsync(Event eventToCreate);
         Task DeleteEventAsync(Guid eventId);
         Task<IEnumerable<Event>> GetAllEventsAsync();
         Task<Event> GetEventByIdAsync(Guid eventId);
-        Task EditEventAsync(EventRequestModel eventRequest, Guid eventId);
+        Task EditEventAsync(Event editedEvent, Guid eventId);
         Task<IEnumerable<Comment>> GetAllCommentsFromEvent(Guid eventId);
-        Task SignUpRegularUser(Guid eventId, ClaimsPrincipal claimsPrincipal);
+        Task SignUpRegularUserAsync(Guid eventId, ClaimsPrincipal claimsPrincipal);
         Task SignOutRegularUserAsync(Guid eventId, ClaimsPrincipal claimsPrincipal);
     }
 }
