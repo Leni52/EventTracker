@@ -17,8 +17,7 @@ namespace EventTrackerBlog.Tests.Data
             Content = "Test Content",
 
         };
-        public static IEnumerable<Article> NoArticles =>
-            Enumerable.Empty<Article>();
+
         public static IEnumerable<Article> ThreeArticles =>
             Enumerable.Range(0, 3).Select(_ => new Article());
 

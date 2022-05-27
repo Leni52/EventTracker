@@ -108,7 +108,7 @@ namespace EventTrackerBlog.Tests.Articles.Controller
             .Ok();
 
         [Fact]
-        public void UpdateArticleShouldReturnBadRequest()
+        public void UpdateArticleShouldThrowException()
            => MyController<ArticleController>
            .Instance(controller => controller
            .WithData(TestArticle))
@@ -116,5 +116,15 @@ namespace EventTrackerBlog.Tests.Articles.Controller
            .ShouldThrow()
             .AggregateException()
             .ContainingInnerExceptionOfType<ItemDoesNotExistException>();
+
+        [Fact]
+        public void UpdateArticleShouldReturnBadRequest()
+         => MyController<ArticleController>
+         .Instance(controller => controller
+         .WithData(TestArticle))
+         .Calling(c => c.UpdateArticle(TestArticle.Id, RequestModelInvalidTitle))
+         .ShouldReturn()
+        .BadRequest();
+
     }
 }
