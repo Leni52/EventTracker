@@ -1,11 +1,11 @@
-﻿using EventTracker.BLL.Exceptions;
+﻿using ExceptionHandling.Exceptions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Text.Json;
 
-namespace EventTracker.Middleware
+namespace ExceptionHandling.Handler
 {
     public class ExceptionHandlerConfig
     {
@@ -20,7 +20,7 @@ namespace EventTracker.Middleware
                     var response = context.Response;
                     if (error == null || error is not HttpException)
                     {
-                        Exception initialError = new Exception("internal error");
+                        Exception initialError = new Exception("Internal server error");
                     }
                     HttpException exception = (HttpException)error;
                     var httpCode = exception.StatusCode;
@@ -38,5 +38,3 @@ namespace EventTracker.Middleware
         }
     }
 }
-
-

@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Policies\**" />
+    <Content Remove="Policies\**" />
+    <EmbeddedResource Remove="Policies\**" />
+    <None Remove="Policies\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.16" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
@@ -18,13 +25,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Policies\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\EventTracker.BLL\EventTracker.BLL.csproj" />
     <ProjectReference Include="..\EventTracker.DAL\EventTracker.DAL.csproj" />
     <ProjectReference Include="..\EventTracker.DTO\EventTracker.DTO.csproj" />
+    <ProjectReference Include="..\ExceptionHandling\ExceptionHandling.csproj" />
   </ItemGroup>
 
 </Project>

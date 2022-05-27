@@ -1,10 +1,10 @@
 ﻿using System.Net;
 
-namespace EventTracker.BLL.Exceptions
+namespace ExceptionHandling.Exceptions
 {
     public class ItemIsAlreadyUsedException : HttpException
     {
-        public ItemIsAlreadyUsedException(string message = "Item is already in use.") : base(message)
+        public ItemIsAlreadyUsedException(string message = "Item does not exist.") : base(message)
         {
             StatusCode = HttpStatusCode.Conflict;
         }

@@ -1,12 +1,10 @@
 ﻿using AutoMapper;
-using EventTracker.BLL.Exceptions;
 using EventTracker.BLL.Interfaces;
 using EventTracker.DAL.Contracts;
 using EventTracker.DAL.Entities;
-using EventTracker.DTO.EventModels;
+using ExceptionHandling.Exceptions;
 using System;
 using System.Collections.Generic;
-using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
