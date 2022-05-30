@@ -10,7 +10,7 @@ namespace EventTracker.DTO.CommentModels
     public class CommentCreateModel
     {
         [Required]
-        public Guid CommenterId { get; set; }
+        public Guid Id { get; set; }
         [Required]
         public Guid EventId { get; set; }
         [Required]

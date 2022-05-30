@@ -49,15 +49,17 @@ namespace EventTracker.Controllers
         }
 
         [HttpPut("{commentId}")]
-        public async Task<IActionResult> UpdateCommentAsync(CommentEditModel commentRequest, Guid commentId)
+        public async Task<IActionResult> EditCommentAsync(CommentEditModel commentRequest, Guid commentId)
         {
-            await _commentService.EditCommentAsync(commentRequest, commentId);
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                return Ok("Comment updated successfully.");
+                return BadRequest();
             }
 
-            return BadRequest();
+            var comment = _mapper.Map<Comment>(commentRequest);
+            await _commentService.EditCommentAsync(comment, commentId);
+
+            return Ok("Comment updated successfully.");
         }
 
         [HttpDelete("{commentId}")]

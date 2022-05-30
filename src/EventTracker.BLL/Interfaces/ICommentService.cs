@@ -12,6 +12,6 @@ namespace EventTracker.BLL.Interfaces
         Task DeleteCommentAsync(Guid commentId);
         Task<IEnumerable<Comment>> GetAllCommentsAsync();
         Task<Comment> GetCommentByIdAsync(Guid commentId);
-        Task EditCommentAsync(CommentEditModel commentRequest, Guid commentId);
+        Task EditCommentAsync(Comment commentRequest, Guid commentId);
     }
 }

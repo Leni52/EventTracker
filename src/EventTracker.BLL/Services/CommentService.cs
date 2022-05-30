@@ -46,7 +46,7 @@ namespace EventTracker.BLL.Services
             await _unitOfWork.SaveAsync();
         }
 
-        public async Task EditCommentAsync(CommentEditModel commentRequest, Guid commentId)
+        public async Task EditCommentAsync(Comment commentEdit, Guid commentId)
         {
             var comment = await _unitOfWork.Comments.GetByIdAsync(commentId);
             if (comment == null)
@@ -54,7 +54,7 @@ namespace EventTracker.BLL.Services
                 throw new ItemDoesNotExistException();
             }
 
-            comment = _mapper.Map<Comment>(commentRequest);
+            comment.Text = commentEdit.Text;
             comment.LastModifiedAt = DateTime.Now;
 
             _unitOfWork.Comments.Edit(comment);
