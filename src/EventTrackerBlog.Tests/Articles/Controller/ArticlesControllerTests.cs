@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using MyTested.AspNetCore.Mvc;
 using Xunit;
 
-namespace EventTrackerBlog.Tests.Articles.Controller
+namespace EventTrackerBlog.UnitTests.Articles.Controller
 {
     using static Data.Articles;
     public class ArticlesControllerTests

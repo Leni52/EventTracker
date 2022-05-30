@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Linq;
+using EventTrackerBlog.UnitTests.Comments.Data;
 using EventTrackerBlog.WebAPI.Controllers;
 using ExceptionHandling.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using MyTested.AspNetCore.Mvc;
 using Xunit;
 
-namespace EventTrackerBlog.Tests.Comments.Controller
+namespace EventTrackerBlog.UnitTests.Comments.Controller
 {
-    using static Data.ControllerTestData;
+    using static ControllerTestData;
 
     public class CommentControllerTests
     {

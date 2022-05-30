@@ -3,7 +3,7 @@ using System.Linq;
 using EventTrackerBlog.Data.Entities;
 using EventTrackerBlog.Domain.DTO.Comments.Request;
 
-namespace EventTrackerBlog.Tests.Comments.Data
+namespace EventTrackerBlog.UnitTests.Comments.Data
 {
     public class ControllerTestData
     {

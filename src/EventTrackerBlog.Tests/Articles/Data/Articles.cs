@@ -4,7 +4,7 @@ using System.Linq;
 using EventTrackerBlog.Data.Entities;
 using EventTrackerBlog.Domain.DTO.Articles.Request;
 
-namespace EventTrackerBlog.Tests.Articles.Data
+namespace EventTrackerBlog.UnitTests.Articles.Data
 {
     public static class Articles
     {
