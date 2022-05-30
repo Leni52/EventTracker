@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using EventTrackerBlog.Domain.Data;
+using EventTrackerBlog.Data.Data;
 using EventTrackerBlog.Domain.DTO.Comments.Response;
 using MediatR;
 using Microsoft.EntityFrameworkCore;

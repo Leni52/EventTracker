@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
+using EventTrackerBlog.Data.Entities;
 using EventTrackerBlog.Domain.DTO.Comments.Request;
-using EventTrackerBlog.Domain.Entities;
 
 namespace EventTrackerBlog.Tests.Comments.Data
 {
@@ -15,7 +14,8 @@ namespace EventTrackerBlog.Tests.Comments.Data
             Content = "Test article content",
             CreatedAt = DateTime.Now,
             LastModifiedAt = DateTime.Now,
-            Comments = Enumerable.Range(0, 5).Select(_ => new Comment())
+            Comments = Enumerable.Range(0, 5)
+                .Select(_ => new Comment())
                 .ToList()
         };
 
@@ -28,12 +28,12 @@ namespace EventTrackerBlog.Tests.Comments.Data
             LastModifiedAt = DateTime.Now
         };
 
-        public static CommentRequestModel ArticleValidRequestModel = new()
+        public static CommentRequestModel CommentValidRequestModel = new()
         {
             Content = "Article request model"
         };
 
-        public static CommentRequestModel ArticleInvalidRequestModel = new()
+        public static CommentRequestModel CommentInvalidRequestModel = new()
         {
             Content = string.Empty
         };

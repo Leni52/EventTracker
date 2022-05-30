@@ -1,9 +1,9 @@
 ﻿using System;
 using AutoMapper;
-using EventTrackerBlog.Application.Features.Comments.Commands;
+using EventTrackerBlog.Data.Entities;
 using EventTrackerBlog.Domain.DTO.Comments.Request;
 using EventTrackerBlog.Domain.DTO.Comments.Response;
-using EventTrackerBlog.Domain.Entities;
+using EventTrackerBlog.Domain.Features.Comments.Commands;
 
 namespace EventTrackerBlog.WebAPI.Profiles
 {
