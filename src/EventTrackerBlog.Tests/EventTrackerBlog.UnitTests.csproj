@@ -20,9 +20,4 @@
 	  <ProjectReference Include="..\EventTrackerBlog.WebAPI\EventTrackerBlog.WebAPI.csproj" />
 	</ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Articles\Handlers\" />
-    <Folder Include="Articles\Queries\" />
-  </ItemGroup>
-
 </Project>

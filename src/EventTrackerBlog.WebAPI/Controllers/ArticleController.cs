@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using EventTrackerBlog.Data.Entities;
 using EventTrackerBlog.Domain.Features.Articles.Commands;
 using EventTrackerBlog.Domain.Features.Articles.Queries;
+using EventTrackerBlog.WebAPI.Filters;
 
 namespace EventTrackerBlog.WebAPI.Controllers
 {
@@ -39,6 +40,7 @@ namespace EventTrackerBlog.WebAPI.Controllers
         [HttpGet]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
+        [ServiceFilter(typeof(ActionFilterAttribute))]
         public async Task<ActionResult<IEnumerable<ArticleResponseModel>>> GetAllArticles()
         {
             var query = new GetAllArticles();

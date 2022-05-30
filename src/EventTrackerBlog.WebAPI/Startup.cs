@@ -1,5 +1,6 @@
 using EventTrackerBlog.Data.Data;
 using EventTrackerBlog.Data.Seed;
+using EventTrackerBlog.WebAPI.Filters;
 using ExceptionHandling.Handler;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -30,6 +31,8 @@ namespace EventTrackerBlog.WebAPI
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "EventTrackerBlog.WebAPI", Version = "v1" });
             });
+            //filter
+            services.AddScoped<ActionFilterAttribute>();
 
             services.AddAutoMapper(typeof(Startup));
             //dbcontext and sqlserver
