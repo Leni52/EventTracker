@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using EventTracker.BLL.Interfaces;
+using EventTracker.DAL.Entities;
 using EventTracker.DTO.CommentModels;
 using EventTracker.DTO.EventModels;
 using Microsoft.AspNetCore.Authorization;
@@ -43,9 +44,11 @@ namespace EventTracker.Controllers
         [Authorize(Roles ="Admin, EventHolder")]
         public async Task<IActionResult> CreateEventAsync(EventRequestModel eventRequest)
         {
-            await _eventService.CreateEventAsync(eventRequest);
+            var eventToCreate = _mapper.Map<Event>(eventRequest);
+
             if (ModelState.IsValid)
             {
+                await _eventService.CreateEventAsync(eventToCreate);
                 return Ok("Event created successfully.");
             }
 
@@ -56,9 +59,11 @@ namespace EventTracker.Controllers
         [Authorize(Roles = "Admin, EventHolder")]
         public async Task<IActionResult> EditEventAsync(EventRequestModel eventRequest, Guid eventId)
         {
-            await _eventService.EditEventAsync(eventRequest, eventId);
+            var editedEvent = _mapper.Map<Event>(eventRequest);
+
             if (ModelState.IsValid)
             {
+                await _eventService.EditEventAsync(editedEvent, eventId);
                 return Ok("Event updated successfully.");
             }
 
@@ -95,7 +100,7 @@ namespace EventTracker.Controllers
                 return BadRequest();
             }
 
-            await _eventService.SignUpRegularUser(eventId, User);
+            await _eventService.SignUpRegularUserAsync(eventId, User);
 
             return Ok();
         }

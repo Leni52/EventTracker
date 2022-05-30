@@ -2,7 +2,6 @@
 using EventTracker.BLL.Interfaces;
 using EventTracker.DAL.Contracts;
 using EventTracker.DAL.Entities;
-using EventTracker.DTO.EventModels;
 using ExceptionHandling.Exceptions;
 using System;
 using System.Collections.Generic;
@@ -15,13 +14,11 @@ namespace EventTracker.BLL.Services
     public class EventService : IEventService
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
         private readonly INotificationService _notificationService;
 
-        public EventService(IUnitOfWork unitOfWork, IMapper mapper, INotificationService notificationService)
+        public EventService(IUnitOfWork unitOfWork, INotificationService notificationService)
         {
             _unitOfWork = unitOfWork;
-            _mapper = mapper;
             _notificationService = notificationService;
         }
 
@@ -32,12 +29,13 @@ namespace EventTracker.BLL.Services
 
         public async Task<Event> GetEventByIdAsync(Guid eventId)
         {
-            var eventFromDb = await _unitOfWork.Events.GetByIdAsync(eventId);
-            if (eventFromDb == null)
+            var eventToReturn = await _unitOfWork.Events.GetByIdAsync(eventId);
+            if(eventToReturn == null)
             {
                 throw new ItemDoesNotExistException();
             }
-            return eventFromDb;
+
+            return eventToReturn;
         }
 
         public async Task<IEnumerable<Comment>> GetAllCommentsFromEvent(Guid eventId)
@@ -46,15 +44,14 @@ namespace EventTracker.BLL.Services
             return commentedEvent.Comments;
         }
 
-        public async Task CreateEventAsync(EventRequestModel eventRequest)
+        public async Task CreateEventAsync(Event eventToCreate)
         {
-            bool EventExists = await _unitOfWork.Events.CheckIfNameExistsCreate(eventRequest.Name);
-            if (EventExists)
+            bool eventExists = await _unitOfWork.Events.CheckIfNameExistsCreate(eventToCreate.Name);
+            if (eventExists)
             {
                 throw new ItemIsAlreadyUsedException();
             }
 
-            var eventToCreate = _mapper.Map<Event>(eventRequest);
             eventToCreate.CreatedAt = DateTime.Now;
             eventToCreate.LastModifiedAt = DateTime.Now;
 
@@ -62,7 +59,7 @@ namespace EventTracker.BLL.Services
             await _unitOfWork.SaveAsync();
         }
 
-        public async Task EditEventAsync(EventRequestModel eventRequest, Guid eventId)
+        public async Task EditEventAsync(Event editedEvent, Guid eventId)
         {
             var eventToEdit = await _unitOfWork.Events.GetByIdAsync(eventId);
             if (eventToEdit == null)
@@ -70,16 +67,21 @@ namespace EventTracker.BLL.Services
                 throw new ItemDoesNotExistException();
             }
 
-            bool checkName = await _unitOfWork.Events.CheckIfNameExistsEdit(eventRequest.Name, eventToEdit.Name);
-            if (checkName)
+            bool nameExists = await _unitOfWork.Events.CheckIfNameExistsEdit(editedEvent.Name, eventToEdit.Name);
+            if (nameExists)
             {
                 throw new ItemIsAlreadyUsedException();
             }
 
-            eventToEdit = _mapper.Map<Event>(eventRequest);
+            eventToEdit.Name = editedEvent.Name;
+            eventToEdit.Description = editedEvent.Description;
+            eventToEdit.Category = editedEvent.Category;
+            eventToEdit.Location = editedEvent.Location;
+            eventToEdit.StartDate = editedEvent.StartDate;
+            eventToEdit.EndDate = editedEvent.EndDate;
             eventToEdit.LastModifiedAt = DateTime.Now;
 
-            _unitOfWork.Events.Update(eventToEdit);
+            _unitOfWork.Events.Edit(eventToEdit);
             await _unitOfWork.SaveAsync();
         }
 
@@ -99,7 +101,7 @@ namespace EventTracker.BLL.Services
             _notificationService.SendNotificationAsync(eventToDelete, subject, body);
         }
 
-        public async Task SignUpRegularUser(Guid eventId, ClaimsPrincipal claimsPrincipal)
+        public async Task SignUpRegularUserAsync(Guid eventId, ClaimsPrincipal claimsPrincipal)
         {
             var userId = claimsPrincipal.FindFirstValue(ClaimTypes.NameIdentifier);
             var externalUser = await _unitOfWork.ExternalUsers.GetByExternalId(userId);
@@ -107,10 +109,10 @@ namespace EventTracker.BLL.Services
 
             if (eventData == null)
             {
-                throw new Exception("Event doesn't exist.");
+                throw new ItemDoesNotExistException();
             }
 
-            eventData.Users.Add(externalUser);
+            _unitOfWork.Events.AddUserToEvent(eventData, externalUser);
             await _unitOfWork.SaveAsync();
 
             var subject = string.Format(SubscribedToEventSubject, eventData.Name);
@@ -130,12 +132,12 @@ namespace EventTracker.BLL.Services
                 throw new ItemDoesNotExistException();
             }
 
-            if (!eventData.Users.Contains(externalUser))
+            if (!_unitOfWork.Events.CheckIfUserIsInEvent(eventData, externalUser))
             {
                 throw new InvalidSubscriberException();
             }
 
-            eventData.Users.Remove(externalUser);
+            _unitOfWork.Events.RemoveUserFromEvent(eventData, externalUser);
             await _unitOfWork.SaveAsync();
 
             var subject = string.Format(SubscribedToEventSubject, eventData.Name);
