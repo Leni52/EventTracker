@@ -23,8 +23,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{4BD3EFDE
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventTracker.BLL.UnitTests", "EventTracker.BLL.UnitTests\EventTracker.BLL.UnitTests.csproj", "{E48B24A5-6CAF-4F93-97E2-788704BB86B4}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EventTrackerBlog (2)", "EventTrackerBlog (2)", "{8D75C6B1-7062-41D0-BF03-02768924650C}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventTrackerBlog.Domain", "EventTrackerBlog.Application\EventTrackerBlog.Domain.csproj", "{24B68DE0-A229-4AF2-B18E-6B05500BB1CE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventTrackerBlog.Data", "EventTrackerBlog.Domain\EventTrackerBlog.Data.csproj", "{DDC98B5D-CD25-49FE-B089-9E32E81D87EC}"
