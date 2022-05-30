@@ -1,12 +1,10 @@
-﻿using EventTrackerBlog.Domain.DTO.Articles.Request;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using EventTrackerBlog.Data.Entities;
+using EventTrackerBlog.Domain.DTO.Articles.Request;
 
-namespace EventTrackerBlog.Tests.Data
+namespace EventTrackerBlog.Tests.Articles.Data
 {
     public static class Articles
     {
