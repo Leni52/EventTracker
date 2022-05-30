@@ -39,13 +39,15 @@ namespace EventTracker.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateCommentAsync(CommentCreateModel commentRequest)
         {
-            await _commentService.CreateCommentAsync(commentRequest);
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                return Ok("Comment created successfully.");
+                return BadRequest();
             }
 
-            return BadRequest();
+            var comment = _mapper.Map<Comment>(commentRequest);
+            await _commentService.CreateCommentAsync(comment);
+
+            return Ok("Comment created successfully.");
         }
 
         [HttpPut("{commentId}")]
@@ -65,13 +67,14 @@ namespace EventTracker.Controllers
         [HttpDelete("{commentId}")]
         public async Task<IActionResult> DeleteCommentAsync(Guid commentId)
         {
-            await _commentService.DeleteCommentAsync(commentId);
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                return Ok("Comment deleted successfully.");
+                return BadRequest();
             }
 
-            return BadRequest();
+            await _commentService.DeleteCommentAsync(commentId);
+
+            return Ok("Comment deleted successfully.");
         }
     }
 }
