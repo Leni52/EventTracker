@@ -1,0 +1,20 @@
+
+Log Entry : 2:35:39 PM Tuesday, May 31, 2022
+Controller: Article, Action Name: GetAllArticles
+-------------------------------
+
+Log Entry : 2:37:24 PM Tuesday, May 31, 2022
+Controller: Article, Action Name: GetAllArticles
+-------------------------------
+
+Log Entry : 2:37:26 PM Tuesday, May 31, 2022
+OnActionExecuted metgod executed.
+-------------------------------
+
+Log Entry : 2:46:22 PM Tuesday, May 31, 2022
+Controller: Article, Action Name: GetAllArticles
+-------------------------------
+
+Log Entry : 2:46:22 PM Tuesday, May 31, 2022
+OnActionExecuted method executed.
+-------------------------------
