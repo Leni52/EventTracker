@@ -1,10 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, NgModule, OnInit } from '@angular/core';
+
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  title = 'angular-front';
+export class AppComponent implements OnInit {
+  title = 'Event Tracker';
+ 
+constructor(){
+
+}
+ngOnInit(): void {
+  
+}
+
+
 }

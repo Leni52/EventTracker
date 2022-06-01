@@ -25,7 +25,7 @@ namespace EventTracker.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles ="RegularUser")]
+        [Authorize(Roles = "RegularUser")]
         public async Task<IEnumerable<EventResponseModel>> GetAllEventsAsync()
         {
             var events = await _eventService.GetAllEventsAsync();
@@ -41,7 +41,7 @@ namespace EventTracker.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles ="Admin, EventHolder")]
+        [Authorize(Roles = "Admin, EventHolder")]
         public async Task<IActionResult> CreateEventAsync(EventRequestModel eventRequest)
         {
             var eventToCreate = _mapper.Map<Event>(eventRequest);
