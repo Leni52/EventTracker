@@ -1,8 +1,6 @@
-﻿using AutoMapper;
-using EventTracker.BLL.Interfaces;
+﻿using EventTracker.BLL.Interfaces;
 using EventTracker.DAL.Contracts;
 using EventTracker.DAL.Entities;
-using EventTracker.DTO.CommentModels;
 using ExceptionHandling.Exceptions;
 using System;
 using System.Collections.Generic;
@@ -13,12 +11,10 @@ namespace EventTracker.BLL.Services
     public class CommentService : ICommentService
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
 
-        public CommentService(IUnitOfWork unitOfWork, IMapper mapper)
+        public CommentService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _mapper = mapper;
         }
 
         public async Task<IEnumerable<Comment>> GetAllCommentsAsync()
@@ -36,9 +32,8 @@ namespace EventTracker.BLL.Services
             return comment;
         }
 
-        public async Task CreateCommentAsync(CommentCreateModel commentRequest)
+        public async Task CreateCommentAsync(Comment comment)
         {
-            var comment = _mapper.Map<Comment>(commentRequest);
             comment.CreatedAt = DateTime.Now;
             comment.LastModifiedAt = DateTime.Now;
 
@@ -46,7 +41,7 @@ namespace EventTracker.BLL.Services
             await _unitOfWork.SaveAsync();
         }
 
-        public async Task EditCommentAsync(CommentEditModel commentRequest, Guid commentId)
+        public async Task EditCommentAsync(Comment commentEdit, Guid commentId)
         {
             var comment = await _unitOfWork.Comments.GetByIdAsync(commentId);
             if (comment == null)
@@ -54,7 +49,7 @@ namespace EventTracker.BLL.Services
                 throw new ItemDoesNotExistException();
             }
 
-            comment = _mapper.Map<Comment>(commentRequest);
+            comment.Text = commentEdit.Text;
             comment.LastModifiedAt = DateTime.Now;
 
             _unitOfWork.Comments.Edit(comment);
