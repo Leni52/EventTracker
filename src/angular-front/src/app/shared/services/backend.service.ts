@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 
-export class BackendService {
+ export abstract class BackendService {
 
   private baseUrl = 'http://localhost:5021/Event';
 
