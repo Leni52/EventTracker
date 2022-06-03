@@ -32,7 +32,7 @@ namespace EventTrackerBlog.WebAPI
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "EventTrackerBlog.WebAPI", Version = "v1" });
             });
             //filter
-            services.AddScoped<ActionFilterAttribute>();
+            services.AddScoped<LogActionFilter>();
 
             services.AddAutoMapper(typeof(Startup));
             //dbcontext and sqlserver

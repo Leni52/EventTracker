@@ -1,14 +1,14 @@
-﻿using EventTrackerBlog.Domain.DTO.Articles.Request;
+﻿using EventTrackerBlog.Data.Entities;
+using EventTrackerBlog.Domain.DTO.Articles.Request;
 using EventTrackerBlog.Domain.DTO.Articles.Response;
+using EventTrackerBlog.Domain.Features.Articles.Commands;
+using EventTrackerBlog.Domain.Features.Articles.Queries;
+using EventTrackerBlog.WebAPI.Filters;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using EventTrackerBlog.Data.Entities;
-using EventTrackerBlog.Domain.Features.Articles.Commands;
-using EventTrackerBlog.Domain.Features.Articles.Queries;
-using EventTrackerBlog.WebAPI.Filters;
 
 namespace EventTrackerBlog.WebAPI.Controllers
 {
@@ -40,7 +40,7 @@ namespace EventTrackerBlog.WebAPI.Controllers
         [HttpGet]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
-        [ServiceFilter(typeof(ActionFilterAttribute))]
+        [ServiceFilter(typeof(LogActionFilter))]
         public async Task<ActionResult<IEnumerable<ArticleResponseModel>>> GetAllArticles()
         {
             var query = new GetAllArticles();
