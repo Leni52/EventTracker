@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Diagnostics;
 
 namespace EventTrackerBlog.WebAPI.Filters
