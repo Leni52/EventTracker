@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using EventTracker.BLL.Interfaces;
+﻿using EventTracker.BLL.Interfaces;
 using EventTracker.DAL.Contracts;
 using EventTracker.DAL.Entities;
 using ExceptionHandling.Exceptions;

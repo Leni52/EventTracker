@@ -89,7 +89,7 @@ namespace EventTracker
             services.AddScoped<SmtpClient>();
 
             services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
-            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         }
 
