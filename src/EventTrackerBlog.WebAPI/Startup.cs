@@ -1,14 +1,17 @@
+using EventTrackerBlog.Domain.Common;
 using EventTrackerBlog.Domain.Data;
 using EventTrackerBlog.Domain.Seed;
 using ExceptionHandling.Handler;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using System.Text.Json.Serialization;
 using static EventTrackerBlog.Application.Features.Articles.Commands.CreateArticle;
 
 namespace EventTrackerBlog.WebAPI
@@ -25,7 +28,10 @@ namespace EventTrackerBlog.WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers().AddJsonOptions(x =>
+            {
+                x.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "EventTrackerBlog.WebAPI", Version = "v1" });

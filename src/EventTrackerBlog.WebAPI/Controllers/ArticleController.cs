@@ -1,7 +1,9 @@
 ﻿using EventTrackerBlog.Application.Features.Articles.Commands;
 using EventTrackerBlog.Application.Features.Articles.Queries;
+using EventTrackerBlog.Application.Features.Reactions.Queries;
 using EventTrackerBlog.Domain.DTO.Articles.Request;
 using EventTrackerBlog.Domain.DTO.Articles.Response;
+using EventTrackerBlog.Domain.DTO.Reactions.Response;
 using EventTrackerBlog.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -53,6 +55,20 @@ namespace EventTrackerBlog.WebAPI.Controllers
         {
             var query = new GetArticleById(articleId);
             var result = await _mediator.Send(query);
+            return Ok(result);
+        }
+
+        [HttpGet("{articleId:guid}/reaction")]
+        public async Task<ActionResult<IEnumerable<ReactionResponseModel>>> GetReactionsByArticle(Guid articleId)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var getReactions = new GetReactionsByArticle(articleId);
+            var result = await _mediator.Send(getReactions);
+
             return Ok(result);
         }
 

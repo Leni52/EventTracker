@@ -33,6 +33,12 @@ namespace EventTrackerBlog.Domain.Seed
                 SeedComments(context);
                 context.SaveChanges();
             }
+
+            if (!context.Reactions.Any())
+            {
+                SeedReactions(context);
+                context.SaveChanges();
+            }
         }
 
         private static void SeedArticles(BlogDbContext context)
@@ -75,6 +81,31 @@ namespace EventTrackerBlog.Domain.Seed
                 {
                     Content = "Another Article Comment",
                     ArticleId = articleId,
+                    CreatedAt = DateTime.Now,
+                    LastModifiedAt = DateTime.Now
+                }
+            });
+        }
+
+        private static void SeedReactions(BlogDbContext context)
+        {
+            var commentId = context.Comments
+                .Select(c => c.Id)
+                .FirstOrDefault();
+
+            context.Reactions.AddRange(new List<Reaction>
+            {
+                new()
+                {
+                    CommentId = commentId, 
+                    Type = Common.ReactionType.Like,
+                    CreatedAt = DateTime.Now,
+                    LastModifiedAt = DateTime.Now
+                },
+                new()
+                {
+                    CommentId = commentId,
+                    Type = Common.ReactionType.SmileyFace,
                     CreatedAt = DateTime.Now,
                     LastModifiedAt = DateTime.Now
                 }

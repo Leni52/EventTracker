@@ -15,6 +15,7 @@ namespace EventTrackerBlog.Domain.Data
 
         public DbSet<Article> Articles { get; set; }
         public DbSet<Comment> Comments { get; set; }
+        public DbSet<Reaction> Reactions {get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -25,6 +26,5 @@ namespace EventTrackerBlog.Domain.Data
 
             base.OnConfiguring(optionsBuilder);
         }
-       
     }
 }
