@@ -1,1 +1,29 @@
-<p>all-events works!</p>
+<div class="container">
+  <br />
+  <div class="row">
+    <div class="col">
+      <h3>Players</h3>
+    </div>   
+  </div>
+  <br />
+  <table class="table table-bordered table-sm">
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Location</th>
+      <th>Description</th>
+      <th>StartDate</th>
+      <th>EndDate</th>     
+      <th width="200px"></th>
+    </tr>
+    <tr *ngFor="let event of allEvents">
+      <td>{{ event.id }}</td>
+      <td>{{ event.name }}</td>
+      <td>{{ event.location }}</td>
+      <td>{{ event.description }}</td>
+      <td>{{ event.startDate }}</td>
+      <td>{{ event.endDate }}</td>   
+     
+    </tr>
+  </table>
+</div>
