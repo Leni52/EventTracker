@@ -1,38 +1,38 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { EventModel } from 'src/app/modules/events/models/response/EventModel';
+import { map, Observable } from 'rxjs';
+import { CrudOperations } from './backend-service.interface';
 
-@Injectable({
-  providedIn: 'root'
-})
 
- export abstract class BackendService {
+ export abstract class BackendService<T, ID> implements CrudOperations<T, ID>{
 
-  endpoint: string = 'http://localhost:5021/Event';
+  constructor(
+    protected _http: HttpClient,
+    protected _base: string
+  ){}
+  save(t: T): Observable<T> {
+    return this._http.post<T>(this._base, t);
+  }
 
-  constructor(private http: HttpClient) { }
+  update(id: ID, t: T): Observable<T> {
+    return this._http.put<T>(this._base + "/" + id, t, {});
+  }
 
-  //GetRequest(){}
+  findOne(id: ID): Observable<T> {
+    return this._http.get<T>(this._base + "/" + id);
+  }
+
+  findAll(): Observable<T[]> {
+    return this._http.get<T[]>(this._base)
+  }
+
+  delete(id: ID): Observable<T> {
+    return this._http.delete<T>(this._base + '/' + id);
+  }
+
   
-   // CREATE
-   create<T>(model: T | any, objToCreate: T | any): Observable<T | T[]> {
-    return this.http.post<T | T[]>(`${this.endpoint}/${model.tableName}`, objToCreate);
-  }
 
-  // READ
-  read<T>(model: T | any): Observable<T | T[]> {
-    return this.http.get<T | T[]>(`${this.endpoint}/${model.tableName}`);
-  }
-/*
-  // UPDATE
-  update<T>(model: T | any, objToUpdate: T | any): Observable<T | T[]> {
-    return this.http.patch<T | T[]>(`${this.endpoint}/${model.tableName}/${objToUpdate.id}`, objToUpdate};
-  }
 
-  // DELETE 
-  delete<T>(model: T | any, objToDelete): Observable<T | T[]> {
-    return this.http.delete<T | T[]>(`${this.endpoint}/${model.tableName}/${objToDelete.id}`);
-  }
-*/
+
+
+ 
 }
