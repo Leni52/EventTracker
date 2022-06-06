@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { EventModel } from 'src/app/modules/events/models/response/EventModel';
 
 @Injectable({
   providedIn: 'root'
@@ -7,11 +9,30 @@ import { Injectable } from '@angular/core';
 
  export abstract class BackendService {
 
-  private baseUrl = 'http://localhost:5021/Event';
+  endpoint: string = 'http://localhost:5021/Event';
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-  GetRequest(){
-
+  //GetRequest(){}
+  
+   // CREATE
+   create<T>(model: T | any, objToCreate: T | any): Observable<T | T[]> {
+    return this.http.post<T | T[]>(`${this.endpoint}/${model.tableName}`, objToCreate);
   }
+
+  // READ
+  read<T>(model: T | any): Observable<T | T[]> {
+    return this.http.get<T | T[]>(`${this.endpoint}/${model.tableName}`);
+  }
+/*
+  // UPDATE
+  update<T>(model: T | any, objToUpdate: T | any): Observable<T | T[]> {
+    return this.http.patch<T | T[]>(`${this.endpoint}/${model.tableName}/${objToUpdate.id}`, objToUpdate};
+  }
+
+  // DELETE 
+  delete<T>(model: T | any, objToDelete): Observable<T | T[]> {
+    return this.http.delete<T | T[]>(`${this.endpoint}/${model.tableName}/${objToDelete.id}`);
+  }
+*/
 }
