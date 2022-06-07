@@ -1,4 +1,4 @@
-﻿using EventTrackerBlog.Domain.Common;
+﻿using EventTrackerBlog.Data.Common;
 using System;
 
 namespace EventTrackerBlog.Domain.DTO.Reactions.Response

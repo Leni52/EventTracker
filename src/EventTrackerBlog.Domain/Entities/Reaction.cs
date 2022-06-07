@@ -1,4 +1,5 @@
-﻿using EventTrackerBlog.Domain.Common;
+﻿using EventTrackerBlog.Data.Common;
+using EventTrackerBlog.Data.Entities;
 using System;
 using System.ComponentModel.DataAnnotations;
 

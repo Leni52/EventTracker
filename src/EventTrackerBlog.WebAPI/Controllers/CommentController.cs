@@ -1,15 +1,15 @@
-﻿using EventTrackerBlog.Application.Features.Comments.Commands;
-using EventTrackerBlog.Application.Features.Comments.Queries;
-using EventTrackerBlog.Domain.DTO.Comments.Request;
-using EventTrackerBlog.Domain.Entities;
+﻿using EventTrackerBlog.Domain.DTO.Comments.Request;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using EventTrackerBlog.Data.Entities;
 using EventTrackerBlog.Domain.DTO.Comments.Response;
 using EventTrackerBlog.Domain.DTO.Reactions.Response;
 using EventTrackerBlog.Application.Features.Reactions.Queries;
+using EventTrackerBlog.Domain.Features.Comments.Commands;
+using EventTrackerBlog.Domain.Features.Comments.Queries;
 
 namespace EventTrackerBlog.WebAPI.Controllers
 {

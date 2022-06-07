@@ -1,12 +1,12 @@
-﻿using AutoMapper;
-using EventTrackerBlog.Domain.Data;
-using EventTrackerBlog.Domain.DTO.Articles.Request;
-using EventTrackerBlog.Domain.Entities;
-using MediatR;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
+using EventTrackerBlog.Data.Data;
+using EventTrackerBlog.Data.Entities;
+using EventTrackerBlog.Domain.DTO.Articles.Request;
+using MediatR;
 
-namespace EventTrackerBlog.Application.Features.Articles.Commands
+namespace EventTrackerBlog.Domain.Features.Articles.Commands
 {
     public class CreateArticle : IRequest<ArticleRequestModel>
     {

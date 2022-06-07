@@ -1,12 +1,14 @@
-﻿using EventTrackerBlog.Domain.Data;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using EventTrackerBlog.Data.Data;
+using EventTrackerBlog.Data.Entities;
 using EventTrackerBlog.Domain.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using EventTrackerBlog.Data.Common;
 
-namespace EventTrackerBlog.Domain.Seed
+namespace EventTrackerBlog.Data.Seed
 {
     public static class BlogDbSeeder
     {

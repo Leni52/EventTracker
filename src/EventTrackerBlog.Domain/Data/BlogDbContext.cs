@@ -1,7 +1,8 @@
-﻿using EventTrackerBlog.Domain.Entities;
+﻿using EventTrackerBlog.Data.Entities;
+using EventTrackerBlog.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace EventTrackerBlog.Domain.Data
+namespace EventTrackerBlog.Data.Data
 {
     public class BlogDbContext : DbContext
     {

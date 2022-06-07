@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using EventTrackerBlog.Domain.Common;
-using EventTrackerBlog.Domain.Data;
+using EventTrackerBlog.Data.Common;
+using EventTrackerBlog.Data.Data;
 using EventTrackerBlog.Domain.DTO.Reactions.Response;
 using EventTrackerBlog.Domain.Entities;
 using ExceptionHandling.Exceptions;

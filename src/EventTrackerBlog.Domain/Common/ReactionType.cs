@@ -1,5 +1,5 @@
 ﻿
-namespace EventTrackerBlog.Domain.Common
+namespace EventTrackerBlog.Data.Common
 {
     public enum ReactionType
     {

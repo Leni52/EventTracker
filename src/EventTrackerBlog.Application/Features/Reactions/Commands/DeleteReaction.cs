@@ -1,5 +1,4 @@
-﻿using EventTrackerBlog.Domain.Common;
-using EventTrackerBlog.Domain.Data;
+﻿using EventTrackerBlog.Data.Data;
 using ExceptionHandling.Exceptions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
