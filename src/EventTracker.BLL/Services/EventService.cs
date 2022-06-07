@@ -30,7 +30,7 @@ namespace EventTracker.BLL.Services
         public async Task<Event> GetEventByIdAsync(Guid eventId)
         {
             var eventToReturn = await _unitOfWork.Events.GetByIdAsync(eventId);
-            if(eventToReturn == null)
+            if (eventToReturn == null)
             {
                 throw new ItemDoesNotExistException();
             }
@@ -98,7 +98,7 @@ namespace EventTracker.BLL.Services
 
             var subject = string.Format(DeletedEventSubject, eventToDelete.Name);
             var body = string.Format(DeletedEventBody, eventToDelete.Name, eventToDelete.Location, eventToDelete.StartDate, eventToDelete.EndDate);
-            _notificationService.SendNotificationAsync(eventToDelete, subject, body);
+            //  _notificationService.SendNotificationAsync(eventToDelete, subject, body);
         }
 
         public async Task SignUpRegularUserAsync(Guid eventId, ClaimsPrincipal claimsPrincipal)

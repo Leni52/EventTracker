@@ -8,30 +8,34 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 
-
-
 export class EventService extends BackendService<EventModel, string> {  
  httpOptions = {
    headers: new HttpHeaders({
-     'Content-Type':'application/json'
+     'Content-Type':'application/json',
+     'Accept':'application/json'
    })
  };
-private apiUrl = 'http://localhost:5021/api';
+private apiUrl = 'https://localhost:5021/api/';
   constructor(httpClient: HttpClient) {
    // super(httpClient, `${environment.api.baseUrl}/Event`)
- super(httpClient,  'http://localhost:5021/api')
+ super(httpClient,  'https://localhost:5021/api')
   }
 
   getAllEvents(): Observable<EventModel[]>{
-  return this._http.get<EventModel[]>(this.apiUrl+'/Event');   
+    return this.findAll();   
   } 
-/*
-  getEvent(id): Observable<EventModel>{
-    return this._http.get<EventModel>(this.apiUrl+'/Event'+id);
-  }
-*/
-  
 
+  getEvent(id: string): Observable<EventModel>{
+    return this.findOne(id);
+  }
+
+  deleteEvent(id:string) :Observable<void>{
+    return this.delete(id); 
+  }
+
+  createEvent(eventModel:EventModel): Observable<EventModel>{
+    return this.create(eventModel);
+  }
 
   }
 

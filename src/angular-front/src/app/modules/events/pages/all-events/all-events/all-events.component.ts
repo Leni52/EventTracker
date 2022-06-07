@@ -14,15 +14,16 @@ export class AllEventsComponent implements OnInit {
   ngOnInit():void {
 this.eventService.getAllEvents().subscribe((data: EventModel[])=>{
   this.allEvents = data;
+  console.log("Hello data");
  ()=> console.log(data);
 })
 
-
-
-
-  }
-
-
+}
+deleteEvent(id:string) {
+  this.eventService.delete(id).subscribe(res=>{
+    this.allEvents = this.allEvents.filter(item=>item.id!==id);
+  })
+}
 
 
 }

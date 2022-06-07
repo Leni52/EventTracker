@@ -9,24 +9,24 @@ import { CrudOperations } from './backend-service.interface';
     protected _http: HttpClient,
     protected _base: string
   ){}
-  save(t: T): Observable<T> {
-    return this._http.post<T>(this._base, t);
+  create(t: T): Observable<T> {
+    return this._http.post<T>(`${this._base}`+'/event', JSON.stringify(t));
   }
 
   update(id: ID, t: T): Observable<T> {
-    return this._http.put<T>(this._base + "/" + id, t, {});
+    return this._http.put<T>(this._base + "/event" + id, t, {});
   }
 
   findOne(id: ID): Observable<T> {
-    return this._http.get<T>(this._base + "/" + id);
+    return this._http.get<T>(this._base + "/event/" + id);
   }
 
   findAll(): Observable<T[]> {
-    return this._http.get<T[]>(this._base)
+    return this._http.get<T[]>(`${this._base}`+'/event');
   }
 
-  delete(id: ID): Observable<T> {
-    return this._http.delete<T>(this._base + '/' + id);
+  delete(id: ID): Observable<void> {
+    return this._http.delete<void>(this._base + '/event/' + id);
   }
 
   
