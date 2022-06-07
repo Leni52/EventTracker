@@ -5,7 +5,7 @@
       <h3>allEvents</h3>
     </div>   
     <div class="col text-right">
-      <a href="#" routerLink="/" class="btn btn-success btn-sm">Create New</a>
+      <a routerLink="create" class="btn btn-success btn-sm">Create New</a>
     </div>
   </div>
   <br />
@@ -27,7 +27,7 @@
       <td>{{ event.startDate }}</td>
       <td>{{ event.endDate }}</td>   
       <td class="text-right">
-        <a href="#" [routerLink]="['/event', event.id, '']" class="btn btn-primary btn-sm">Edit</a> 
+        <a href="#" [routerLink]="['edit', event.id, '']" class="btn btn-primary btn-sm">Edit</a> 
         <button type="button" (click)="deleteEvent(event.id)" class="btn btn-danger btn-sm">Delete</button> 
       </td>
     </tr>

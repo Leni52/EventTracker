@@ -20,7 +20,9 @@ import { EditEventComponent } from './modules/events/pages/edit-event/edit-event
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
-      {path: '', component: AllEventsComponent, pathMatch:'full'}
+      {path: '', component: AllEventsComponent, pathMatch:'full'},
+      {path: 'create', component: CreateEventComponent, pathMatch:'full'},
+      {path: 'edit', component: EditEventComponent, pathMatch:'full'}
     ])   
   
   ],
