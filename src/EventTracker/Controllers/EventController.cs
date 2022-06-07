@@ -77,7 +77,7 @@ namespace EventTracker.Controllers
             await _eventService.DeleteEventAsync(eventId);
             if (ModelState.IsValid)
             {
-                return Ok("Event deleted successfully.");
+                return NoContent();
             }
 
             return BadRequest();
