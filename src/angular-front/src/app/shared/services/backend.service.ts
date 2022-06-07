@@ -10,11 +10,11 @@ import { CrudOperations } from './backend-service.interface';
     protected _base: string
   ){}
   create(t: T): Observable<T> {
-    return this._http.post<T>(`${this._base}`+'/event', JSON.stringify(t));
+    return this._http.post<T>(this._base+'/event', JSON.stringify(t));
   }
 
   update(id: ID, t: T): Observable<T> {
-    return this._http.put<T>(this._base + "/event" + id, t, {});
+    return this._http.put<T>(this._base + "/event/" + id, t, {});
   }
 
   findOne(id: ID): Observable<T> {
@@ -22,7 +22,7 @@ import { CrudOperations } from './backend-service.interface';
   }
 
   findAll(): Observable<T[]> {
-    return this._http.get<T[]>(`${this._base}`+'/event');
+    return this._http.get<T[]>(this._base+'/event');
   }
 
   delete(id: ID): Observable<void> {
