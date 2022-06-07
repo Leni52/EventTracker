@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace EventTrackerBlog.Domain.Entities
+namespace EventTrackerBlog.Data.Entities
 {
     public class BaseEntity
     {
