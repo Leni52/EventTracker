@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
+using EventTrackerBlog.Data.Entities;
 using EventTrackerBlog.Domain.DTO.Articles.Request;
 using EventTrackerBlog.Domain.DTO.Articles.Response;
-using EventTrackerBlog.Domain.Entities;
 
 namespace EventTrackerBlog.WebAPI.Profiles
 {

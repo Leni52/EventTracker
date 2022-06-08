@@ -44,43 +44,44 @@ namespace EventTracker.Controllers
         // [Authorize(Roles = "Admin, EventHolder")]
         public async Task<IActionResult> CreateEventAsync(EventRequestModel eventRequest)
         {
-            var eventToCreate = _mapper.Map<Event>(eventRequest);
-
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                await _eventService.CreateEventAsync(eventToCreate);
-                return Ok("Event created successfully.");
+                return BadRequest();
             }
 
-            return BadRequest();
+            var eventToCreate = _mapper.Map<Event>(eventRequest);
+            await _eventService.CreateEventAsync(eventToCreate);
+
+            return Ok("Event created successfully.");
         }
 
         [HttpPut("{eventId}")]
         //[Authorize(Roles = "Admin, EventHolder")]
         public async Task<IActionResult> EditEventAsync(EventRequestModel eventRequest, Guid eventId)
         {
-            var editedEvent = _mapper.Map<Event>(eventRequest);
-
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                await _eventService.EditEventAsync(editedEvent, eventId);
-                return Ok("Event updated successfully.");
+                return BadRequest();
             }
 
-            return BadRequest();
+            var editedEvent = _mapper.Map<Event>(eventRequest);
+            await _eventService.EditEventAsync(editedEvent, eventId);
+
+            return Ok("Event updated successfully.");
         }
 
         [HttpDelete("{eventId}")]
         // [Authorize(Roles = "Admin, EventHolder")]
         public async Task<IActionResult> DeleteEventAsync(Guid eventId)
         {
-            await _eventService.DeleteEventAsync(eventId);
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                return NoContent();
+                return BadRequest();
             }
 
-            return BadRequest();
+            await _eventService.DeleteEventAsync(eventId);
+
+            return NoContent();
         }
 
         [HttpGet("{eventId}/comments")]

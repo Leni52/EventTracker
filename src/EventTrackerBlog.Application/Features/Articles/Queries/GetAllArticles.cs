@@ -1,14 +1,15 @@
-﻿using AutoMapper;
-using EventTrackerBlog.Domain.Data;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using AutoMapper;
+using EventTrackerBlog.Data.Data;
 using EventTrackerBlog.Domain.DTO.Articles.Response;
 using ExceptionHandling.Exceptions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 
-namespace EventTrackerBlog.Application.Features.Articles.Queries
+namespace EventTrackerBlog.Domain.Features.Articles.Queries
 {
     public class GetAllArticles : IRequest<IEnumerable<ArticleResponseModel>>
     {
@@ -27,7 +28,7 @@ namespace EventTrackerBlog.Application.Features.Articles.Queries
             {
                 var articlesList = await _context.Articles.ToListAsync();
                 var articlesResponse = _mapper.Map<IEnumerable<ArticleResponseModel>>(articlesList);
-                if (articlesResponse == null)
+                if (!articlesResponse.Any())
                 {
                     throw new ItemDoesNotExistException();
                 }

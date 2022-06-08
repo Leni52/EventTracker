@@ -2,12 +2,12 @@
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using EventTrackerBlog.Domain.Data;
+using EventTrackerBlog.Data.Entities;
+using EventTrackerBlog.Data.Data;
 using EventTrackerBlog.Domain.DTO.Comments.Response;
-using EventTrackerBlog.Domain.Entities;
 using MediatR;
 
-namespace EventTrackerBlog.Application.Features.Comments.Commands
+namespace EventTrackerBlog.Domain.Features.Comments.Commands
 {
     public class CreateComment : IRequest<CommentResponseModel>
     {

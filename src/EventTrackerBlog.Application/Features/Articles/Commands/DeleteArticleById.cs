@@ -1,13 +1,13 @@
-﻿using EventTrackerBlog.Domain.Data;
-using ExceptionHandling.Exceptions;
-using MediatR;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using EventTrackerBlog.Data.Data;
+using ExceptionHandling.Exceptions;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
 
-namespace EventTrackerBlog.Application.Features.Articles.Commands
+namespace EventTrackerBlog.Domain.Features.Articles.Commands
 {
     public class DeleteArticleById : IRequest<Guid>
     {

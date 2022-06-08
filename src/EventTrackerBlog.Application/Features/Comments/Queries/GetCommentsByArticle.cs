@@ -1,16 +1,16 @@
-﻿using AutoMapper;
-using EventTrackerBlog.Domain.Data;
-using EventTrackerBlog.Domain.DTO.Comments.Response;
-using ExceptionHandling.Exceptions;
-using MediatR;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
+using EventTrackerBlog.Data.Data;
+using EventTrackerBlog.Domain.DTO.Comments.Response;
+using ExceptionHandling.Exceptions;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
 
-namespace EventTrackerBlog.Application.Features.Comments.Queries
+namespace EventTrackerBlog.Domain.Features.Comments.Queries
 {
     public class GetCommentsByArticle : IRequest<IEnumerable<CommentResponseModel>>
     {

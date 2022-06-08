@@ -8,6 +8,7 @@ namespace EventTracker.DTO.CommentModels
 {
     public class CommentViewModel
     {
+        public Guid Id { get; set; }
         public Guid EventId { get; set; }
         public string Text { get; set; }
     }
