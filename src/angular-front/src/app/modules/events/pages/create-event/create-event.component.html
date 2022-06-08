@@ -9,42 +9,42 @@
     </div>
   </div>
   <br />
-  <form [ngFormOptions]="createForm" (ngSubmit)="onSubmit(createForm)">
+  <form [formGroup]="createForm" (ngSubmit)="onSubmit(createForm)">
       
-    <div class="form-group">
+    <div class="form-group" formGroupName="name">
       <label for="name">Name:</label>
-      <input formControlName="name"
+      <input 
              id="name"
              type="text"
              class="form-control" />
     </div>
  
-    <div class="form-group">
+    <div class="form-group" formGroupName="description">
       <label for="description">Description:</label>
-      <input formControlName="description"
+      <input 
              id="description"
              type="text"
              class="form-control" />
     </div>
  
-    <div class="form-group">
-      <label for="name">Location</label>
-      <input formControlName="location"
+    <div class="form-group" formGroupName="location">
+      <label for="location">Location</label>
+      <input 
       id="location"
       type="text"
       class="form-control" />
     </div>
  
-    <div class="form-group">
+    <div class="form-group" formGroupName="startDate">
       <label for="startDate">Start Date:</label>
-      <input formControlName="appearances"
+      <input 
              id="startDate"
              type="date"
              class="form-control" />
     </div>
-    <div class="form-group">
+    <div class="form-group" formGroupName="endDate">
         <label for="endDate">End Date:</label>
-        <input formControlName="appearances"
+        <input 
                id="endDate"
                type="date"
                class="form-control" />

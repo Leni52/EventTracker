@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { EventModel } from '../../models/response/EventModel';
 import { EventService } from '../../services/event.service';
 
+
 @Component({
   selector: 'app-create-event',
   templateUrl: './create-event.component.html',
