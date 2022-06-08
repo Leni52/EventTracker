@@ -13,6 +13,7 @@
     <tr>
       <th>Id</th>
       <th>Name</th>
+      <th>Category</th>
       <th>Location</th>
       <th>Description</th>
       <th>StartDate</th>
@@ -22,6 +23,7 @@
     <tr *ngFor="let event of allEvents">
       <td>{{ event.id }}</td>
       <td>{{ event.name }}</td>
+      <td>{{event.category}}</td>
       <td>{{ event.location }}</td>
       <td>{{ event.description }}</td>
       <td>{{ event.startDate }}</td>

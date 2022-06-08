@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { EventModelRequest } from '../../models/request/EventModelRequest';
 import { EventModel } from '../../models/response/EventModel';
+
 import { EventService } from '../../services/event.service';
 
 
@@ -11,7 +13,7 @@ import { EventService } from '../../services/event.service';
   styleUrls: ['./create-event.component.css']
 })
 export class CreateEventComponent implements OnInit {
-eventModels: EventModel[] =[];
+eventModels: EventModelRequest[] =[];
 createForm;
   constructor(
     public eventService: EventService,
@@ -20,16 +22,17 @@ createForm;
     private formBuilder: FormBuilder
   ) {
     this.createForm = this.formBuilder.group({
-      name: ['', Validators.required],
-      description: ['',Validators.required],
-      location: ['',Validators.required],
+      name: [''],
+      category: [''],
+      description: [''],
+      location: [''],
       startDate: [''],
       endDate: ['']
     })
    }
 
   ngOnInit(): void {
-    this.eventService.getAllEvents().subscribe((data: EventModel[])=>{
+    this.eventService.getAllEvents().subscribe((data: EventModelRequest[])=>{
       this.eventModels = data;
     });
     

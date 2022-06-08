@@ -1,5 +1,4 @@
-export interface EventModel{
-    id: string;
+export interface EventModelRequest{
     name: string;
     category: number;
     location: string;

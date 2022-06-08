@@ -18,7 +18,14 @@
              type="text"
              class="form-control" />
     </div>
- 
+    <div class="form-group" formGroupName="category">
+      <label for="category">Category:</label>
+      <input 
+             id="category"
+             type="text"
+             class="form-control" />
+    </div>
+    
     <div class="form-group" formGroupName="description">
       <label for="description">Description:</label>
       <input 
@@ -39,14 +46,14 @@
       <label for="startDate">Start Date:</label>
       <input 
              id="startDate"
-             type="date"
+             type="datetime-local"
              class="form-control" />
     </div>
     <div class="form-group" formGroupName="endDate">
         <label for="endDate">End Date:</label>
         <input 
                id="endDate"
-               type="date"
+               type="datetime-local"
                class="form-control" />
       </div>
   
