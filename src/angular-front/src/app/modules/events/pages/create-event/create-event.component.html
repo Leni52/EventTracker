@@ -20,10 +20,11 @@
     </div>
     <div class="form-group" formGroupName="category">
       <label for="category">Category:</label>
-      <input 
-             id="category"
-             type="text"
-             class="form-control" />
+ <select>
+<option *ngFor="let cat of categoryTypes">
+  {{cat}}
+</option>
+ </select>
     </div>
     
     <div class="form-group" formGroupName="description">

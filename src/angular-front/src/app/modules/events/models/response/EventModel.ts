@@ -1,7 +1,7 @@
 export interface EventModel{
     id: string;
     name: string;
-    category: number;
+    category: string;
     location: string;
     description: string;
     startDate: Date;

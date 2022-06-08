@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { EventModel } from '../models/response/EventModel';
 import  { BackendService } from '../../../shared/services/backend.service';
 import { Observable } from 'rxjs';
+import { EventModelRequest } from '../models/request/EventModelRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -36,7 +37,9 @@ private apiUrl = 'https://localhost:5021/api/';
   createEvent(eventModel:EventModel): Observable<EventModel>{
     return this.create(eventModel);
   }
-
+updateEvent(id: string, eventModel: EventModel):Observable<EventModel>{
+  return this.update(id, eventModel);
+}
   }
 
 

@@ -21,11 +21,11 @@ const httpOptions = {
   }
 
   update(id: ID, t: T): Observable<T> {
-    return this._http.put<T>(this._base + "/event/" + id, t, {});
+    return this._http.put<T>(this._base + '/event/' + id, JSON.stringify(t), httpOptions);
   }
 
   findOne(id: ID): Observable<T> {
-    return this._http.get<T>(this._base + "/event/" + id);
+    return this._http.get<T>(this._base + '/event/' + id);
   }
 
   findAll(): Observable<T[]> {

@@ -7,7 +7,7 @@ import { EditEventComponent } from '../../pages/edit-event/edit-event.component'
 const routes: Routes = [
   {path: '', component: AllEventsComponent},
   {path: 'create', component: CreateEventComponent},
-  {path: '', component: EditEventComponent}
+  {path: 'edit', component: EditEventComponent}
 ];
 
 @NgModule({

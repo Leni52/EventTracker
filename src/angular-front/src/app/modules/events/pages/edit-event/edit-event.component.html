@@ -2,14 +2,14 @@
   <br />
   <div class="row">
     <div class="col">
-      <h3>Update Player</h3>
+      <h3>Update Event</h3>
     </div>
     <div class="col text-right">
-      <a href="#" routerLink="/Events" class="btn btn-secondary btn-sm">Back To Events List</a>
+      <a routerLink="" class="btn btn-secondary btn-sm">Back To Events List</a>
     </div>
   </div>
   <br />
-  <form [ngFormOptions]="editForm" (ngSubmit)="onSubmit(editForm)">
+  <form [formGroup]="editForm" (ngSubmit)="onSubmit(editForm)">
  
     <input formControlName="id"
            id="id"
@@ -42,14 +42,14 @@
  
       <div class="form-group">
         <label for="startDate">Start Date:</label>
-        <input formControlName="appearances"
+        <input 
                id="startDate"
                type="date"
                class="form-control" />
       </div>
       <div class="form-group">
           <label for="endDate">End Date:</label>
-          <input formControlName="appearances"
+          <input 
                  id="endDate"
                  type="date"
                  class="form-control" />
