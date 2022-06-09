@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
 import { CreateEventComponent } from './modules/events/pages/create-event/create-event.component';
 import { EditEventComponent } from './modules/events/pages/edit-event/edit-event.component';
 import { ReactiveFormsModule } from '@angular/forms';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,6 +29,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     ])   
   
   ],
+  exports:[RouterModule],
   providers: [],
   bootstrap: [AppComponent]
 })

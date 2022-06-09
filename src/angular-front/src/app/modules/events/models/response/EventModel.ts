@@ -1,7 +1,9 @@
+import { Category } from "./Category";
+
 export interface EventModel{
     id: string;
     name: string;
-    category: string;
+    category: number;
     location: string;
     description: string;
     startDate: Date;

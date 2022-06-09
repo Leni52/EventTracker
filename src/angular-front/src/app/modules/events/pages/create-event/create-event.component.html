@@ -13,23 +13,26 @@
       
     <div class="form-group" formGroupName="name">
       <label for="name">Name:</label>
-      <input 
+      <input formControlName="name"
+             name="name"
              id="name"
              type="text"
              class="form-control" />
     </div>
     <div class="form-group" formGroupName="category">
       <label for="category">Category:</label>
- <select>
-<option *ngFor="let cat of categoryTypes">
-  {{cat}}
-</option>
+ <select name="category">
+
+<option [value]="0">{{categoryTypes[0]}}</option>
+<option [value]="1">{{categoryTypes[1]}}</option>
+<option [value]="2">{{categoryTypes[2]}}</option>
+<option [value]="3">{{categoryTypes[3]}}</option>
  </select>
     </div>
     
     <div class="form-group" formGroupName="description">
       <label for="description">Description:</label>
-      <input 
+      <input name="description"
              id="description"
              type="text"
              class="form-control" />
@@ -37,7 +40,7 @@
  
     <div class="form-group" formGroupName="location">
       <label for="location">Location</label>
-      <input 
+      <input name="location"
       id="location"
       type="text"
       class="form-control" />
@@ -45,14 +48,14 @@
  
     <div class="form-group" formGroupName="startDate">
       <label for="startDate">Start Date:</label>
-      <input 
+      <input name="startDate"
              id="startDate"
              type="datetime-local"
              class="form-control" />
     </div>
     <div class="form-group" formGroupName="endDate">
         <label for="endDate">End Date:</label>
-        <input 
+        <input name="endDate"
                id="endDate"
                type="datetime-local"
                class="form-control" />

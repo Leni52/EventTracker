@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EventModel } from '../../models/response/EventModel';
 
@@ -16,7 +16,17 @@ eventModels: EventModel[] =[];
 public StateEnum = Category;
 public InitCategory = Category.Business;
 public categoryTypes = Object.values(Category);
-createForm;
+  createForm: FormGroup;
+  event:EventModel ={
+    id: '',
+    name: '',
+    category: 0,
+    location: '',
+    description: '',
+    startDate: new Date(),
+    endDate: new Date()
+  }
+
   constructor(
     public eventService: EventService,
     private route: ActivatedRoute,
@@ -24,15 +34,11 @@ createForm;
     private formBuilder: FormBuilder
   ) {
     this.createForm = this.formBuilder.group({
-      name: [''],
-      category: [''],
-      description: [''],
-      location: [''],
-      startDate: [''],
-      endDate: ['']
-    })
-   }
 
+    })
+     
+    }   
+ 
   ngOnInit(): void {
     this.eventService.getAllEvents().subscribe((data: EventModel[])=>{
       this.eventModels = data;
@@ -40,7 +46,8 @@ createForm;
     
   }
 
-  onSubmit(formData: { value: EventModel; }){
+  onSubmit(formData: { value: EventModel; }):void{
+ 
     this.eventService.createEvent(formData.value).subscribe(res=>{
       this.router.navigateByUrl('/event');
     })
