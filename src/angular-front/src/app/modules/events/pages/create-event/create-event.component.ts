@@ -5,6 +5,7 @@ import { EventModelResponse } from '../../models/response/EventModelResponse';
 
 import { EventService } from '../../services/event.service';
 import { Category } from '../../models/enums/Category'; 
+import { EventModelCreateRequest } from '../../models/request/EventModelCreateRequest';
 
 @Component({
   selector: 'app-create-event',
@@ -16,9 +17,10 @@ eventModels: EventModelResponse[] =[];
 public StateEnum = Category;
 public InitCategory = Category.Business;
 public categoryTypes = Object.values(Category);
+public categoryInput: Category | undefined;
+
   createForm: FormGroup;
-  event:EventModelResponse ={
-    id: '',
+  event: EventModelCreateRequest = {
     name: '',
     category: this.InitCategory,
     location: '',
@@ -36,6 +38,7 @@ public categoryTypes = Object.values(Category);
  
       this.createForm = this.formBuilder.group({
         name: ['', Validators.required],
+        category: [''],
         description: ['',Validators.required],
         location: ['',Validators.required],
         startDate: [''],
@@ -45,6 +48,7 @@ public categoryTypes = Object.values(Category);
     }   
  
   ngOnInit(): void {
+    console.log(this.categoryTypes.keys);
     this.eventService.getAllEvents().subscribe((data: EventModelResponse[])=>{
       this.eventModels = data;
     });
