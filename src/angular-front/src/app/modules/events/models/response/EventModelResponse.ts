@@ -1,9 +1,9 @@
-import { Category } from "./Category";
+import { Category } from "../enums/Category";
 
-export interface EventModel{
+export interface EventModelResponse{
     id: string;
     name: string;
-    category: number;
+    category: Category;
     location: string;
     description: string;
     startDate: Date;

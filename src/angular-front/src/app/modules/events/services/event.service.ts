@@ -1,15 +1,15 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { EventModel } from '../models/response/EventModel';
+import { EventModelResponse } from '../models/response/EventModelResponse';
 import  { BackendService } from '../../../shared/services/backend.service';
 import { Observable } from 'rxjs';
-import { EventModelRequest } from '../models/request/EventModelRequest';
+import { EventModelCreateRequest } from '../models/request/EventModelCreateRequest';
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class EventService extends BackendService<EventModel, string> {  
+export class EventService extends BackendService<EventModelResponse, string> {  
  httpOptions = {
    headers: new HttpHeaders({
      'Content-Type':'application/json',
@@ -22,11 +22,11 @@ private apiUrl = 'https://localhost:5021/api/';
  super(httpClient,  'https://localhost:5021/api')
   }
 
-  getAllEvents(): Observable<EventModel[]>{
+  getAllEvents(): Observable<EventModelResponse[]>{
     return this.findAll();   
   } 
 
-  getEvent(id: string): Observable<EventModel>{
+  getEvent(id: string): Observable<EventModelResponse>{
     return this.findOne(id);
   }
 
@@ -34,11 +34,11 @@ private apiUrl = 'https://localhost:5021/api/';
     return this.delete(id); 
   }
 
-  createEvent(eventModel:EventModel): Observable<EventModel>{
+  createEvent(eventModel:EventModelResponse): Observable<EventModelResponse>{
     console.log(eventModel);
     return this.create(eventModel);
   }
-updateEvent(id: string, eventModel: EventModel):Observable<EventModel>{
+updateEvent(id: string, eventModel: EventModelResponse):Observable<EventModelResponse>{
   return this.update(id, eventModel);
 }
   }

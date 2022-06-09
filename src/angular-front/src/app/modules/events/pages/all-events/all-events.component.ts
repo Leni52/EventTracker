@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { EventModel } from '../../models/response/EventModel';
+import { EventModelResponse } from '../../models/response/EventModelResponse';
 import { EventService } from '../../services/event.service';
 
 
@@ -9,11 +9,11 @@ import { EventService } from '../../services/event.service';
   styleUrls: ['./all-events.component.css']
 })
 export class AllEventsComponent implements OnInit {
-  allEvents : EventModel[] =[];
+  allEvents : EventModelResponse[] =[];
   constructor(public eventService: EventService) { }
 
   ngOnInit():void {
-this.eventService.getAllEvents().subscribe((data: EventModel[])=>{
+this.eventService.getAllEvents().subscribe((data: EventModelResponse[])=>{
   this.allEvents = data;
   console.log("Hello data");
  ()=> console.log(data);

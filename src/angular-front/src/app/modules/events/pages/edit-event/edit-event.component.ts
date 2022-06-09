@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { EventModel } from '../../models/response/EventModel';
+import { EventModelResponse } from '../../models/response/EventModelResponse';
 import { EventService } from '../../services/event.service';
 
 @Component({
@@ -12,9 +12,9 @@ import { EventService } from '../../services/event.service';
 export class EditEventComponent implements OnInit {
 
   id!: string;
-  event!: EventModel;
+  event!: EventModelResponse;
   
-  eventModels: EventModel[]=[];
+  eventModels: EventModelResponse[]=[];
   editForm: FormGroup;
   
   constructor(
@@ -37,17 +37,17 @@ export class EditEventComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
 
-    this.eventService.getAllEvents().subscribe((data: EventModel[])=>{
+    this.eventService.getAllEvents().subscribe((data: EventModelResponse[])=>{
       this.eventModels = data;     
     });
 
-    this.eventService.getEvent(this.id).subscribe((data:EventModel)=>{
+    this.eventService.getEvent(this.id).subscribe((data:EventModelResponse)=>{
       this.event = data;
       this.editForm.patchValue(data);
     });
   }
 
-  onSubmit(formData: { value: EventModel; }){
+  onSubmit(formData: { value: EventModelResponse; }){
     this.eventService.updateEvent(this.id, formData.value).subscribe(res=>{
       this.router.navigateByUrl('');
     });

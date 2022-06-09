@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { EventModel } from '../../models/response/EventModel';
+import { EventModelResponse } from '../../models/response/EventModelResponse';
 
 import { EventService } from '../../services/event.service';
-import { Category } from '../../models/response/Category'; 
+import { Category } from '../../models/enums/Category'; 
 
 @Component({
   selector: 'app-create-event',
@@ -12,12 +12,12 @@ import { Category } from '../../models/response/Category';
   styleUrls: ['./create-event.component.css']
 })
 export class CreateEventComponent implements OnInit {
-eventModels: EventModel[] =[];
+eventModels: EventModelResponse[] =[];
 public StateEnum = Category;
 public InitCategory = Category.Business;
 public categoryTypes = Object.values(Category);
   createForm: FormGroup;
-  event:EventModel ={
+  event:EventModelResponse ={
     id: '',
     name: '',
     category: this.InitCategory,
@@ -45,13 +45,13 @@ public categoryTypes = Object.values(Category);
     }   
  
   ngOnInit(): void {
-    this.eventService.getAllEvents().subscribe((data: EventModel[])=>{
+    this.eventService.getAllEvents().subscribe((data: EventModelResponse[])=>{
       this.eventModels = data;
     });
     
   }
 
-  onSubmit(formData: { value: EventModel; }):void{
+  onSubmit(formData: { value: EventModelResponse; }):void{
  
     this.eventService.createEvent(formData.value).subscribe(res=>{
       this.router.navigateByUrl('');
