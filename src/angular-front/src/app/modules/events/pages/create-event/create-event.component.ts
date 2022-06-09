@@ -20,7 +20,7 @@ public categoryTypes = Object.values(Category);
   event:EventModel ={
     id: '',
     name: '',
-    category: 0,
+    category: this.InitCategory,
     location: '',
     description: '',
     startDate: new Date(),
@@ -33,9 +33,14 @@ public categoryTypes = Object.values(Category);
     private router: Router,
     private formBuilder: FormBuilder
   ) {
-    this.createForm = this.formBuilder.group({
-
-    })
+ 
+      this.createForm = this.formBuilder.group({
+        name: ['', Validators.required],
+        description: ['',Validators.required],
+        location: ['',Validators.required],
+        startDate: [''],
+        endDate: ['']
+      })    
      
     }   
  

@@ -11,56 +11,54 @@
   <br />
   <form [formGroup]="createForm" (ngSubmit)="onSubmit(createForm)">
       
-    <div class="form-group" formGroupName="name">
+  
       <label for="name">Name:</label>
       <input formControlName="name"
              name="name"
              id="name"
              type="text"
              class="form-control" />
-    </div>
-    <div class="form-group" formGroupName="category">
-      <label for="category">Category:</label>
- <select name="category">
 
-<option [value]="0">{{categoryTypes[0]}}</option>
-<option [value]="1">{{categoryTypes[1]}}</option>
-<option [value]="2">{{categoryTypes[2]}}</option>
-<option [value]="3">{{categoryTypes[3]}}</option>
- </select>
-    </div>
-    
-    <div class="form-group" formGroupName="description">
+   
+      <label for="category">Category:</label>
+      <select name="category">
+
+          <option [value]="0">{{categoryTypes[0]}}</option>
+          <option [value]="1">{{categoryTypes[1]}}</option>
+          <option [value]="2">{{categoryTypes[2]}}</option>
+          <option [value]="3">{{categoryTypes[3]}}</option>
+      </select>      
+   
       <label for="description">Description:</label>
-      <input name="description"
-             id="description"
-             type="text"
-             class="form-control" />
-    </div>
+      <input formControlName="description"
+              name="description"
+              id="description"
+              type="text"
+              class="form-control" />  
  
-    <div class="form-group" formGroupName="location">
+    
       <label for="location">Location</label>
-      <input name="location"
-      id="location"
-      type="text"
-      class="form-control" />
-    </div>
+      <input formControlName="location"
+               name="location"
+               id="location"
+               type="text"
+               class="form-control" />    
  
-    <div class="form-group" formGroupName="startDate">
+
       <label for="startDate">Start Date:</label>
-      <input name="startDate"
-             id="startDate"
-             type="datetime-local"
-             class="form-control" />
-    </div>
-    <div class="form-group" formGroupName="endDate">
+      <input formControlName="startDate"
+              name="startDate"
+              id="startDate"
+              type="datetime-local"
+              class="form-control" />
+   
+
         <label for="endDate">End Date:</label>
-        <input name="endDate"
+        <input formControlName="endDate"
+               name="endDate"
                id="endDate"
                type="datetime-local"
-               class="form-control" />
-      </div>
-  
+               class="form-control" />  
 
     <button class="btn btn-primary" type="submit" [disabled]="!createForm.valid">Create</button>
   </form>
