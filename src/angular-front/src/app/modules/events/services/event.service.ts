@@ -35,10 +35,10 @@ private apiUrl = 'https://localhost:5021/api/';
   }
 
   createEvent(eventModel:EventModelResponse): Observable<EventModelResponse>{
-    console.log(eventModel);
     return this.create(eventModel);
   }
 updateEvent(id: string, eventModel: EventModelResponse):Observable<EventModelResponse>{
+  console.log(eventModel);
   return this.update(id, eventModel);
 }
   }
