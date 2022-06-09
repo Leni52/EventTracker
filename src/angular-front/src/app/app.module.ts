@@ -8,6 +8,9 @@ import { AllEventsComponent } from './modules/events/pages/all-events/all-events
 import { CreateEventComponent } from './modules/events/pages/create-event/create-event.component';
 import { EditEventComponent } from './modules/events/pages/edit-event/edit-event.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HeaderComponent } from './modules/events/pages/header/header.component';
+import { FooterComponent } from './modules/events/pages/footer/footer.component';
+import { AboutComponent } from './modules/events/pages/about/about.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +18,9 @@ import { ReactiveFormsModule } from '@angular/forms';
    AllEventsComponent,
    CreateEventComponent,
    EditEventComponent,
+   HeaderComponent,
+   FooterComponent,
+   AboutComponent,
 
   ],
   imports: [
@@ -25,7 +31,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     RouterModule.forRoot([
       {path: '', component: AllEventsComponent, pathMatch:'full'},
       {path: 'create', component: CreateEventComponent, pathMatch:'full'},
-      {path: 'edit', component: EditEventComponent, pathMatch:'full'}
+      {path: 'edit', component: EditEventComponent, pathMatch:'full'},
+      {path: 'about', component: AboutComponent}
     ])   
   
   ],
