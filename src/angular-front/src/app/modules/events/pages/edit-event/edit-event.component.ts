@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EventModel } from '../../models/response/EventModel';
 import { EventService } from '../../services/event.service';
@@ -15,7 +15,8 @@ export class EditEventComponent implements OnInit {
   event!: EventModel;
   
   eventModels: EventModel[]=[];
-  editForm;
+  editForm: FormGroup;
+  
   constructor(
     public eventService: EventService,
     private route: ActivatedRoute,
@@ -23,7 +24,7 @@ export class EditEventComponent implements OnInit {
     private formBuilder: FormBuilder
   ) { 
     this.editForm = this.formBuilder.group({
-      id: [''],
+    id: [''],
     name:['',Validators.required],
     description: ['',Validators.required],
     location: ['',Validators.required],
@@ -48,7 +49,7 @@ export class EditEventComponent implements OnInit {
 
   onSubmit(formData: { value: EventModel; }){
     this.eventService.updateEvent(this.id, formData.value).subscribe(res=>{
-      this.router.navigateByUrl('/event');
+      this.router.navigateByUrl('');
     });
   }
 

@@ -54,7 +54,7 @@ public categoryTypes = Object.values(Category);
   onSubmit(formData: { value: EventModel; }):void{
  
     this.eventService.createEvent(formData.value).subscribe(res=>{
-      this.router.navigateByUrl('/event');
+      this.router.navigateByUrl('');
     })
   }
 }
