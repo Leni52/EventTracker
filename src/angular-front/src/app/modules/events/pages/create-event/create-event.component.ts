@@ -44,20 +44,17 @@ public categoryInput: Category | undefined;
         startDate: [''],
         endDate: ['']
       })    
-     
-    }   
+  }   
  
   ngOnInit(): void {
     console.log(this.categoryTypes.keys);
     this.eventService.getAllEvents().subscribe((data: EventModelResponse[])=>{
       this.eventModels = data;
     });
-    
   }
 
-  onSubmit(formData: { value: EventModelResponse; }):void{
- 
-    this.eventService.createEvent(formData.value).subscribe(res=>{
+  onSubmit(formData: { value: EventModelCreateRequest; }): void{
+    this.eventService.createEvent(formData.value).subscribe(res => {
       this.router.navigateByUrl('');
     })
   }

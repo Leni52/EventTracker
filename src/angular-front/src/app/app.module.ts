@@ -16,14 +16,13 @@ import { NavigationBarComponent } from './modules/events/pages/navigation-bar/na
 @NgModule({
   declarations: [
     AppComponent,
-   AllEventsComponent,
-   CreateEventComponent,
-   EditEventComponent,
-   HeaderComponent,
-   FooterComponent,
-   AboutComponent,
-   NavigationBarComponent,
-
+    AllEventsComponent,
+    CreateEventComponent,
+    EditEventComponent,
+    HeaderComponent,
+    FooterComponent,
+    AboutComponent,
+    NavigationBarComponent
   ],
   imports: [
     BrowserModule,
