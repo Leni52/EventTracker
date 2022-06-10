@@ -35,11 +35,4 @@ const httpOptions = {
   delete(id: ID): Observable<void> {
     return this._http.delete<void>(this._base + '/event/' + id);
   }
-
-  
-
-
-
-
- 
 }

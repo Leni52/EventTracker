@@ -9,7 +9,7 @@
     </div>
   </div>
   <br />
-  <form (ngSubmit)="onSubmit(editForm)">
+  <form [formGroup]="editForm" (ngSubmit)="onSubmit(editForm)">
  
     <input formControlName="id"
            id="id"

@@ -31,7 +31,7 @@ import { AboutComponent } from './modules/events/pages/about/about.component';
     RouterModule.forRoot([
       {path: '', component: AllEventsComponent, pathMatch:'full'},
       {path: 'create', component: CreateEventComponent, pathMatch:'full'},
-      {path: 'edit', component: EditEventComponent, pathMatch:'full'},
+      {path: 'edit/:id', component: EditEventComponent, pathMatch:'full'},
       {path: 'about', component: AboutComponent}
     ])   
   
