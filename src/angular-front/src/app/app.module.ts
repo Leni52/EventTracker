@@ -12,6 +12,8 @@ import { HeaderComponent } from './modules/events/pages/header/header.component'
 import { FooterComponent } from './modules/events/pages/footer/footer.component';
 import { AboutComponent } from './modules/events/pages/about/about.component';
 import { NavigationBarComponent } from './modules/events/pages/navigation-bar/navigation-bar.component';
+import { AllCommentsComponent } from './modules/comments/pages/all-comments/all-comments.component';
+import { CreateCommentComponent } from './modules/comments/pages/create-comment/create-comment.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,8 @@ import { NavigationBarComponent } from './modules/events/pages/navigation-bar/na
    FooterComponent,
    AboutComponent,
    NavigationBarComponent,
+   AllCommentsComponent,
+   CreateCommentComponent,
 
   ],
   imports: [
