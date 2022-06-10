@@ -15,8 +15,6 @@
            id="id"
            type="hidden" />
     
- 
-    
       <label for="name">Name:</label>
       <input formControlName="name"
              id="name"
@@ -35,31 +33,27 @@
                id="description"
                type="text"
                class="form-control" />
-      
-   
-      
+
         <label for="name">Location</label>
         <input formControlName="location"
-        id="location"
-        type="text"
-        class="form-control" />
-     
- 
-     
+               id="location"
+               type="text"
+               class="form-control" />
+         
         <label for="startDate">Start Date:</label>
         <input formControlName="startDate"
+               name="startDate"
                id="startDate"
-               type="date"
+               type="datetime-local"
                class="form-control" />
      
-      
           <label for="endDate">End Date:</label>
           <input formControlName="endDate"
+                 name="endDate"
                  id="endDate"
-                 type="date"
+                 type="datetime-local"
                  class="form-control" />
         
- 
       <button class="btn btn-primary" type="submit" [disabled]="!editForm.valid">Update</button>
   </form>
 </div>
