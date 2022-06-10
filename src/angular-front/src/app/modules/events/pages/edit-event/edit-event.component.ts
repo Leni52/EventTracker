@@ -26,6 +26,7 @@ export class EditEventComponent implements OnInit {
     this.editForm = this.formBuilder.group({
     id: [''],
     name:['',Validators.required],
+    category:[''],
     description: ['',Validators.required],
     location: ['',Validators.required],
     startDate:[''],
