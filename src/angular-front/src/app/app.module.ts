@@ -11,6 +11,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './modules/events/pages/header/header.component';
 import { FooterComponent } from './modules/events/pages/footer/footer.component';
 import { AboutComponent } from './modules/events/pages/about/about.component';
+import { NavigationBarComponent } from './modules/events/pages/navigation-bar/navigation-bar.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { AboutComponent } from './modules/events/pages/about/about.component';
    HeaderComponent,
    FooterComponent,
    AboutComponent,
+   NavigationBarComponent,
 
   ],
   imports: [
