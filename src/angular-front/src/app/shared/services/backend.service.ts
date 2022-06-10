@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
-import { CrudOperations } from './backend-service.interface';
+import { environment } from 'src/environments/environment';
+
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -10,29 +11,51 @@ const httpOptions = {
 };
 
 
- export abstract class BackendService<T, ID> implements CrudOperations<T, ID>{
+export class BackendService {
 
   constructor(
-    protected _http: HttpClient,
-    protected _base: string
-  ){}
-  create(t: T): Observable<T> {
-    return this._http.post<T>(this._base+'/event', JSON.stringify(t), httpOptions);
+      private http: HttpClient
+  ) { }
+
+  GETRequest(requestTarget: string, responseType: any = 'json'): Observable<any> {
+      return this.http.get(
+          environment.api.backendApiUrl + requestTarget,
+          { 
+              observe: 'response',
+              responseType: responseType
+          }
+      );
   }
 
-  update(id: ID, t: T): Observable<T> {
-    return this._http.put<T>(this._base + '/event/' + id, JSON.stringify(t), httpOptions);
+  POSTRequest(requestTarget: string, requestData: any, responseType: any = 'json'): Observable<any> {
+      return this.http.post(
+          environment.api.backendApiUrl + requestTarget,
+          requestData,
+          {
+              observe: 'response',
+              responseType: responseType
+          }
+      );
   }
 
-  findOne(id: ID): Observable<T> {
-    return this._http.get<T>(this._base + '/event/' + id);
+  PUTRequest(requestTarget: string, requestData: any, responseType: any = 'json'): Observable<any> {
+      return this.http.put(
+          environment.api.backendApiUrl + requestTarget,
+          requestData,
+          {
+              observe: 'response',
+              responseType: responseType
+          }
+      );
   }
 
-  findAll(): Observable<T[]> {
-    return this._http.get<T[]>(this._base+'/event');
-  }
-
-  delete(id: ID): Observable<void> {
-    return this._http.delete<void>(this._base + '/event/' + id);
+  DELETERequest(requestTarget: string, responseType: any = 'json'): Observable<any> {
+      return this.http.delete(
+          environment.api.backendApiUrl + requestTarget,
+          {
+              observe: 'response',
+              responseType: responseType
+          }
+      );
   }
 }
