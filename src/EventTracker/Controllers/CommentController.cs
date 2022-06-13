@@ -54,7 +54,7 @@ namespace EventTracker.Controllers
             var comment = _mapper.Map<Comment>(commentRequest);
             await _commentService.CreateCommentAsync(comment);
 
-            return Ok("Comment created successfully.");
+            return Ok();
         }
 
         [HttpPut("{commentId}")]
@@ -68,7 +68,7 @@ namespace EventTracker.Controllers
             var comment = _mapper.Map<Comment>(commentRequest);
             await _commentService.EditCommentAsync(comment, commentId);
 
-            return Ok("Comment updated successfully.");
+            return Ok();
         }
 
         [HttpDelete("{commentId}")]
@@ -81,7 +81,7 @@ namespace EventTracker.Controllers
 
             await _commentService.DeleteCommentAsync(commentId);
 
-            return Ok("Comment deleted successfully.");
+            return Ok();
         }
     }
 }
