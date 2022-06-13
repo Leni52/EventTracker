@@ -4,7 +4,8 @@ import { AllCommentsComponent } from '../../pages/all-comments/all-comments.comp
 import { CreateCommentComponent } from '../../pages/create-comment/create-comment.component';
 
 const routes: Routes = [
-  {path: 'events/:id/comments', component: AllCommentsComponent},
+  {path: 'Comment/Event/:eventId', component: AllCommentsComponent},
+  {path: 'Comment/:eventId', component: AllCommentsComponent},
   {path: 'createComment', component: CreateCommentComponent}
 ];
 
