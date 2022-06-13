@@ -1,0 +1,44 @@
+<div class="container">
+  <br />
+  <div class="row">
+    <div class="col">
+      <h3>All available events:</h3>
+    </div>   
+    <div class="col text-right">
+      <a routerLink="/create" class="btn btn-success btn-sm">Create New Event</a>
+    </div>
+    <br>
+  </div>
+  <br />
+  <table class="table table-bordered table-sm">
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Category</th>
+      <th>Location</th>
+      <th>Description</th>
+      <th>StartDate</th>
+      <th>EndDate</th>     
+      <th width="200px"></th>
+    </tr>   
+    <tr *ngFor="let event of allEvents">
+      <td>{{ event.id }}</td>
+      <td>{{ event.name }}</td> 
+      <td>{{ event.category }}</td>
+      <td>{{ event.location }}</td>
+      <td>{{ event.description }}</td>
+      <td>{{ event.startDate }}</td>
+      <td>{{ event.endDate }}</td>
+      <td class="text-right">
+        <a [routerLink]="['/edit', event.id]" class="btn btn-primary btn-sm">Edit</a> 
+        <a [routerLink]="[event.id, '/comments',]" class="btn btn-primary btn-sm">View comments</a> 
+     
+        <button type="button" (click)="deleteEvent(event.id)" class="btn btn-danger btn-sm">Delete</button> 
+      </td>
+    </tr>     
+     
+   
+  </table>
+  
+  
+</div>

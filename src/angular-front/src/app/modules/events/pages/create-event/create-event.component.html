@@ -1,0 +1,63 @@
+<div class="container">
+  <br />
+  <div class="row">
+    <div class="col">
+      <h3>Create Event</h3>
+    </div>
+    <div class="col text-right">
+      <a href="#" routerLink="/events" class="btn btn-secondary btn-sm">Back To Events List</a>
+    </div>
+  </div>
+  <br />
+  <form [formGroup]="createForm" (ngSubmit)="onSubmit(createForm)">
+      
+  
+      <label for="name">Name:</label>
+      <input formControlName="name"
+             name="name"
+             id="name"
+             type="text"
+             class="form-control" />
+
+   
+      <label for="category">Category:</label>
+      <input formControlName="category"
+              name="category"
+              id="category"
+              type="number"
+              class="form-control" />     
+   
+      <label for="description">Description:</label>
+      <input formControlName="description"
+              name="description"
+              id="description"
+              type="text"
+              class="form-control" />  
+ 
+    
+      <label for="location">Location</label>
+      <input formControlName="location"
+               name="location"
+               id="location"
+               type="text"
+               class="form-control" />    
+ 
+
+      <label for="startDate">Start Date:</label>
+      <input formControlName="startDate"
+              name="startDate"
+              id="startDate"
+              type="datetime-local"
+              class="form-control" />
+   
+
+        <label for="endDate">End Date:</label>
+        <input formControlName="endDate"
+               name="endDate"
+               id="endDate"
+               type="datetime-local"
+               class="form-control" />  
+
+    <button class="btn btn-primary" type="submit" [disabled]="!createForm.valid">Create</button>
+  </form>
+</div>

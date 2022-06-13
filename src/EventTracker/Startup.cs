@@ -79,6 +79,14 @@ namespace EventTracker
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "EventTracker", Version = "v1" });
             });
+            //cors
+            services.AddCors((setup) =>
+            {
+                setup.AddPolicy("default", (options) =>
+                {
+                    options.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
+                });
+            });
 
             services.AddAutoMapper(typeof(Startup));
 
@@ -104,7 +112,7 @@ namespace EventTracker
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "EventTracker v1"));
             }
-
+            app.UseCors("default");
             app.UseExceptionHandler(new ExceptionHandlerConfig().CustomOptions);
             app.UseHttpsRedirection();
             app.UseRouting();
