@@ -13,21 +13,12 @@ import { EventModelCreateRequest } from '../../models/request/EventModelCreateRe
   styleUrls: ['./create-event.component.css']
 })
 export class CreateEventComponent implements OnInit {
-eventModels: EventModelResponse[] =[];
-public StateEnum = Category;
-public InitCategory = Category.Business;
-public categoryTypes = Object.values(Category);
-public categoryInput: Category | undefined;
+  eventModels: EventModelResponse[] = [];
+  public StateEnum = Category;
+  public InitCategory = Category.Business;
+  public categoryTypes = Object.values(Category);
 
   createForm: FormGroup;
-  event: EventModelCreateRequest = {
-    name: '',
-    category: this.InitCategory,
-    location: '',
-    description: '',
-    startDate: new Date(),
-    endDate: new Date()
-  }
 
   constructor(
     public eventService: EventService,
@@ -35,7 +26,6 @@ public categoryInput: Category | undefined;
     private router: Router,
     private formBuilder: FormBuilder
   ) {
- 
       this.createForm = this.formBuilder.group({
         name: ['', Validators.required],
         category: [''],

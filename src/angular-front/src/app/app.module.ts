@@ -39,7 +39,8 @@ import { CreateCommentComponent } from './modules/comments/pages/create-comment/
       {path: 'create', component: CreateEventComponent, pathMatch:'full'},
       {path: 'edit/:id', component: EditEventComponent, pathMatch:'full'},
       {path: 'about', component: AboutComponent},
-      {path: 'events/:id/comments', component:AllCommentsComponent}
+      {path: 'events/:id/comments', component:AllCommentsComponent},
+      {path: 'createComment', component: CreateCommentComponent}
     ])   
   
   ],
