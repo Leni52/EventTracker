@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BackendService } from 'src/app/shared/services/backend.service';
 import { CommentModelRequest } from '../models/request/CommentModelRequest';
+import { CommentModelResponse } from '../models/response/CommentModelResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class CommentsService {
     private backendService: BackendService
     ) { }
 
-    getAllCommentsFromEvent(contextId: string): Observable<any>{
+    getAllCommentsFromEvent(contextId: string): Observable<CommentModelResponse>{
       return this.backendService.GETRequest('' +contextId);
     }
 
