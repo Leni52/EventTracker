@@ -9,5 +9,6 @@ namespace EventTracker.DAL.Contracts
 {
     public interface ICommentRepository : IGenericRepository<Comment>
     {
+        Task<IEnumerable<Comment>> GetCommentsFromEventAsync(Guid eventId);
     }
 }

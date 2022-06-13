@@ -34,8 +34,7 @@ namespace EventTracker.BLL.Services
 
         public async Task<IEnumerable<Comment>> GetCommentsFromEventAsync(Guid eventId)
         {
-            Event commentedEvent = await _unitOfWork.Events.GetByIdAsync(eventId);
-            return commentedEvent.Comments;
+            return await _unitOfWork.Comments.GetCommentsFromEventAsync(eventId);
         }
 
         public async Task CreateCommentAsync(Comment comment)

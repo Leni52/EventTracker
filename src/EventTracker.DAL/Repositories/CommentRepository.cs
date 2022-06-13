@@ -4,8 +4,6 @@ using EventTracker.DAL.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace EventTracker.DAL.Repositories
@@ -14,6 +12,12 @@ namespace EventTracker.DAL.Repositories
     {
         public CommentRepository(DatabaseContext context) : base(context)
         {
+        }
+
+        public async Task<IEnumerable<Comment>> GetCommentsFromEventAsync(Guid eventId)
+        {
+            var eventNeeded = await _context.Events.FirstOrDefaultAsync(e => e.Id == eventId);
+            return eventNeeded.Comments;
         }
     }
 }
