@@ -5,7 +5,7 @@
         <h3>All comments:</h3>
       </div>   
       <div class="col text-right">
-        <a routerLink="/create" class="btn btn-success btn-sm">Create New Comment</a>
+        <a routerLink="/createComment" class="btn btn-success btn-sm">Create New Comment</a>
       </div>
       <br>
     </div>
@@ -23,9 +23,9 @@
         <td>{{ comment.eventId }}</td> 
         <td>{{ comment.text }}</td>       
         <td class="text-right">
-          <a [routerLink]="['/edit', comment.id]" class="btn btn-primary btn-sm">Edit the comment</a> 
+          <a [routerLink]="['/edit', comment.id]" class="btn btn-primary btn-sm">Edit comment</a> 
        
-          <button type="button" (click)="deleteComment(comment.id)" class="btn btn-danger btn-sm">Delete the comment</button> 
+          <button type="button" (click)="deleteComment(comment.id)" class="btn btn-danger btn-sm">Delete comment</button> 
         </td>
       </tr>     
        

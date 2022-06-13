@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommentModelRequest } from '../../models/request/CommentModelRequest';
 import { CommentsService } from '../../services/comments.service';
 
@@ -11,24 +11,27 @@ import { CommentsService } from '../../services/comments.service';
 })
 export class CreateCommentComponent implements OnInit {
   createForm: FormGroup;
+  eventId!: string;
 
   constructor(
     public commentService: CommentsService,
+    private route: ActivatedRoute,
     private router: Router,
     private formBuilder: FormBuilder
     ) {
       this.createForm = this.formBuilder.group({
-        eventId: ['', Validators.required],
+        eventId: [this.eventId],
         text: ['']
       })
     }
 
   ngOnInit(): void {
+    this.eventId = this.route.snapshot.params['eventId'];
   }
 
   onSubmit(formData: { value: CommentModelRequest}): void {
     this.commentService.createComment(formData.value).subscribe(res => {
-      this.router.navigateByUrl('/events');
+      this.router.navigateByUrl('/event');
     })
   }
 }
