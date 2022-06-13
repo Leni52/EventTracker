@@ -84,14 +84,6 @@ namespace EventTracker.Controllers
             return NoContent();
         }
 
-        [HttpGet("{eventId}/comments")]
-        public async Task<IEnumerable<CommentViewModel>> GetAllCommentsFromEvent(Guid eventId)
-        {
-            var comments = await _eventService.GetAllCommentsFromEvent(eventId);
-
-            return _mapper.Map<IEnumerable<CommentViewModel>>(comments);
-        }
-
         [HttpPut("{eventId}/SignUp")]
         [Authorize(Roles = "RegularUser")]
         public async Task<IActionResult> SignUpForEvent(Guid eventId)

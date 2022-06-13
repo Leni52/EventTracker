@@ -37,12 +37,6 @@ namespace EventTracker.BLL.Services
             return eventToReturn;
         }
 
-        public async Task<IEnumerable<Comment>> GetAllCommentsFromEvent(Guid eventId)
-        {
-            Event commentedEvent = await GetEventByIdAsync(eventId);
-            return commentedEvent.Comments;
-        }
-
         public async Task CreateEventAsync(Event eventToCreate)
         {
             bool eventExists = await _unitOfWork.Events.CheckIfNameExistsCreate(eventToCreate.Name);

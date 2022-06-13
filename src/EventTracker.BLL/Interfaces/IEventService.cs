@@ -14,7 +14,6 @@ namespace EventTracker.BLL.Interfaces
         Task<IEnumerable<Event>> GetAllEventsAsync();
         Task<Event> GetEventByIdAsync(Guid eventId);
         Task EditEventAsync(Event editedEvent, Guid eventId);
-        Task<IEnumerable<Comment>> GetAllCommentsFromEvent(Guid eventId);
         Task SignUpRegularUserAsync(Guid eventId, ClaimsPrincipal claimsPrincipal);
         Task SignOutRegularUserAsync(Guid eventId, ClaimsPrincipal claimsPrincipal);
     }

@@ -36,6 +36,13 @@ namespace EventTracker.Controllers
             return _mapper.Map<CommentViewModel>(commentById);
         }
 
+        [HttpGet("Event/{eventId}")]
+        public async Task<IEnumerable<CommentViewModel>> GetCommentsFromEventAsync(Guid eventId)
+        {
+            var commentsFromEvent = await _commentService.GetCommentsFromEventAsync(eventId);
+            return _mapper.Map<IEnumerable<CommentViewModel>>(commentsFromEvent);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateCommentAsync(CommentCreateModel commentRequest)
         {
