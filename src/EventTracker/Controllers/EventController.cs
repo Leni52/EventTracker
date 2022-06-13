@@ -52,7 +52,7 @@ namespace EventTracker.Controllers
             var eventToCreate = _mapper.Map<Event>(eventRequest);
             await _eventService.CreateEventAsync(eventToCreate);
 
-            return Ok("Event created successfully.");
+            return Ok();
         }
 
         [HttpPut("{eventId}")]
@@ -67,7 +67,7 @@ namespace EventTracker.Controllers
             var editedEvent = _mapper.Map<Event>(eventRequest);
             await _eventService.EditEventAsync(editedEvent, eventId);
 
-            return Ok("Event updated successfully.");
+            return Ok();
         }
 
         [HttpDelete("{eventId}")]

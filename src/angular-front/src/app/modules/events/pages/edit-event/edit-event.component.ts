@@ -50,7 +50,7 @@ export class EditEventComponent implements OnInit {
 
   onSubmit(formData: { value: EventModelResponse; }){
     this.eventService.updateEvent(this.id, formData.value).subscribe(res=>{
-      this.router.navigateByUrl('');
+      this.router.navigateByUrl('/events');
     });
   }
 

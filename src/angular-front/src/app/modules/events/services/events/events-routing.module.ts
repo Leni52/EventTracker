@@ -6,7 +6,7 @@ import { CreateEventComponent } from '../../pages/create-event/create-event.comp
 import { EditEventComponent } from '../../pages/edit-event/edit-event.component';
 
 const routes: Routes = [
-  {path: '', component: AllEventsComponent},
+  {path: 'events', component: AllEventsComponent},
   {path: 'create', component: CreateEventComponent},
   {path: 'edit', component: EditEventComponent},
   {path: 'about', component:AboutComponent}
