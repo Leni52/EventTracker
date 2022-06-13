@@ -35,7 +35,7 @@ import { CreateCommentComponent } from './modules/comments/pages/create-comment/
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
-      {path: '', component: AllEventsComponent, pathMatch:'full'},
+      {path: 'events', component: AllEventsComponent, pathMatch:'full'},
       {path: 'create', component: CreateEventComponent, pathMatch:'full'},
       {path: 'edit/:id', component: EditEventComponent, pathMatch:'full'},
       {path: 'about', component: AboutComponent}

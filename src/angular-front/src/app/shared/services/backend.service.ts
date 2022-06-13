@@ -12,7 +12,7 @@ export class BackendService {
 
     GETRequest(requestTarget: string, responseType: any = 'json'): Observable<any> {
         return this.http.get(
-            environment.api.backendApiUrl + requestTarget,
+            environment.backendApiUrl + requestTarget,
             { 
                 observe: 'response',
                 responseType: responseType
@@ -22,7 +22,7 @@ export class BackendService {
 
     POSTRequest(requestTarget: string, requestData: any, responseType: any = 'json'): Observable<any> {
         return this.http.post(
-            environment.api.backendApiUrl + requestTarget, requestData,
+            environment.backendApiUrl + requestTarget, requestData,
             {
                 observe: 'response',
                 responseType: responseType
@@ -32,7 +32,7 @@ export class BackendService {
 
     PUTRequest(requestTarget: string, requestData: any, responseType: any = 'json'): Observable<any> {
           return this.http.put(
-            environment.api.backendApiUrl + requestTarget, requestData,
+            environment.backendApiUrl + requestTarget, requestData,
             {
                 observe: 'response',
                 responseType: responseType
@@ -42,7 +42,7 @@ export class BackendService {
 
     DELETERequest(requestTarget: string, responseType: any = 'json'): Observable<any> {
         return this.http.delete(
-            environment.api.backendApiUrl + requestTarget,
+            environment.backendApiUrl + requestTarget,
             {
                 observe: 'response',
                 responseType: responseType

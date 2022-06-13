@@ -12,10 +12,9 @@ export class AllEventsComponent implements OnInit {
   constructor(public eventService: EventService) { }
   
   ngOnInit(): void {
-    this.eventService.getAllEvents().subscribe((data: EventModelResponse[]) => {
-      this.allEvents = data;
-      console.log("Hello data");
-      ()=> console.log(data);
+    this.eventService.getAllEvents().subscribe((data: any) => {
+    this.allEvents = data.body;   
+  
     })
   }
 

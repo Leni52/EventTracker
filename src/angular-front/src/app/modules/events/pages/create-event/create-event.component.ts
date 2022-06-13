@@ -55,7 +55,7 @@ public categoryInput: Category | undefined;
 
   onSubmit(formData: { value: EventModelCreateRequest; }): void{
     this.eventService.createEvent(formData.value).subscribe(res => {
-      this.router.navigateByUrl('');
+      this.router.navigateByUrl('/events');
     })
   }
 }
