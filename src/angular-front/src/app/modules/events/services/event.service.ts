@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { EventModelResponse } from '../models/response/EventModelResponse';
 import { BackendService } from '../../../shared/services/backend.service';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { EventModelCreateRequest } from '../models/request/EventModelCreateRequest';
 
 @Injectable({
@@ -20,7 +20,7 @@ export class EventService {
   }
 
   deleteEvent(id: string): Observable<void>{
-    return this.backendService .DELETERequest('Event/' + id);
+    return this.backendService.DELETERequest('Event/' + id);
   }
 
   createEvent(eventModel: EventModelCreateRequest): Observable<EventModelCreateRequest> {
