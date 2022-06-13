@@ -76,19 +76,6 @@ namespace EventTracker.BLL.UnitTests
         }
 
         [Fact]
-        public async Task GetAllCommentsAsync_SuccessfullyReturnsCollection()
-        {
-            var sut = new CommentService(unitOfWork.Object);
-            var comments = new List<Comment>();
-
-            unitOfWork.Setup(uof => uof.Comments.GetAllAsync()).ReturnsAsync(comments);
-
-            var result = await sut.GetAllCommentsAsync();
-
-            Assert.Equal(result, comments);
-        }
-
-        [Fact]
         public async Task GetCommentByIdAsync_SuccessfullyReturnsEvent()
         {
             var sut = new CommentService(unitOfWork.Object);
@@ -111,6 +98,32 @@ namespace EventTracker.BLL.UnitTests
             unitOfWork.Setup(uof => uof.Comments.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync(comment);
 
             await Assert.ThrowsAsync<ItemDoesNotExistException>(async () => await sut.GetCommentByIdAsync(new Guid()));
+        }
+
+        [Fact]
+        public async Task GetAllCommentsAsync_SuccessfullyReturnsCollection()
+        {
+            var sut = new CommentService(unitOfWork.Object);
+            var comments = new List<Comment>();
+
+            unitOfWork.Setup(uof => uof.Comments.GetAllAsync()).ReturnsAsync(comments);
+
+            var result = await sut.GetAllCommentsAsync();
+
+            Assert.Equal(result, comments);
+        }
+
+        [Fact]
+        public async Task GetCommentsFromEventAsync_SuccessfullyReturnsCollection()
+        {
+            var sut = new CommentService(unitOfWork.Object);
+            var comments = new List<Comment>();
+
+            unitOfWork.Setup(uof => uof.Comments.GetCommentsFromEventAsync(It.IsAny<Guid>())).ReturnsAsync(comments);
+
+            var result = await sut.GetAllCommentsAsync();
+
+            Assert.Equal(result, comments);
         }
     }
 }
