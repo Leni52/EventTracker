@@ -24,6 +24,6 @@ export class CommentsService {
       return this.backendService.POSTRequest('', request);
     }
     deleteComment(id: string): Observable<void>{
-      return this.backendService.DELETERequest('Comment/Event/', + id);
+      return this.backendService.DELETERequest('Comment/' + id);
     }
 }
