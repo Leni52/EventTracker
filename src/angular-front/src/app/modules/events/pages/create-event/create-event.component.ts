@@ -48,7 +48,7 @@ public categoryInput: Category | undefined;
  
   ngOnInit(): void {
     console.log(this.categoryTypes.keys);
-    this.eventService.getAllEvents().subscribe((data: EventModelResponse[])=>{
+    this.eventService.getAllEvents().subscribe((data: EventModelResponse[]) => {
       this.eventModels = data;
     });
   }
