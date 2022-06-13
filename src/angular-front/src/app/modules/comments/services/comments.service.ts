@@ -13,8 +13,8 @@ export class CommentsService {
     private backendService: BackendService
     ) { }
 
-    getAllCommentsFromEvent(eventId: string): Observable<CommentModelResponse>{
-      return this.backendService.GETRequest('Comment/Event/', eventId);
+    getAllCommentsFromEvent(eventId: string): Observable<CommentModelResponse[]>{
+      return this.backendService.GETRequest('Comment/Event/' + eventId);
     }
 
     editComment(request: CommentModelRequest):Observable<any>{
@@ -24,7 +24,6 @@ export class CommentsService {
       return this.backendService.POSTRequest('', request);
     }
     deleteComment(id: string): Observable<void>{
-      return this.backendService.DELETERequest('Comment/Event/', +id);
+      return this.backendService.DELETERequest('Comment/Event/', + id);
     }
-    
 }

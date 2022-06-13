@@ -17,20 +17,18 @@ export class AllCommentsComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.eventId = this.route.snapshot.params['eventId'];   
+    this.eventId = this.route.snapshot.params['eventId'];
+
     this.commentService.getAllCommentsFromEvent(this.eventId)
-    .subscribe(data=>{
-      const comments: CommentModelResponse = data;
+    .subscribe((data: CommentModelResponse[]) => {
+      this.allCommentsFromEvent = data;
       console.log(data);
     })
-    
-
   }
 
   deleteComment(id:string){
-    this.commentService.deleteComment(id).subscribe(res=>{
+    this.commentService.deleteComment(id).subscribe(res => {
       this.allCommentsFromEvent = this.allCommentsFromEvent.filter(item=>item.id!==id);
     })
   }
-
 }
