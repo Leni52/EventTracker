@@ -20,12 +20,15 @@ export class CommentsService {
     editComment(id:string, request: CommentModelRequest):Observable<CommentModelRequest>{
       return this.backendService.PUTRequest('Comment/' +id, request);
     }
+
     createComment(request: CommentModelRequest): Observable<CommentModelRequest>{
       return this.backendService.POSTRequest('Comment', request);
     }
+
     deleteComment(id: string): Observable<void>{
       return this.backendService.DELETERequest('Comment/' + id);
     }
+    
     getCommentById(id:string):Observable<CommentModelResponse>{
       return this.backendService.GETRequest('Comment/' +id);
     }

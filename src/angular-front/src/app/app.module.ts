@@ -38,13 +38,12 @@ import { EditCommentComponent } from './modules/comments/pages/edit-comment/edit
     ReactiveFormsModule,
     RouterModule.forRoot([
       {path: 'events', component: AllEventsComponent, pathMatch:'full'},
-      {path: 'create', component: CreateEventComponent, pathMatch:'full'},
-      {path: 'edit/:id', component: EditEventComponent, pathMatch:'full'},
+      {path: 'events/create', component: CreateEventComponent, pathMatch:'full'},
+      {path: 'events/:id/edit', component: EditEventComponent, pathMatch:'full'},
       {path: 'about', component: AboutComponent},
-      {path: 'comment/event/:eventId', component:AllCommentsComponent},
-      {path: 'comment/:eventId', component:AllCommentsComponent},
-      {path: 'createComment', component: CreateCommentComponent},
-      {path: 'events/:eventId/comments/:id', component: EditCommentComponent}    
+      {path: 'events/:eventId/comments', component:AllCommentsComponent},
+      {path: 'events/:eventId/comments/create', component: CreateCommentComponent},
+      {path: 'events/:eventId/comments/:id/edit', component: EditCommentComponent}
     ])   
   
   ],
