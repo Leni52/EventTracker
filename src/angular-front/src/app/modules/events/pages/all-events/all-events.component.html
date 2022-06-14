@@ -30,8 +30,7 @@
       <td>{{ event.startDate }}</td>
       <td>{{ event.endDate }}</td>
       <td class="text-right">
-        <a [routerLink]="['/edit', event.id]" class="btn btn-primary btn-sm">Edit</a> 
-        <a [routerLink]="['/createComment',]" class="btn btn-primary btn-sm">Create comments</a>  
+        <a [routerLink]="['/edit', event.id]" class="btn btn-primary btn-sm">Edit</a>  
         <a [routerLink]="['/comment/event', event.id,]" class="btn btn-primary btn-sm">View comments</a> 
      
         <button type="button" (click)="deleteEvent(event.id)" class="btn btn-danger btn-sm">Delete</button> 
