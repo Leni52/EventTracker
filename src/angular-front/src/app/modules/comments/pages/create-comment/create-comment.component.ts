@@ -20,18 +20,19 @@ export class CreateCommentComponent implements OnInit {
     private formBuilder: FormBuilder
     ) {
       this.createForm = this.formBuilder.group({
-        eventId: [this.eventId],
+        eventId: [ this.route.snapshot.params['eventId'] ],
         text: ['']
       })
     }
 
   ngOnInit(): void {
     this.eventId = this.route.snapshot.params['eventId'];
+    console.log(this.eventId);
   }
 
   onSubmit(formData: { value: CommentModelRequest}): void {
     this.commentService.createComment(formData.value).subscribe(res => {
-      this.router.navigateByUrl('/event');
+      this.router.navigateByUrl('/comment/event/' + this.eventId);
     })
   }
 }

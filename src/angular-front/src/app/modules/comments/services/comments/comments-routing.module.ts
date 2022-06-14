@@ -6,7 +6,7 @@ import { CreateCommentComponent } from '../../pages/create-comment/create-commen
 const routes: Routes = [
   {path: 'Comment/Event/:eventId', component: AllCommentsComponent},
   {path: 'Comment/:eventId', component: AllCommentsComponent},
-  {path: 'createComment', component: CreateCommentComponent}
+  {path: 'events/:eventId/create', component: CreateCommentComponent}
 ];
 
 @NgModule({

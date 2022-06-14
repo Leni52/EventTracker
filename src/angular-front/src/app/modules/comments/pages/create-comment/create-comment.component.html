@@ -11,11 +11,10 @@
     <br/>
     <form [formGroup]="createForm" (ngSubmit)="onSubmit(createForm)">
 
-        <label for="eventId">Event Id: </label>
         <input formControlName="eventId"
             name="eventId"
             id="eventId"
-            type="text"
+            type="hidden"
             class="form-control"/>
     
         <label for="text">Text: </label>
