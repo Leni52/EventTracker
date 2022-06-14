@@ -14,6 +14,7 @@ import { AboutComponent } from './modules/events/pages/about/about.component';
 import { NavigationBarComponent } from './modules/events/pages/navigation-bar/navigation-bar.component';
 import { AllCommentsComponent } from './modules/comments/pages/all-comments/all-comments.component';
 import { CreateCommentComponent } from './modules/comments/pages/create-comment/create-comment.component';
+import { EditCommentComponent } from './modules/comments/pages/edit-comment/edit-comment.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { CreateCommentComponent } from './modules/comments/pages/create-comment/
    NavigationBarComponent,
    AllCommentsComponent,
    CreateCommentComponent,
+   EditCommentComponent,
 
   ],
   imports: [
@@ -41,7 +43,8 @@ import { CreateCommentComponent } from './modules/comments/pages/create-comment/
       {path: 'about', component: AboutComponent},
       {path: 'comment/event/:eventId', component:AllCommentsComponent},
       {path: 'comment/:eventId', component:AllCommentsComponent},
-      {path: 'createComment', component: CreateCommentComponent}
+      {path: 'createComment', component: CreateCommentComponent},
+      {path: 'events/:eventId/comments/:id', component: EditCommentComponent}    
     ])   
   
   ],
