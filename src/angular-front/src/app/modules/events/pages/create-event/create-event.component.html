@@ -19,11 +19,13 @@
              class="form-control" />
 
       <label for="category">Category:</label>
-      <input formControlName="category"
-              name="category"
-              id="category"
-              type="number"
-              class="form-control" />     
+      <select class="form-control" aria-label="Default select example" type="number" 
+              formControlName="category" name="category" id="category">
+            <option [ngValue]="1">Business</option>
+            <option [ngValue]="2">IT</option>
+            <option [ngValue]="3">Software</option>
+            <option [ngValue]="4">Technology</option>
+      </select>              
    
       <label for="description">Description:</label>
       <input formControlName="description"
