@@ -5,7 +5,7 @@
       <h3>All available events:</h3>
     </div>   
     <div class="col text-right">
-      <a routerLink="/create" class="btn btn-success btn-sm">Create New Event</a>
+      <a routerLink="/event/create" class="btn btn-success btn-sm">Create New Event</a>
     </div>
     <br>
   </div>
@@ -30,7 +30,7 @@
       <td>{{ event.startDate }}</td>
       <td>{{ event.endDate }}</td>
       <td class="text-right">
-        <a [routerLink]="['/edit', event.id]" class="btn btn-primary btn-sm">Edit</a>  
+        <a [routerLink]="['/event/edit', event.id]" class="btn btn-primary btn-sm">Edit</a>  
         <a [routerLink]="['/comment/event', event.id,]" class="btn btn-primary btn-sm">View comments</a> 
      
         <button type="button" (click)="deleteEvent(event.id)" class="btn btn-danger btn-sm">Delete</button> 
