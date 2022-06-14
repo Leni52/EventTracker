@@ -33,6 +33,8 @@ export class EditCommentComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
+    this.eventId = this.route.snapshot.params['eventId']
+
     this.commentService.getAllCommentsFromEvent(this.eventId).subscribe((data: CommentModelResponse[])=>{
       this.commentModels = data;
     });
@@ -45,8 +47,7 @@ export class EditCommentComponent implements OnInit {
 
   onSubmit(formData: { value: CommentModelRequest; }) {
     this.commentService.editComment(this.id, formData.value).subscribe(res=>{
-      this.router.navigateByUrl('/events');
+      this.router.navigateByUrl('/comment/event/' + this.eventId);
     })
   }
-
 }

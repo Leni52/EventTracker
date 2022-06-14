@@ -44,7 +44,7 @@ import { EditCommentComponent } from './modules/comments/pages/edit-comment/edit
       {path: 'comment/event/:eventId', component:AllCommentsComponent},
       {path: 'comment/:eventId', component:AllCommentsComponent},
       {path: 'createComment', component: CreateCommentComponent},
-      {path: 'editComment/:id', component: EditCommentComponent}    
+      {path: 'events/:eventId/comments/:id', component: EditCommentComponent}    
     ])   
   
   ],

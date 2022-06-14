@@ -7,7 +7,7 @@
       <div class="col text-right">
         <a routerLink="/events"  class="btn btn-secondary btn-sm">Back To Events List</a>
       
-        <a routerLink="../comment/:eventId"  class="btn btn-secondary btn-sm">Back To Comments List</a>
+        <a [routerLink]="'/comment/event/' + this.eventId"  class="btn btn-secondary btn-sm">Back To Comments List</a>
     </div>
     </div>
     <br />

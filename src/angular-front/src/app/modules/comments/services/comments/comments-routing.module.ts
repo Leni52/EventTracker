@@ -8,7 +8,7 @@ const routes: Routes = [
   {path: 'Comment/Event/:eventId', component: AllCommentsComponent},
   {path: 'Comment/:eventId', component: AllCommentsComponent},
   {path: 'createComment', component: CreateCommentComponent},
-  {path: 'editComment/:id', component: EditCommentComponent}
+  {path: 'events/:eventId/comments/:id', component: EditCommentComponent}
 ];
 
 @NgModule({
