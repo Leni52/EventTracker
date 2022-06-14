@@ -6,7 +6,8 @@
       </div>
       <div class="col text-right">
         <a routerLink="/events"  class="btn btn-secondary btn-sm">Back To Events List</a>
-        <a routerLink="'/comment/event', event.id"  class="btn btn-secondary btn-sm">Back To Comments List</a>
+      
+        <a routerLink="../comment/:eventId"  class="btn btn-secondary btn-sm">Back To Comments List</a>
     </div>
     </div>
     <br />
@@ -14,6 +15,10 @@
    
       <input formControlName="id"
              id="id"
+             type="hidden" />    
+    
+      <input formControlName="eventId"
+             id="eventId"
              type="hidden" />    
     
      <label for="text">Content:</label>

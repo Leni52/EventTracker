@@ -6,7 +6,7 @@
       </div>   
       <div class="col text-right">
         <a routerLink="/createComment" class="btn btn-success btn-sm">Create New Comment</a>
-        <a routerLink="'/comment/event', event.id" class="btn btn-success btn-sm">Back to comments list</a>
+        <a routerLink="/events" class="btn btn-success btn-sm">Back to events list</a>
 
       </div>
       <br>
@@ -25,7 +25,7 @@
         <td>{{ comment.eventId }}</td> 
         <td>{{ comment.text }}</td>       
         <td class="text-right">
-          <a [routerLink]="['/editComment', comment.id]" class="btn btn-primary btn-sm">Edit the comment</a> 
+          <a [routerLink]="['/editComment/', comment.id]" class="btn btn-primary btn-sm">Edit the comment</a> 
        
           <button type="button" (click)="deleteComment(comment.id)" class="btn btn-danger btn-sm">Delete the comment</button> 
         </td>
