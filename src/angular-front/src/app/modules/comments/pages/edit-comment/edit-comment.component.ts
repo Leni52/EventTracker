@@ -47,7 +47,7 @@ export class EditCommentComponent implements OnInit {
 
   onSubmit(formData: { value: CommentModelRequest; }) {
     this.commentService.editComment(this.id, formData.value).subscribe(res=>{
-      this.router.navigateByUrl('/comment/event/' + this.eventId);
+      this.router.navigateByUrl('/events/' + this.eventId + '/comments');
     })
   }
 }

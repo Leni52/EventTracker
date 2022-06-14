@@ -39,11 +39,11 @@ import { EditCommentComponent } from './modules/comments/pages/edit-comment/edit
     RouterModule.forRoot([
       {path: 'events', component: AllEventsComponent, pathMatch:'full'},
       {path: 'events/create', component: CreateEventComponent, pathMatch:'full'},
-      {path: 'events/edit/:id', component: EditEventComponent, pathMatch:'full'},
+      {path: 'events/:id/edit', component: EditEventComponent, pathMatch:'full'},
       {path: 'about', component: AboutComponent},
-      {path: 'comment/event/:eventId', component:AllCommentsComponent},
-      {path: 'events/:eventId/create', component: CreateCommentComponent},
-      {path: 'events/:eventId/comments/:id', component: EditCommentComponent}
+      {path: 'events/:eventId/comments', component:AllCommentsComponent},
+      {path: 'events/:eventId/comments/create', component: CreateCommentComponent},
+      {path: 'events/:eventId/comments/:id/edit', component: EditCommentComponent}
     ])   
   
   ],

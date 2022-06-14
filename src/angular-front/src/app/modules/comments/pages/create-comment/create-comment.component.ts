@@ -32,7 +32,7 @@ export class CreateCommentComponent implements OnInit {
 
   onSubmit(formData: { value: CommentModelRequest}): void {
     this.commentService.createComment(formData.value).subscribe(res => {
-      this.router.navigateByUrl('/comment/event/' + this.eventId);
+      this.router.navigateByUrl('/events/' + this.eventId + '/comments');
     })
   }
 }

@@ -8,7 +8,7 @@ import { EditEventComponent } from '../../pages/edit-event/edit-event.component'
 const routes: Routes = [
   {path: 'events', component: AllEventsComponent},
   {path: 'events/create', component: CreateEventComponent},
-  {path: 'events/edit', component: EditEventComponent},
+  {path: 'events/:id/edit', component: EditEventComponent},
   {path: 'about', component:AboutComponent}
 ];
 
