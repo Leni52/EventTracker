@@ -1,5 +1,6 @@
 <div class="container">
   <br />
+
   <div class="row">
     <div class="col">
       <h3>Create Event</h3>
@@ -9,52 +10,51 @@
     </div>
   </div>
   <br />
-  <form [formGroup]="createForm" (ngSubmit)="onSubmit(createForm)">
-      
-      <label for="name">Name:</label>
-      <input formControlName="name"
-             name="name"
-             id="name"
-             type="text"
-             class="form-control" />
 
+  <form [formGroup]="createForm" (ngSubmit)="onSubmit(createForm)">
+
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input formControlName="name" name="name"
+              id="name" type="text" class="form-control" />
+    </div>  
+      
+    <div class="form-group">
       <label for="category">Category:</label>
       <select class="form-control"  type="number" 
               formControlName="category" name="category" id="category">
-            <option [ngValue]="1">Business</option>
-            <option [ngValue]="2">IT</option>
-            <option [ngValue]="3">Software</option>
-            <option [ngValue]="4">Technology</option>
-      </select>              
-   
+        <option [ngValue]="1">Business</option>
+        <option [ngValue]="2">IT</option>
+        <option [ngValue]="3">Software</option>
+        <option [ngValue]="4">Technology</option>
+      </select>   
+    </div>
+    
+    <div class="form-group">
       <label for="description">Description:</label>
-      <input formControlName="description"
-              name="description"
-              id="description"
-              type="text"
-              class="form-control" />  
- 
+      <input formControlName="description" name="description"
+              id="description" type="text" class="form-control" />  
+    </div> 
+    
+    <div class="form-group">
       <label for="location">Location</label>
-      <input formControlName="location"
-               name="location"
-               id="location"
-               type="text"
-               class="form-control" />    
- 
+      <input formControlName="location" name="location"
+              id="location" type="text" class="form-control" />  
+    </div>
+        
+    <div class="form-group">
       <label for="startDate">Start Date:</label>
-      <input formControlName="startDate"
-              name="startDate"
-              id="startDate"
-              type="datetime-local"
-              class="form-control" />
+      <input formControlName="startDate" name="startDate"
+              id="startDate" type="datetime-local" class="form-control" />
+    </div>    
    
+    <div class="form-group">
       <label for="endDate">End Date:</label>
-      <input formControlName="endDate"
-             name="endDate"
-             id="endDate"
-             type="datetime-local"
-             class="form-control" />  
-
+      <input formControlName="endDate" name="endDate"
+              id="endDate" type="datetime-local" class="form-control" />
+    </div>
+        
     <button class="btn btn-primary" type="submit" [disabled]="!createForm.valid">Create</button>
   </form>
+  
 </div>
