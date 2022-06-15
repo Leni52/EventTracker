@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ConfirmationService } from 'src/app/shared/services/confirmation.service';
+import { Category } from '../../models/enums/Category';
 import { EventModelResponse } from '../../models/response/EventModelResponse';
 import { EventService } from '../../services/event.service';
 
@@ -9,17 +9,16 @@ import { EventService } from '../../services/event.service';
   styleUrls: ['./all-events.component.css'],
 })
 export class AllEventsComponent implements OnInit {
-  allEvents: EventModelResponse[] = [];
-  constructor(
-    public eventService: EventService,
-    private confirmationService: ConfirmationService
-  ) {}
+  allEvents : EventModelResponse[] = [];
+  categories: string[] = ['', 'Bussiness', 'IT', 'Software', 'Technology'];
 
+  constructor(public eventService: EventService) { }
+  
   ngOnInit(): void {
     this.eventService.getAllEvents().subscribe((data: EventModelResponse[]) => {
       this.allEvents = data;
-      console.log(data);
-    });
+      console.log(typeof this.allEvents[0].category);
+    })
   }
   /*
   deleteEvent(id: string) {
