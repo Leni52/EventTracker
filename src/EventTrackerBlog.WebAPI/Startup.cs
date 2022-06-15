@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using System.Text.Json.Serialization;
 using static EventTrackerBlog.Domain.Features.Articles.Commands.CreateArticle;
 
 namespace EventTrackerBlog.WebAPI
@@ -26,7 +27,10 @@ namespace EventTrackerBlog.WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers().AddJsonOptions(x =>
+            {
+                x.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "EventTrackerBlog.WebAPI", Version = "v1" });

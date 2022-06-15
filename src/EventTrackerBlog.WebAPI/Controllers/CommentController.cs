@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using EventTrackerBlog.Data.Entities;
 using EventTrackerBlog.Domain.DTO.Comments.Response;
+using EventTrackerBlog.Domain.DTO.Reactions.Response;
+using EventTrackerBlog.Application.Features.Reactions.Queries;
 using EventTrackerBlog.Domain.Features.Comments.Commands;
 using EventTrackerBlog.Domain.Features.Comments.Queries;
 
@@ -43,6 +45,20 @@ namespace EventTrackerBlog.WebAPI.Controllers
         {
             var query = new GetCommentById(articleId, commentId);
             var result = await _mediator.Send(query);
+            return Ok(result);
+        }
+
+        [HttpGet("{commentId:guid}/reaction")]
+        public async Task<ActionResult<ReactionResponseModel>> GetAllReactionsByComment(Guid commentId)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var getReactions = new GetReactionsByComment(commentId);
+            var result = await _mediator.Send(getReactions);
+
             return Ok(result);
         }
 
