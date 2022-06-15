@@ -13,7 +13,6 @@ import { EventService } from '../../services/event.service';
 export class EditEventComponent implements OnInit {
   id!: string;
   event!: EventModelResponse;
-  x!: boolean;
   eventModels: EventModelResponse[] = [];
   editForm: FormGroup;
   result!: string;
