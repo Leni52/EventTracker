@@ -4,11 +4,11 @@
   <div class="row">
     <div class="col">
       <h3>All available events:</h3>
-    </div>   
+    </div>
     <div class="col text-right">
       <a routerLink="/events/create" class="btn btn-success btn-sm">Create New Event</a>
     </div>
-    <br>
+    <br />
   </div>
   <br />
 
@@ -20,9 +20,9 @@
       <th>Location</th>
       <th>Description</th>
       <th>StartDate</th>
-      <th>EndDate</th>     
+      <th>EndDate</th>
       <th width="200px"></th>
-    </tr>   
+    </tr>
     <tr *ngFor="let event of allEvents">
       <td>{{ event.id }}</td>
       <td>{{ event.name }}</td> 
@@ -32,13 +32,18 @@
       <td>{{ event.startDate }}</td>
       <td>{{ event.endDate }}</td>
       <td class="text-right">
-        <a [routerLink]="['/events/' + event.id + '/edit']" class="btn btn-primary btn-sm">Edit</a>  
-        <a [routerLink]="['/events/' + event.id + '/comments']" class="btn btn-primary btn-sm">View comments</a> 
-     
-        <button type="button" (click)="deleteEvent(event.id)" class="btn btn-danger btn-sm">Delete</button> 
+        <a [routerLink]="['/events/' + event.id + '/edit']" class="btn btn-primary btn-sm">Edit</a>
+        <a [routerLink]="['/events/' + event.id + '/comments']" class="btn btn-info btn-sm">View comments</a>
+
+        <button mat-raised-button type="button" (click)="openDialog(event.id)" class="btn btn-danger btn-sm">
+          Delete
+        </button>
       </td>
-    </tr>     
-    
+    </tr>
   </table>
+<<<<<<< HEAD
   
 </div>
+=======
+</div>
+>>>>>>> develop

@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using EventTrackerBlog.Data.Data;
 using EventTrackerBlog.Data.Entities;
+using EventTrackerBlog.Domain.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using EventTrackerBlog.Data.Common;
 
 namespace EventTrackerBlog.Data.Seed
 {
@@ -31,6 +33,12 @@ namespace EventTrackerBlog.Data.Seed
             if (!context.Comments.Any())
             {
                 SeedComments(context);
+                context.SaveChanges();
+            }
+
+            if (!context.Reactions.Any())
+            {
+                SeedReactions(context);
                 context.SaveChanges();
             }
         }
@@ -75,6 +83,31 @@ namespace EventTrackerBlog.Data.Seed
                 {
                     Content = "Another Article Comment",
                     ArticleId = articleId,
+                    CreatedAt = DateTime.Now,
+                    LastModifiedAt = DateTime.Now
+                }
+            });
+        }
+
+        private static void SeedReactions(BlogDbContext context)
+        {
+            var commentId = context.Comments
+                .Select(c => c.Id)
+                .FirstOrDefault();
+
+            context.Reactions.AddRange(new List<Reaction>
+            {
+                new()
+                {
+                    CommentId = commentId, 
+                    Type = Common.ReactionType.Like,
+                    CreatedAt = DateTime.Now,
+                    LastModifiedAt = DateTime.Now
+                },
+                new()
+                {
+                    CommentId = commentId,
+                    Type = Common.ReactionType.SmileyFace,
                     CreatedAt = DateTime.Now,
                     LastModifiedAt = DateTime.Now
                 }
