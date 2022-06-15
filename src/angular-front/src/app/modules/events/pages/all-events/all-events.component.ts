@@ -33,7 +33,7 @@ export class AllEventsComponent implements OnInit {
         confirmText: 'Yes',
         cancelText: 'No',
       })
-      .subscribe((result) => {
+      .subscribe((result: boolean) => {
         if (result === true) {
           this.eventService.deleteEvent(id).subscribe((res) => {
             this.allEvents = this.allEvents.filter((item) => item.id !== id);
