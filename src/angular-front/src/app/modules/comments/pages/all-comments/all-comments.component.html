@@ -27,8 +27,9 @@
       <td class="text-right">
         <a [routerLink]="['/events/' + eventId + '/comments/' + comment.id + '/edit']"
           class="btn btn-primary btn-sm">Edit the comment</a>
-
-        <button type="button" (click)="deleteComment(comment.id)" class="btn btn-danger btn-sm">Delete comment</button>
+        <button mat-raised-button type="button" (click)="openDialog(comment.id)" class="btn btn-danger btn-sm">
+          Delete comment
+        </button>
       </td>
     </tr>
 

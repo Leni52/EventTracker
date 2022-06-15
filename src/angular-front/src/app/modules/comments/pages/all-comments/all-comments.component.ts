@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ConfirmationService } from 'src/app/shared/services/confirmation.service';
 import { CommentModelResponse } from '../../models/response/CommentModelResponse';
 import { CommentsService } from '../../services/comments.service';
 
@@ -15,7 +16,8 @@ export class AllCommentsComponent implements OnInit {
   constructor(
     public commentService: CommentsService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private confirmationService: ConfirmationService
   ) {}
 
   ngOnInit(): void {
@@ -27,13 +29,24 @@ export class AllCommentsComponent implements OnInit {
         this.allCommentsFromEvent = data;
         console.log(data);
       });
-  }
+  } 
 
-  deleteComment(id: string) {
-    this.commentService.deleteComment(id).subscribe((res) => {
-      this.allCommentsFromEvent = this.allCommentsFromEvent.filter(
-        (item) => item.id !== id
-      );
-    });
+  openDialog(id: string) {
+    this.confirmationService
+      .confirmDialog({
+        title: 'Please confirm action',
+        message: 'Are you sure you want to delete the comment?',
+        confirmText: 'Yes',
+        cancelText: 'No',
+      })
+      .subscribe((result: boolean) => {
+        if (result === true) {
+          this.commentService.deleteComment(id).subscribe((res) => {
+            this.allCommentsFromEvent = this.allCommentsFromEvent.filter(
+              (item) => item.id !== id
+            );
+          });
+        }
+      });
   }
 }

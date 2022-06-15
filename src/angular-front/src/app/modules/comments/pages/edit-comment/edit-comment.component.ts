@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CommentModelRequest } from '../../models/request/CommentModelRequest';
+import { ConfirmationService } from 'src/app/shared/services/confirmation.service';
 import { CommentModelResponse } from '../../models/response/CommentModelResponse';
 import { CommentsService } from '../../services/comments.service';
 
@@ -14,7 +14,7 @@ export class EditCommentComponent implements OnInit {
   id!: string;
   eventId!: string;
   comment!: CommentModelResponse;
-
+  result!: string;
   commentModels: CommentModelResponse[] = [];
   editCommentForm!: FormGroup;
 
@@ -22,7 +22,8 @@ export class EditCommentComponent implements OnInit {
     public commentService: CommentsService,
     private route: ActivatedRoute,
     private router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private confirmationService: ConfirmationService
   ) {
     this.editCommentForm = this.formBuilder.group({
       id: [''],
@@ -49,11 +50,24 @@ export class EditCommentComponent implements OnInit {
       });
   }
 
-  onSubmit(formData: { value: CommentModelRequest }) {
-    this.commentService
-      .editComment(this.id, formData.value)
-      .subscribe((res) => {
-        this.router.navigateByUrl('/events/' + this.eventId + '/comments');
+  onSubmit(formData: { value: CommentModelResponse }) {
+    this.confirmationService
+      .confirmDialog({
+        title: 'Please confirm action',
+        message: 'Are you sure you want to update the comment?',
+        confirmText: 'Yes',
+        cancelText: 'No',
+      })
+      .subscribe((result) => {
+        if (result === true) {
+          this.commentService
+            .editComment(this.id, formData.value)
+            .subscribe((res) => {
+              this.router.navigateByUrl(
+                '/events/' + this.eventId + '/comments'
+              );
+            });
+        }
       });
   }
 }
