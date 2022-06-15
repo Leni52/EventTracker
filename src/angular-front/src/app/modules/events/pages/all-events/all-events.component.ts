@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ConfirmationService } from 'src/app/shared/services/confirmation.service';
 import { Category } from '../../models/enums/Category';
 import { EventModelResponse } from '../../models/response/EventModelResponse';
 import { EventService } from '../../services/event.service';
@@ -9,24 +10,20 @@ import { EventService } from '../../services/event.service';
   styleUrls: ['./all-events.component.css'],
 })
 export class AllEventsComponent implements OnInit {
-  allEvents : EventModelResponse[] = [];
+  allEvents: EventModelResponse[] = [];
   categories: string[] = ['', 'Bussiness', 'IT', 'Software', 'Technology'];
 
-  constructor(public eventService: EventService) { }
-  
+  constructor(
+    public eventService: EventService,
+    private confirmationService: ConfirmationService
+  ) {}
+
   ngOnInit(): void {
     this.eventService.getAllEvents().subscribe((data: EventModelResponse[]) => {
       this.allEvents = data;
       console.log(typeof this.allEvents[0].category);
-    })
+    });
   }
-  /*
-  deleteEvent(id: string) {
-    this.eventService.deleteEvent(id).subscribe(res => {
-      this.allEvents = this.allEvents.filter( item => item.id !== id);
-    })
-  }
-  */
 
   openDialog(id: string) {
     this.confirmationService
