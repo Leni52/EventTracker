@@ -5,55 +5,33 @@
       <h3>Update Event</h3>
     </div>
     <div class="col text-right">
-      <a routerLink="/events"  class="btn btn-secondary btn-sm">Back To Events List</a>
+      <a routerLink="/events" class="btn btn-secondary btn-sm">Back To Events List</a>
     </div>
   </div>
   <br />
   <form [formGroup]="editForm" (ngSubmit)="onSubmit(editForm)">
- 
-    <input formControlName="id"
-           id="id"
-           type="hidden" />
-    
-      <label for="name">Name:</label>
-      <input formControlName="name"
-             id="name"
-             type="text"
-             class="form-control" />
+    <input formControlName="id" id="id" type="hidden" />
 
-      <label for="category">Category:</label>
-       <input formControlName="category"
-             name="category"
-              id="category"
-              type="number"
-              class="form-control" />   
-   
-        <label for="description">Description:</label>
-        <input formControlName="description"
-               id="description"
-               type="text"
-               class="form-control" />
+    <label for="name">Name:</label>
+    <input formControlName="name" id="name" type="text" class="form-control" />
 
-        <label for="name">Location</label>
-        <input formControlName="location"
-               id="location"
-               type="text"
-               class="form-control" />
-         
-        <label for="startDate">Start Date:</label>
-        <input formControlName="startDate"
-               name="startDate"
-               id="startDate"
-               type="datetime-local"
-               class="form-control" />
-     
-          <label for="endDate">End Date:</label>
-          <input formControlName="endDate"
-                 name="endDate"
-                 id="endDate"
-                 type="datetime-local"
-                 class="form-control" />
-        
-      <button class="btn btn-primary" type="submit" [disabled]="!editForm.valid">Update</button>
+    <label for="category">Category:</label>
+    <input formControlName="category" name="category" id="category" type="number" class="form-control" />
+
+    <label for="description">Description:</label>
+    <input formControlName="description" id="description" type="text" class="form-control" />
+
+    <label for="name">Location</label>
+    <input formControlName="location" id="location" type="text" class="form-control" />
+
+    <label for="startDate">Start Date:</label>
+    <input formControlName="startDate" name="startDate" id="startDate" type="datetime-local" class="form-control" />
+
+    <label for="endDate">End Date:</label>
+    <input formControlName="endDate" name="endDate" id="endDate" type="datetime-local" class="form-control" />
+
+    <button mat-raised-button type="submit" class="btn btn-danger btn-sm" [disabled]="!editForm.valid">
+      Update
+    </button>
   </form>
 </div>

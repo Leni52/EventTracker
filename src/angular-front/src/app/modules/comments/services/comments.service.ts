@@ -5,31 +5,31 @@ import { CommentModelRequest } from '../models/request/CommentModelRequest';
 import { CommentModelResponse } from '../models/response/CommentModelResponse';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CommentsService {
+  constructor(private backendService: BackendService) {}
 
-  constructor(
-    private backendService: BackendService
-    ) { }
+  getAllCommentsFromEvent(eventId: string): Observable<CommentModelResponse[]> {
+    return this.backendService.GETRequest('Comment/Event/' + eventId);
+  }
 
-    getAllCommentsFromEvent(eventId: string): Observable<CommentModelResponse[]>{
-      return this.backendService.GETRequest('Comment/Event/' + eventId);
-    }
+  editComment(
+    id: string,
+    request: CommentModelRequest
+  ): Observable<CommentModelRequest> {
+    return this.backendService.PUTRequest('Comment/' + id, request);
+  }
 
-    editComment(id:string, request: CommentModelRequest):Observable<CommentModelRequest>{
-      return this.backendService.PUTRequest('Comment/' +id, request);
-    }
+  createComment(request: CommentModelRequest): Observable<CommentModelRequest> {
+    return this.backendService.POSTRequest('Comment', request);
+  }
 
-    createComment(request: CommentModelRequest): Observable<CommentModelRequest>{
-      return this.backendService.POSTRequest('Comment', request);
-    }
+  deleteComment(id: string): Observable<void> {
+    return this.backendService.DELETERequest('Comment/' + id);
+  }
 
-    deleteComment(id: string): Observable<void>{
-      return this.backendService.DELETERequest('Comment/' + id);
-    }
-    
-    getCommentById(id:string):Observable<CommentModelResponse>{
-      return this.backendService.GETRequest('Comment/' +id);
-    }
+  getCommentById(id: string): Observable<CommentModelResponse> {
+    return this.backendService.GETRequest('Comment/' + id);
+  }
 }

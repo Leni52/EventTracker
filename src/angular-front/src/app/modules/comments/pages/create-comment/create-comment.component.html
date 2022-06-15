@@ -1,30 +1,23 @@
 <div class="container">
-    <br/>
+    <br />
     <div class="row">
         <div class="col">
             <h3>Create Comment</h3>
         </div>
         <div class="col text-right">
-            <a [routerLink]="'/events/' +  eventId + '/comments'" class="btn btn-secondary btn-sm">Back To Comments List</a>
+            <a [routerLink]="'/events/' +  eventId + '/comments'" class="btn btn-secondary btn-sm">Back To Comments
+                List</a>
             <a routerLink="/events" class="btn btn-secondary btn-sm">Back to events list</a>
         </div>
     </div>
-    <br/>
+    <br />
     <form [formGroup]="createForm" (ngSubmit)="onSubmit(createForm)">
 
-        <input formControlName="eventId"
-            name="eventId"
-            id="eventId"
-            type="hidden"
-            class="form-control"/>
-    
+        <input formControlName="eventId" name="eventId" id="eventId" type="hidden" class="form-control" />
+
         <label for="text">Text: </label>
-        <input formControlName="text"
-            name="text"
-            id="text"
-            type="text"
-            class="form-control"/>
-           
+        <input formControlName="text" name="text" id="text" type="text" class="form-control" />
+
         <button class="btn btn-primary" type="submit" [disabled]="!createForm.valid">Create</button>
-    </form> 
+    </form>
 </div>

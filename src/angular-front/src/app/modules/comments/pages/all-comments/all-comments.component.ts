@@ -6,31 +6,34 @@ import { CommentsService } from '../../services/comments.service';
 @Component({
   selector: 'app-all-comments',
   templateUrl: './all-comments.component.html',
-  styleUrls: ['./all-comments.component.css']
+  styleUrls: ['./all-comments.component.css'],
 })
 export class AllCommentsComponent implements OnInit {
-  allCommentsFromEvent: CommentModelResponse[] =[];
+  allCommentsFromEvent: CommentModelResponse[] = [];
   eventId!: string;
-  
+
   constructor(
     public commentService: CommentsService,
     private route: ActivatedRoute,
-    private router: Router,
-  ) { }
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.eventId = this.route.snapshot.params['eventId'];
 
-    this.commentService.getAllCommentsFromEvent(this.eventId)
-    .subscribe((data: CommentModelResponse[]) => {
-      this.allCommentsFromEvent = data;
-      console.log(data);
-    })
+    this.commentService
+      .getAllCommentsFromEvent(this.eventId)
+      .subscribe((data: CommentModelResponse[]) => {
+        this.allCommentsFromEvent = data;
+        console.log(data);
+      });
   }
 
-  deleteComment(id: string){
-    this.commentService.deleteComment(id).subscribe(res => {
-      this.allCommentsFromEvent = this.allCommentsFromEvent.filter(item => item.id !== id);
-    })
+  deleteComment(id: string) {
+    this.commentService.deleteComment(id).subscribe((res) => {
+      this.allCommentsFromEvent = this.allCommentsFromEvent.filter(
+        (item) => item.id !== id
+      );
+    });
   }
 }

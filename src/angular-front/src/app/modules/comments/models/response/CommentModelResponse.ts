@@ -1,5 +1,5 @@
-export interface CommentModelResponse{
-    id: string;
-    eventId: string;
-    text: string;
+export interface CommentModelResponse {
+  id: string;
+  eventId: string;
+  text: string;
 }
