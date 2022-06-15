@@ -33,8 +33,8 @@ namespace EventTrackerBlog.Application.Features.Reactions.Queries
 
             public async Task<IEnumerable<ReactionResponseModel>> Handle(GetReactionsByArticle request, CancellationToken cancellationToken)
             {
-                var reactions = await _context.Articles.Where(a => a.Id == request.ArticleId)
-                    .SelectMany(a => a.Comments).SelectMany(c => c.Reactions).ToListAsync(cancellationToken: cancellationToken);
+                var reactions = await _context.Reactions.Where(r => r.Comment.ArticleId == request.ArticleId)
+                    .ToListAsync(cancellationToken: cancellationToken);
 
                 return _mapper.Map<IEnumerable<ReactionResponseModel>>(reactions);
             }

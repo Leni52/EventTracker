@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
 using EventTrackerBlog.Data.Data;
 using EventTrackerBlog.Domain.DTO.Reactions.Response;
-using EventTrackerBlog.Domain.Entities;
-using ExceptionHandling.Exceptions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -35,8 +33,8 @@ namespace EventTrackerBlog.Application.Features.Reactions.Queries
 
             public async Task<IEnumerable<ReactionResponseModel>> Handle(GetReactionsByComment request, CancellationToken cancellationToken)
             {
-                var reactions = await _context.Comments.Where(c => c.Id == request.CommentId).
-                    SelectMany(c => c.Reactions).ToListAsync(cancellationToken: cancellationToken);
+                var reactions = await _context.Reactions.Where(r => r.CommentId == request.CommentId)
+                    .ToListAsync(cancellationToken: cancellationToken);
 
 
                 return _mapper.Map<IEnumerable<ReactionResponseModel>>(reactions);

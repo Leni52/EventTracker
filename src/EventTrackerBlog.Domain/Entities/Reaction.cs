@@ -11,5 +11,6 @@ namespace EventTrackerBlog.Domain.Entities
         public Guid CommentId { get; set; }
         [Required]
         public ReactionType Type { get; set; }
+        public virtual Comment Comment { get; set; }
     }
 }
