@@ -7,7 +7,7 @@ import { CommentsService } from '../../services/comments.service';
 @Component({
   selector: 'app-create-comment',
   templateUrl: './create-comment.component.html',
-  styleUrls: ['./create-comment.component.css']
+  styleUrls: ['./create-comment.component.css'],
 })
 export class CreateCommentComponent implements OnInit {
   createForm: FormGroup;
@@ -18,21 +18,21 @@ export class CreateCommentComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private formBuilder: FormBuilder
-    ) {
-      this.createForm = this.formBuilder.group({
-        eventId: [ this.route.snapshot.params['eventId'] ],
-        text: ['']
-      })
-    }
+  ) {
+    this.createForm = this.formBuilder.group({
+      eventId: [this.route.snapshot.params['eventId']],
+      text: [''],
+    });
+  }
 
   ngOnInit(): void {
     this.eventId = this.route.snapshot.params['eventId'];
     console.log(this.eventId);
   }
 
-  onSubmit(formData: { value: CommentModelRequest}): void {
-    this.commentService.createComment(formData.value).subscribe(res => {
+  onSubmit(formData: { value: CommentModelRequest }): void {
+    this.commentService.createComment(formData.value).subscribe((res) => {
       this.router.navigateByUrl('/events/' + this.eventId + '/comments');
-    })
+    });
   }
 }

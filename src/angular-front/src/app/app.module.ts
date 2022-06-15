@@ -15,21 +15,27 @@ import { NavigationBarComponent } from './modules/events/pages/navigation-bar/na
 import { AllCommentsComponent } from './modules/comments/pages/all-comments/all-comments.component';
 import { CreateCommentComponent } from './modules/comments/pages/create-comment/create-comment.component';
 import { EditCommentComponent } from './modules/comments/pages/edit-comment/edit-comment.component';
+import { ConfirmationComponent } from './shared/pages/confirmation/confirmation.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
     AppComponent,
-   AllEventsComponent,
-   CreateEventComponent,
-   EditEventComponent,
-   HeaderComponent,
-   FooterComponent,
-   AboutComponent,
-   NavigationBarComponent,
-   AllCommentsComponent,
-   CreateCommentComponent,
-   EditCommentComponent,
-
+    AllEventsComponent,
+    CreateEventComponent,
+    EditEventComponent,
+    HeaderComponent,
+    FooterComponent,
+    AboutComponent,
+    NavigationBarComponent,
+    AllCommentsComponent,
+    CreateCommentComponent,
+    EditCommentComponent,
+    ConfirmationComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,18 +43,36 @@ import { EditCommentComponent } from './modules/comments/pages/edit-comment/edit
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
-      {path: 'events', component: AllEventsComponent, pathMatch:'full'},
-      {path: 'events/create', component: CreateEventComponent, pathMatch:'full'},
-      {path: 'events/:id/edit', component: EditEventComponent, pathMatch:'full'},
-      {path: 'about', component: AboutComponent},
-      {path: 'events/:eventId/comments', component:AllCommentsComponent},
-      {path: 'events/:eventId/comments/create', component: CreateCommentComponent},
-      {path: 'events/:eventId/comments/:id/edit', component: EditCommentComponent}
-    ])   
-  
+      { path: 'events', component: AllEventsComponent, pathMatch: 'full' },
+      {
+        path: 'events/create',
+        component: CreateEventComponent,
+        pathMatch: 'full',
+      },
+      {
+        path: 'events/:id/edit',
+        component: EditEventComponent,
+        pathMatch: 'full',
+      },
+      { path: 'about', component: AboutComponent },
+      { path: 'events/:eventId/comments', component: AllCommentsComponent },
+      {
+        path: 'events/:eventId/comments/create',
+        component: CreateCommentComponent,
+      },
+      {
+        path: 'events/:eventId/comments/:id/edit',
+        component: EditCommentComponent,
+      },
+    ]),
+    MatDialogModule,
+    MatIconModule,
+    MatButtonModule,
+    MatToolbarModule,
+    BrowserAnimationsModule,
   ],
-  exports:[RouterModule],
+  exports: [RouterModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

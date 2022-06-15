@@ -4,22 +4,12 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
+export class AppComponent implements OnInit {
+  title = 'Event Tracker';
 
+  constructor() {}
 
-export class AppComponent implements OnInit{
- title= 'Event Tracker';
-
-  constructor(){
-
-
-  }
-
-  ngOnInit(): void {
-   
-  }
-  
-  
-  }
-
+  ngOnInit(): void {}
+}

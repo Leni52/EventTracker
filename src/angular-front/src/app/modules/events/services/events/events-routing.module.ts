@@ -6,14 +6,14 @@ import { CreateEventComponent } from '../../pages/create-event/create-event.comp
 import { EditEventComponent } from '../../pages/edit-event/edit-event.component';
 
 const routes: Routes = [
-  {path: 'events', component: AllEventsComponent},
-  {path: 'events/create', component: CreateEventComponent},
-  {path: 'events/:id/edit', component: EditEventComponent},
-  {path: 'about', component:AboutComponent}
+  { path: 'events', component: AllEventsComponent },
+  { path: 'events/create', component: CreateEventComponent },
+  { path: 'events/:id/edit', component: EditEventComponent },
+  { path: 'about', component: AboutComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class EventsRoutingModule { }
+export class EventsRoutingModule {}
