@@ -14,9 +14,17 @@ import { EventModelCreateRequest } from '../../models/request/EventModelCreateRe
 })
 export class CreateEventComponent implements OnInit {
   eventModels: EventModelResponse[] = [];
-  public StateEnum = Category;
-  public InitCategory = Category.Business;
-  public categoryTypes = Object.values(Category);
+
+  defaultEvent: EventModelCreateRequest = {
+    name: 'What is the event called',
+    category: 1,
+    location: 'Where will the event take place',
+    description: 'Describe event',
+    startDate: new Date(),
+    endDate: new Date()
+  };
+
+  eventToShow: EventModelCreateRequest = { ...this.defaultEvent };
 
   createForm: FormGroup;
 
@@ -37,7 +45,6 @@ export class CreateEventComponent implements OnInit {
   }   
  
   ngOnInit(): void {
-    console.log(this.categoryTypes.keys);
     this.eventService.getAllEvents().subscribe((data: EventModelResponse[]) => {
       this.eventModels = data;
     });

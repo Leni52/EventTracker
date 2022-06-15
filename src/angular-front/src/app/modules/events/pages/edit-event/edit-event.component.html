@@ -14,7 +14,7 @@
   <form [formGroup]="editForm" (ngSubmit)="onSubmit(editForm)">
        
        <div class="form-group">
-              <input formControlName="id" id="id" type="hidden" />
+              <input formControlName="id" id="id" type="hidden"/>
        </div>
     
        <div class="form-group">
@@ -52,11 +52,11 @@
                      id="startDate" type="datetime-local" class="form-control" />
        </div>
     
-     <div class="form-group">
+       <div class="form-group">
               <label for="endDate">End Date:</label>
               <input formControlName="endDate" name="endDate"
                      id="endDate" type="datetime-local" class="form-control" />
-     </div>
+       </div>
         
     <button class="btn btn-primary" type="submit" [disabled]="!editForm.valid">Update</button>
   </form>
