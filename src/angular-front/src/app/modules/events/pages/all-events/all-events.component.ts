@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfirmationService } from 'src/app/shared/services/confirmation.service';
-import { Category } from '../../models/enums/Category';
 import { EventModelResponse } from '../../models/response/EventModelResponse';
 import { EventService } from '../../services/event.service';
 
