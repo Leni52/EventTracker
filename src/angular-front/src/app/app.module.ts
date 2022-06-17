@@ -24,6 +24,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoaderComponent } from './shared/pages/loader/loader.component';
 import {MatProgressSpinner, MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { LoaderInterceptor } from './shared/interceptors/loader.interceptor';
+import {MatCardModule} from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -40,9 +41,10 @@ import { LoaderInterceptor } from './shared/interceptors/loader.interceptor';
     EditCommentComponent,
     ConfirmationComponent,
     LoaderComponent,
+   
   ],
   imports: [
-   
+   MatCardModule,
     BrowserModule,
     HttpClientModule,
     FormsModule,
