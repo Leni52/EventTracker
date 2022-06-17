@@ -2,7 +2,7 @@ import { Category } from "../enums/Category";
 
 export interface EventModelCreateRequest{
     name: string;
-    category: Category;
+    category: Number;
     location: string;
     description: string;
     startDate: Date;
