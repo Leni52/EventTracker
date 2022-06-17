@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { EventModelResponse } from '../../models/response/EventModelResponse';
+import { NgForm } from '@angular/forms';
 
 import { EventService } from '../../services/event.service';
-import { Category } from '../../models/enums/Category'; 
 import { EventModelCreateRequest } from '../../models/request/EventModelCreateRequest';
 
 @Component({
@@ -14,38 +13,32 @@ import { EventModelCreateRequest } from '../../models/request/EventModelCreateRe
 })
 export class CreateEventComponent implements OnInit {
   eventModels: EventModelResponse[] = [];
-  public StateEnum = Category;
-  public InitCategory = Category.Business;
-  public categoryTypes = Object.values(Category);
 
-  createForm: FormGroup;
+  defaultEvent: EventModelCreateRequest = {
+    name: 'What is the event called',
+    category: 1,
+    location: 'Where will the event take place',
+    description: 'Describe event',
+    startDate: new Date(),
+    endDate: new Date()
+  };
+
+  eventToSubmit: EventModelCreateRequest = { ...this.defaultEvent };
 
   constructor(
     public eventService: EventService,
-    private route: ActivatedRoute,
-    private router: Router,
-    private formBuilder: FormBuilder
-  ) {
-      this.createForm = this.formBuilder.group({
-        name: ['', Validators.required],
-        category: [''],
-        description: ['',Validators.required],
-        location: ['',Validators.required],
-        startDate: [''],
-        endDate: ['']
-      })    
-  }   
+    private router: Router
+  ) { }   
  
-  ngOnInit(): void {
-    console.log(this.categoryTypes.keys);
-    this.eventService.getAllEvents().subscribe((data: EventModelResponse[]) => {
-      this.eventModels = data;
-    });
-  }
+  ngOnInit(): void {}
 
-  onSubmit(formData: { value: EventModelCreateRequest; }): void{
-    this.eventService.createEvent(formData.value).subscribe(res => {
-      this.router.navigateByUrl('/events');
-    })
+  onSubmit(form: NgForm): void{
+    if (form.valid) {
+      this.eventService.createEvent(this.eventToSubmit).subscribe(res => {
+        this.router.navigateByUrl('/events');
+      });
+    } else {
+      console.log("Form not valid.");
+    }
   }
 }
