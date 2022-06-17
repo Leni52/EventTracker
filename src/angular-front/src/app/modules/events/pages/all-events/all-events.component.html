@@ -1,6 +1,6 @@
 <div class="container">
   <br />
-  
+
   <div class="row">
     <div class="col">
       <h3>All available events:</h3>
@@ -12,24 +12,26 @@
   </div>
   <br />
 
-  <div *ngFor="let event of allEvents">
+  <div *ngFor="let event of allEvents" class="wrapper-events">
+    <div class="event-card">
 
-    <mat-card>
-      <mat-card-header>{{categories[event.category]}}</mat-card-header>
-      <mat-card-title>{{event.name}} </mat-card-title>
-      
-      <mat-card-subtitle>{{event.startDate}} - {{event.endDate}}</mat-card-subtitle>
-      <mat-card-content>{{event.description}}</mat-card-content>
-      <mat-card-content>{{event.location}}</mat-card-content>
-      <mat-card-actions>
-        <a [routerLink]="['/events/' + event.id + '/edit']" class="btn btn-primary btn-sm">Edit</a>
-        <a [routerLink]="['/events/' + event.id + '/comments']" class="btn btn-info btn-sm">View comments</a>
+      <mat-card>
+        <mat-card-header>{{categories[event.category]}}</mat-card-header>
+        <mat-card-title>{{event.name}} </mat-card-title>
 
-        <button mat-raised-button type="button" (click)="openDialog(event.id)" class="btn btn-danger btn-sm">
-          Delete
-        </button>
-      </mat-card-actions>
-    </mat-card>
+        <mat-card-subtitle>{{event.startDate|date:'medium'}} - {{event.endDate|date:'medium'}}</mat-card-subtitle>
+        <mat-card-content>{{event.description}}</mat-card-content>
+        <mat-card-content>{{event.location}}</mat-card-content>
+        <mat-card-actions>
+          <a [routerLink]="['/events/' + event.id + '/edit']" class="btn btn-primary btn-sm">Edit</a>
+          <a [routerLink]="['/events/' + event.id + '/comments']" class="btn btn-info btn-sm">View comments</a>
 
+          <button mat-raised-button type="button" (click)="openDialog(event.id)" class="btn btn-danger btn-sm">
+            Delete
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
   </div>
+
 </div>
