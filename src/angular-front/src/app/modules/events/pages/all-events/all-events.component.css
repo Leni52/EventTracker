@@ -1,0 +1,12 @@
+.wrapper-events{
+ display: flex;
+ flex-wrap: wrap;
+ 
+ 
+}
+.event-card{
+list-style: none;
+flex:0 0 33.3%;
+border: 2px blue solid;
+flex-basis: 33.3%;
+}

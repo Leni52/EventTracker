@@ -1,6 +1,6 @@
 <div class="container">
   <br />
-  
+
   <div class="row">
     <div class="col">
       <h3>All available events:</h3>
@@ -12,34 +12,26 @@
   </div>
   <br />
 
-  <table class="table table-bordered table-sm">
-    <tr>
-      <th>Id</th>
-      <th>Name</th>
-      <th>Category</th>
-      <th>Location</th>
-      <th>Description</th>
-      <th>StartDate</th>
-      <th>EndDate</th>
-      <th width="200px"></th>
-    </tr>
-    <tr *ngFor="let event of allEvents">
-      <td>{{ event.id }}</td>
-      <td>{{ event.name }}</td> 
-      <td>{{ categories[event.category] }}</td>
-      <td>{{ event.location }}</td>
-      <td>{{ event.description }}</td>
-      <td>{{ event.startDate }}</td>
-      <td>{{ event.endDate }}</td>
-      <td class="text-right">
-        <a [routerLink]="['/events/' + event.id + '/edit']" class="btn btn-primary btn-sm">Edit</a>
-        <a [routerLink]="['/events/' + event.id + '/comments']" class="btn btn-info btn-sm">View comments</a>
+  <div *ngFor="let event of allEvents" class="wrapper-events">
+    <div class="event-card">
 
-        <button mat-raised-button type="button" (click)="openDialog(event.id)" class="btn btn-danger btn-sm">
-          Delete
-        </button>
-      </td>
-    </tr>
-  </table>
-  
+      <mat-card>
+        <mat-card-header>{{categories[event.category]}}</mat-card-header>
+        <mat-card-title>{{event.name}} </mat-card-title>
+
+        <mat-card-subtitle>{{event.startDate|date:'medium'}} - {{event.endDate|date:'medium'}}</mat-card-subtitle>
+        <mat-card-content>{{event.description}}</mat-card-content>
+        <mat-card-content>{{event.location}}</mat-card-content>
+        <mat-card-actions>
+          <a [routerLink]="['/events/' + event.id + '/edit']" class="btn btn-primary btn-sm">Edit</a>
+          <a [routerLink]="['/events/' + event.id + '/comments']" class="btn btn-info btn-sm">View comments</a>
+
+          <button mat-raised-button type="button" (click)="openDialog(event.id)" class="btn btn-danger btn-sm">
+            Delete
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+
 </div>
