@@ -95,5 +95,12 @@ namespace EventTrackerBlog.WebAPI.Controllers
             var result = await _mediator.Send(command);
             return Ok(result);
         }
+        [HttpGet("keyword/{keyword}")]
+        public async Task<IActionResult> GetArticlesByKeyword(string keyword)
+        {
+            var query = new GetArticleByKeyword(keyword);
+            var result = await _mediator.Send(query);
+            return Ok(result);
+        }
     }
 }
