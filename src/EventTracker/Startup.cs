@@ -4,6 +4,7 @@ using EventTracker.BLL.Services;
 using EventTracker.DAL.Contracts;
 using EventTracker.DAL.Data;
 using EventTracker.DAL.Repositories;
+using EventTracker.Data;
 using ExceptionHandling.Handler;
 using MailKit.Net.Smtp;
 using Microsoft.AspNetCore.Builder;
@@ -104,7 +105,7 @@ namespace EventTracker
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            // DatabaseSeeder.PrepPopulation(app);
+             DatabaseSeeder.PrepPopulation(app);
 
             if (env.IsDevelopment())
             {
